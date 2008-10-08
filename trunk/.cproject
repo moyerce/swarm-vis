@@ -11,6 +11,11 @@
 </extensions>
 </storageModule>
 <storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+
+
+<storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
+
+
 <storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
 <buildTargets>
 <target name="Qt Release Build" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
@@ -49,7 +54,6 @@
 <pathentry base-path="/usr/local/Trolltech/Qt-4.4.3/include" include="QtTest" kind="inc" path="" system="true"/>
 <pathentry base-path="/usr/local/Trolltech/Qt-4.4.3/include" include="QtCore" kind="inc" path="" system="true"/>
 </storageModule>
-<storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
 </cconfiguration>
 </storageModule>
 </cproject>

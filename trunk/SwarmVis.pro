@@ -3,7 +3,12 @@ TARGET = SwarmVis
 QT += core \
     gui \
     opengl
-HEADERS += Agent/AgentArray.h \
+HEADERS += Agent/Agent.h \
+    Agent/AgentArray.h \
+    OpenGL/glwidget.h \
+    Thread/mythread.h \
+    swarmvis.h \
+    Agent/AgentArray.h \
     Agent/Agent.h \
     OpenGL/glwidget.h \
     Thread/mythread.h \
@@ -14,5 +19,6 @@ SOURCES += Agent/AgentArray.cpp \
     Thread/mythread.cpp \
     main.cpp \
     swarmvis.cpp
-FORMS += swarmvis.ui
+FORMS += swarmvis.ui \
+    swarmvis.ui
 RESOURCES += 

@@ -5,18 +5,14 @@ using namespace std;
 
 
 
-AgentArray::AgentArray()
-{
-	timeSteps = 4428; //HARD CODED TIMESTEPS
-	std::string filename = "/home/niels/workspace4/swarm-vis/SwarmData/frame";
-	
-	
-	//array = new vector<Agent>[timeSteps];
-	agent_array = new vector<Agent>[timeSteps];
+AgentArray::AgentArray(std::string filename, int numTimeSteps)
+{	
+	timeSteps = numTimeSteps;
+	agent_array = new std::vector<Agent>[timeSteps];
 	
 	for (int i = 0; i < timeSteps; i++)
 	{		
-		std::string current_filename = filename + intToFileString(6, i + 1) + ".txt";		
+		std::string current_filename = filename + padString(6, i + 1) + ".txt";		
 		agent_array[i] = parseAgentsFromFile(current_filename);
 		
 	}
@@ -26,7 +22,7 @@ AgentArray::~AgentArray()
 {
 }
 
-std::string AgentArray::intToFileString(int length, int n)
+std::string AgentArray::padString(int length, int n)
 {
 	stringstream s;
 	s << n;
@@ -39,18 +35,15 @@ std::string AgentArray::intToFileString(int length, int n)
 	return prepended + s.str();
 }
 
-vector<Agent> AgentArray::parseAgentsFromFile(std::string basefile)
+std::vector<Agent> AgentArray::parseAgentsFromFile(std::string basefile)
 {
-	vector<Agent> agentVector;
-	
-	
+	std::vector<Agent> agentVector;
 	const char *filename = basefile.c_str();	
 	
 	ifstream file;
 	double x;
 	double y;
 		
-	//file.open("/home/niels/workspace4/SwarmVis/SwarmData/frame000001.txt"); // opens the file
 	cout << "Opening File:" << filename << endl;
 	file.open(filename);
 	if(!file)
@@ -84,7 +77,8 @@ vector<Agent> AgentArray::parseAgentsFromFile(std::string basefile)
 	
 	return agentVector;
 }
-vector<Agent> * AgentArray::getAgentVector(int timeIndex)
+
+vector<Agent> * AgentArray::getAgentsVector()
 {
 	return agent_array;
 }

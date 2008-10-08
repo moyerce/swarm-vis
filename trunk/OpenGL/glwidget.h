@@ -17,13 +17,8 @@
 
      QSize minimumSizeHint() const;
      QSize sizeHint() const;
-     void setInput( vector<Agent> * agents);
-
- public slots:
-     void setTimeIndex(int timeIndex);
-     
- signals:
-     void timeIndexChanged(int timeIndex);
+     void setInput( std::vector<Agent> * agents);
+ 
      
  protected:
      void initializeGL();
@@ -34,11 +29,35 @@
      void mouseMoveEvent(QMouseEvent *event);
 
  private:
-	 vector<Agent> *agent_array;
+	 std::vector<Agent> *agent_array;
 	 double maxSize;
 	 int currentTime;
 	 bool initialized;
+	 int xRot;
+     int yRot;
+     int zRot;
+     double pointSize;
+     int trailLength;
+     QPoint lastPos;
      
+     void buildTrail(int length);
+
+	 
+	 void normalizeAngle(int *angle);
+
+
+ public slots:
+      void setTimeIndex(int timeIndex);
+      void setXRotation(int angle);
+      void setYRotation(int angle);
+      void setZRotation(int angle);
+      void setPointSize(double size);
+      void setTrailLength(int length);
+
+      
+  signals:
+      void timeIndexChanged(int timeIndex);
+      
  };
 
  #endif

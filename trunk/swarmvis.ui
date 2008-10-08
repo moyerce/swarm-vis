@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>1068</width>
-    <height>654</height>
+    <height>708</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -114,7 +114,7 @@
     <property name="geometry" >
      <rect>
       <x>10</x>
-      <y>10</y>
+      <y>20</y>
       <width>191</width>
       <height>371</height>
      </rect>
@@ -124,14 +124,82 @@
     </property>
     <widget class="QWidget" name="tab" >
      <attribute name="title" >
-      <string>Tab 1</string>
+      <string>Display</string>
      </attribute>
+     <widget class="QLabel" name="label_2" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>71</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Point Size:</string>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="dSpinBoxPointSize" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>62</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="minimum" >
+       <double>0.010000000000000</double>
+      </property>
+      <property name="singleStep" >
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value" >
+       <double>3.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>80</y>
+        <width>121</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Agent Trail Length:</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBoxTrailLength" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>100</y>
+        <width>51</width>
+        <height>27</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_2" >
      <attribute name="title" >
       <string>Tab 2</string>
      </attribute>
     </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_3" >
+    <property name="geometry" >
+     <rect>
+      <x>220</x>
+      <y>600</y>
+      <width>801</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="title" >
+     <string>Display Options</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar" >
@@ -174,7 +242,7 @@
    <hints>
     <hint type="sourcelabel" >
      <x>130</x>
-     <y>351</y>
+     <y>465</y>
     </hint>
     <hint type="destinationlabel" >
      <x>49</x>
@@ -206,7 +274,7 @@
    <hints>
     <hint type="sourcelabel" >
      <x>75</x>
-     <y>335</y>
+     <y>465</y>
     </hint>
     <hint type="destinationlabel" >
      <x>72</x>

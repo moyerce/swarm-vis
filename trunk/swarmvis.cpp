@@ -22,11 +22,8 @@ SwarmVis::SwarmVis(QWidget *parent)
 	connect(ui.timeSlider, SIGNAL(valueChanged(int)), thread, SLOT(setTimeIndex(int)));
 	connect(ui.dSpinBoxDelay, SIGNAL(valueChanged(double)), thread, SLOT(setDelay(double)));
 	
-	
-	/*connect(thread, SIGNAL(playSignal(int)), glWidget, SLOT(setTimeIndex(int)));
-	
-	connect(glWidget, SIGNAL(timeIndexChanged(int)), thread, SLOT(setTimeIndex(int)));
-	connect(glWidget, SIGNAL(timeIndexChanged(int)), ui.timeSlider, SLOT(setValue(int)));*/
+	connect(ui.dSpinBoxPointSize, SIGNAL(valueChanged(double)), glWidget, SLOT(setPointSize(double)));
+	connect(ui.spinBoxTrailLength, SIGNAL(valueChanged(int)), glWidget, SLOT(setTrailLength(int)));
 }
 
 SwarmVis::~SwarmVis()
@@ -52,13 +49,12 @@ void SwarmVis::menubar_action_handler(QAction* action)
 	}
 	if (action->text().compare("&Load Agent Data") == 0)
 	{		 
+		int timeSteps = 4428; //HARD CODED TIMESTEPS
+		std::string filename = "/home/niels/workspace5/SwarmData/frame";
 		
-		agents = new AgentArray();
+		agents = new AgentArray(filename, timeSteps);
 		ui.timeSlider->setMaximum(agents->getTimeSteps() - 1);
-		vector<Agent> * v = agents->getAgentVector(0);
-		glWidget->setInput(v);
-			
-		//a->parseAgentsFromFile("/home/niels/workspace4/SwarmVis/SwarmData/frame000001.txt");			
-		//a->agentVector
+		std::vector<Agent> * v = agents->getAgentsVector();
+		glWidget->setInput(v);		
 	}	
 }

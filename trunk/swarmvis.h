@@ -19,12 +19,12 @@ public:
 
 signals:
 	void playSignal();
-    
+       
 private slots:
 	void btnPlay_clicked();
 	void btnStop_clicked();
-	void menubar_action_handler(QAction* action); 
-    
+	void menubar_action_handler(QAction* action);
+	    
 private:
     Ui::SwarmVisClass ui;
     MyThread *thread;
