@@ -7,6 +7,7 @@
 #include "OpenGL/glwidget.h"
 #include "Agent/AgentArray.h"
 #include "Agent/Agent.h"
+#include <qfiledialog.h>
 
 
 class SwarmVis : public QMainWindow

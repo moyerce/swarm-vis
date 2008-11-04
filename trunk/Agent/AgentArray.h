@@ -14,7 +14,7 @@ public:
 	 *  @param string filename - the path and basename of the files to read
 	 * 		   int TimeSteps - a hint on how many files there are
 	 * */	
-	AgentArray(std::string filename, int numTimeSteps);
+	AgentArray(std::string directory, std::string filename);
 	
 	/** Destructor.*/
 	virtual ~AgentArray();
@@ -36,11 +36,14 @@ public:
 		
 	
 private:
+	int dimensions;
 	int timeSteps;
+	int numAgents;
 	std::vector<Agent> *agent_array;
 	double rangeX;
 	double rangeY;
 	double rangeZ;
+	
 
 	/** Prepend a string with zeros (0) and append an integer
 	 * @param int length - the total lenght of the final string
@@ -52,7 +55,12 @@ private:
 	 * @param string basefile - the path to the file including the filename
 	 * @return a vector containing the agents found in the file
 	 */
-	std::vector<Agent> parseAgentsFromFile(std::string basefile);
+	std::vector<Agent> parseAgentsFromFile(std::string filename);
+	
+	void readInfoFile(std::string directory,std::string filename);
+	bool parseStringContent(std::string s);
+	int getValue(std::string s);
+	double normalize(double val, double maxRange);
 	
 	
 };

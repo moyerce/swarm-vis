@@ -16,9 +16,9 @@
    <widget class="QGroupBox" name="groupBox" >
     <property name="geometry" >
      <rect>
-      <x>220</x>
-      <y>0</y>
-      <width>800</width>
+      <x>440</x>
+      <y>10</y>
+      <width>600</width>
       <height>600</height>
      </rect>
     </property>
@@ -115,8 +115,8 @@
      <rect>
       <x>10</x>
       <y>20</y>
-      <width>191</width>
-      <height>371</height>
+      <width>281</width>
+      <height>351</height>
      </rect>
     </property>
     <property name="currentIndex" >
@@ -191,7 +191,7 @@
    <widget class="QGroupBox" name="groupBox_3" >
     <property name="geometry" >
      <rect>
-      <x>220</x>
+      <x>240</x>
       <y>600</y>
       <width>801</width>
       <height>61</height>

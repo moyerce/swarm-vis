@@ -1,6 +1,7 @@
 #include "swarmvis.h"
 #include <string>
 #include <vector>
+#include <iostream>
 
 SwarmVis::SwarmVis(QWidget *parent)
     : QMainWindow(parent)
@@ -12,7 +13,8 @@ SwarmVis::SwarmVis(QWidget *parent)
 	layout->addWidget(glWidget);
 	ui.groupBox->setLayout(layout);
 	
-	int MAXTIME = 4427;
+	//int MAXTIME = 4427;
+	int MAXTIME = 820;
 	double DELAY = 0.1;
 	
 	thread = new MyThread(this, MAXTIME, DELAY);
@@ -48,13 +50,25 @@ void SwarmVis::menubar_action_handler(QAction* action)
 		exit(0);
 	}
 	if (action->text().compare("&Load Agent Data") == 0)
-	{		 
-		int timeSteps = 4428; //HARD CODED TIMESTEPS
-		std::string filename = "/home/niels/workspace5/SwarmData/frame";
+	{			
+		QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
+							"/home/workspace5/3DSwarmData/",
+							tr("Info (*.info);;Text file (*.txt);;XML files (*.xml);; All File (*.*)"));
+
+		if (fileName.length() > 0)
+		{
+		std::string str =  fileName.toStdString();
+		size_t found;		
+		found = str.find_last_of("/");
+		std::string directory = str.substr(0, found+1);
+		std::string filename = str.substr(found + 1);
+		//std::cout << directory << std::endl;
+		//std::cout << filename << std::endl;
 		
-		agents = new AgentArray(filename, timeSteps);
+		agents = new AgentArray(directory, filename);
 		ui.timeSlider->setMaximum(agents->getTimeSteps() - 1);
 		std::vector<Agent> * v = agents->getAgentsVector();
-		glWidget->setInput(v);		
+		glWidget->setInput(v, agents->getTimeSteps() - 1);
+		}
 	}	
 }

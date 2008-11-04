@@ -17,7 +17,7 @@
 
      QSize minimumSizeHint() const;
      QSize sizeHint() const;
-     void setInput( std::vector<Agent> * agents);
+     void setInput( std::vector<Agent> * agents, int maxTime);
  
      
  protected:
@@ -31,6 +31,7 @@
  private:
 	 std::vector<Agent> *agent_array;
 	 double maxSize;
+	 int maxTimeIndex;
 	 int currentTime;
 	 bool initialized;
 	 int xRot;
@@ -41,9 +42,9 @@
      QPoint lastPos;
      
      void buildTrail(int length);
-
-	 
-	 void normalizeAngle(int *angle);
+     void showPath();
+     void paintAxis();
+	 void normalizeAngle(int *angle);	 
 
 
  public slots:
