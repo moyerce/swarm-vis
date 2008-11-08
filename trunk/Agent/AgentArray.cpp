@@ -90,6 +90,9 @@ bool AgentArray::parseStringContent(std::string s)
 	if( loc != string::npos) rangeY = getValue(s);
 	loc = s.find( "RANGEZ", 0 );
 	if( loc != string::npos) rangeZ = getValue(s);
+	loc = s.find( "AGENTTYPES", 0 );
+	if( loc != string::npos) agentTypes = getValue(s);
+	
 	
 	return false;
 }
@@ -116,6 +119,7 @@ std::vector<Agent> AgentArray::parseAgentsFromFile(std::string filename)
 	double x;
 	double y;
 	double z;
+	int type;
 		
 	cout << "Opening File:" << filename << endl;
 	file.open(name);
@@ -126,27 +130,24 @@ std::vector<Agent> AgentArray::parseAgentsFromFile(std::string filename)
 	
 	file >> x;
 	file >> y;
-	if (dimensions == 3)
-	{
-		file >> z;
-	}
-	else
-	{
-		z = 0.0;
-	}
+	if (dimensions == 3) file >> z;
+	else z = 0.0;
 	
-	Agent *a = new Agent(normalize(x, rangeX), normalize(y, rangeY), normalize(z, rangeZ));	
+	if (agentTypes == 1) file >> type;
+	else type = 0;
+	
+	Agent *a = new Agent(normalize(x, rangeX), normalize(y, rangeY), normalize(z, rangeZ), type);	
 	agentVector.push_back(*a);
 	
 	while ( !file.eof() )
 	{ // keep reading until end-of-file
 		file >> x; // sets EOF flag if no value found
 		file >> y;		
-		if (dimensions == 3)
-		{
-			file >> z;
-		}
-		Agent *b = new Agent(normalize(x, rangeX), normalize(y, rangeY), normalize(z, rangeZ));			
+		if (dimensions == 3) file >> z;
+	
+		if (agentTypes == 1) file >> type;
+			
+		Agent *b = new Agent(normalize(x, rangeX), normalize(y, rangeY), normalize(z, rangeZ), type);			
 		agentVector.push_back(*b);		
 	}
 	

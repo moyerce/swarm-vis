@@ -43,6 +43,7 @@ private:
 	double rangeX;
 	double rangeY;
 	double rangeZ;
+	int agentTypes;
 	
 
 	/** Prepend a string with zeros (0) and append an integer

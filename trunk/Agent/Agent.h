@@ -11,7 +11,7 @@ public:
 	 * @param the x,y,z coordinates of the agent.
 	 * @return
 	 */
-	Agent(double x, double y, double z);
+	Agent(double x, double y, double z, int type);
 	/** Destructor.*/
 	virtual ~Agent();
 	/** Set the X-Coordinate of the Agent
@@ -27,6 +27,8 @@ public:
 	 */		
 	void setZ(double z);
 	
+	void setType(int type);
+	
 	/** Get the X-Coordinate of the Agent
 	 * @return the x-coordinate of the agent.  
 	 */
@@ -40,11 +42,14 @@ public:
 	 */
 	double getZ();
 	
+	int getType();
+	
 	
 private:
 	double x;  // the x-coordinate
 	double y;  // the z-coordinate
 	double z;  // the y-coordinate
+	int type;  // the type of agent
 
 };
 

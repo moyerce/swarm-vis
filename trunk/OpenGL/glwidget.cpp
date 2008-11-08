@@ -73,7 +73,7 @@ void  GLWidget::paintGL()
 	{
 		
 		buildTrail(trailLength);
-		showPath();
+		//showPath();
 		
 		glColor3d (0.0, 0.0, 1.0); //set color to blue
 		

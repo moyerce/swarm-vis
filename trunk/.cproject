@@ -16,6 +16,8 @@
 <storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
 
 
+
+
 <storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
 <buildTargets>
 <target name="Qt Release Build" path="" targetID="org.eclipse.cdt.make.MakeTargetBuilder">
@@ -35,6 +37,77 @@
 </buildTargets>
 </storageModule>
 <storageModule moduleId="org.eclipse.cdt.core.pathentry">
+<pathentry base-path="/usr/include" include="" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="asm-arm" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="asm-generic" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="openssl" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="QtOpenGL" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="QtHelp" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="netax25" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="fontconfig" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="resolv" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="asm-ia64" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="dbus-1.0" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="lirc" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="QtTest" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="pixman-1" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="protocols" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="asm-s390" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="mtd" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="asm-powerpc" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="freetype2" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="bits" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="QtGui" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="linux" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="QtSql" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="netash" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="zypper" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="pygda-3.0" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="netinet" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="QtNetwork" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="netipx" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="QtAssistant" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="Qt3Support" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="netatalk" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="scsi" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="QtXml" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="netrose" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="xcb" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="asm-x86" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="nfs" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="netrom" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="rpcsvc" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="gnu" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="asm-parisc" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="QtSvg" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="Qt" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="QtDBus" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="c++" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="ssl" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="arpa" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="rpcsecgss" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="sound" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="neteconet" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="sysfs" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="net" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="GL" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="sane" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="QtCore" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="rdma" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="netpacket" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="bluetooth" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="video" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="QtScript" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="sys" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="netiucv" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="QtUiTools" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="QtDesigner" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="rpc" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="NetworkManager" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="asm" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="python2.5" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="X11" kind="inc" path="" system="true"/>
+<pathentry base-path="/usr/include" include="libpng12" kind="inc" path="" system="true"/>
 <pathentry base-path="/usr/local/Trolltech/Qt-4.4.3/include" include="" kind="inc" path="" system="true"/>
 <pathentry base-path="/usr/local/Trolltech/Qt-4.4.3/include" include="QtScript" kind="inc" path="" system="true"/>
 <pathentry base-path="/usr/local/Trolltech/Qt-4.4.3/include" include="QtUiTools" kind="inc" path="" system="true"/>
