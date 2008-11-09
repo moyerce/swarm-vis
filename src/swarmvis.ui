@@ -1,0 +1,937 @@
+<ui version="4.0" >
+ <class>SwarmVisClass</class>
+ <widget class="QMainWindow" name="SwarmVisClass" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1068</width>
+    <height>684</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <widget class="QGroupBox" name="groupBox" >
+    <property name="geometry" >
+     <rect>
+      <x>440</x>
+      <y>10</y>
+      <width>600</width>
+      <height>600</height>
+     </rect>
+    </property>
+    <property name="title" >
+     <string>OpenGL Window</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_2" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>450</y>
+      <width>191</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <property name="title" >
+     <string>Playback</string>
+    </property>
+    <widget class="QPushButton" name="btnStop" >
+     <property name="geometry" >
+      <rect>
+       <x>50</x>
+       <y>30</y>
+       <width>31</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Stop</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnPlay" >
+     <property name="geometry" >
+      <rect>
+       <x>90</x>
+       <y>30</y>
+       <width>31</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Play</string>
+     </property>
+    </widget>
+    <widget class="QSlider" name="timeSlider" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>70</y>
+       <width>171</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="dSpinBoxDelay" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>140</y>
+       <width>62</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="maximum" >
+      <double>10.000000000000000</double>
+     </property>
+     <property name="singleStep" >
+      <double>0.010000000000000</double>
+     </property>
+     <property name="value" >
+      <double>0.100000000000000</double>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>110</y>
+       <width>121</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Frame Delay in ms:</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QTabWidget" name="tabWidget" >
+    <property name="geometry" >
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>401</width>
+      <height>401</height>
+     </rect>
+    </property>
+    <property name="currentIndex" >
+     <number>2</number>
+    </property>
+    <widget class="QWidget" name="tab" >
+     <attribute name="title" >
+      <string>Display</string>
+     </attribute>
+     <widget class="QLabel" name="label_2" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>71</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Point Size:</string>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="dSpinBoxPointSize" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>62</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="minimum" >
+       <double>0.010000000000000</double>
+      </property>
+      <property name="singleStep" >
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value" >
+       <double>3.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>80</y>
+        <width>121</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Agent Trail Length:</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBoxTrailLength" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>100</y>
+        <width>51</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="maximum" >
+       <number>200</number>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_5" >
+      <property name="geometry" >
+       <rect>
+        <x>20</x>
+        <y>150</y>
+        <width>120</width>
+        <height>171</height>
+       </rect>
+      </property>
+      <property name="title" >
+       <string>Color and Opacity</string>
+      </property>
+      <widget class="QSlider" name="sliderR_2" >
+       <property name="geometry" >
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>10</width>
+         <height>111</height>
+        </rect>
+       </property>
+       <property name="maximum" >
+        <number>10000</number>
+       </property>
+       <property name="pageStep" >
+        <number>5000</number>
+       </property>
+       <property name="sliderPosition" >
+        <number>5000</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+      <widget class="QSlider" name="sliderG_2" >
+       <property name="geometry" >
+        <rect>
+         <x>30</x>
+         <y>50</y>
+         <width>10</width>
+         <height>111</height>
+        </rect>
+       </property>
+       <property name="maximum" >
+        <number>10000</number>
+       </property>
+       <property name="pageStep" >
+        <number>5000</number>
+       </property>
+       <property name="sliderPosition" >
+        <number>5000</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+      <widget class="QSlider" name="sliderB_2" >
+       <property name="geometry" >
+        <rect>
+         <x>50</x>
+         <y>50</y>
+         <width>10</width>
+         <height>111</height>
+        </rect>
+       </property>
+       <property name="maximum" >
+        <number>10000</number>
+       </property>
+       <property name="singleStep" >
+        <number>1</number>
+       </property>
+       <property name="pageStep" >
+        <number>5000</number>
+       </property>
+       <property name="sliderPosition" >
+        <number>5000</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_11" >
+       <property name="geometry" >
+        <rect>
+         <x>10</x>
+         <y>30</y>
+         <width>10</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text" >
+        <string>R</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_12" >
+       <property name="geometry" >
+        <rect>
+         <x>30</x>
+         <y>30</y>
+         <width>10</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text" >
+        <string>B</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_13" >
+       <property name="geometry" >
+        <rect>
+         <x>50</x>
+         <y>30</y>
+         <width>10</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text" >
+        <string>G</string>
+       </property>
+      </widget>
+      <widget class="QSlider" name="sliderO_2" >
+       <property name="geometry" >
+        <rect>
+         <x>90</x>
+         <y>50</y>
+         <width>10</width>
+         <height>111</height>
+        </rect>
+       </property>
+       <property name="maximum" >
+        <number>10000</number>
+       </property>
+       <property name="singleStep" >
+        <number>1</number>
+       </property>
+       <property name="pageStep" >
+        <number>5000</number>
+       </property>
+       <property name="sliderPosition" >
+        <number>5000</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_14" >
+       <property name="geometry" >
+        <rect>
+         <x>90</x>
+         <y>30</y>
+         <width>10</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text" >
+        <string>O</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QCheckBox" name="chkBoundingBox" >
+      <property name="geometry" >
+       <rect>
+        <x>200</x>
+        <y>40</y>
+        <width>151</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Show Bounding Box</string>
+      </property>
+      <property name="checked" >
+       <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_2" >
+     <attribute name="title" >
+      <string>Agents</string>
+     </attribute>
+     <widget class="QListWidget" name="listWidgetAgents" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>151</width>
+        <height>301</height>
+       </rect>
+      </property>
+      <property name="selectionMode" >
+       <enum>QAbstractItemView::MultiSelection</enum>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="chkAgentPaths" >
+      <property name="geometry" >
+       <rect>
+        <x>170</x>
+        <y>30</y>
+        <width>91</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Show Path</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>111</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Listing of Agents:</string>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_4" >
+      <property name="geometry" >
+       <rect>
+        <x>170</x>
+        <y>90</y>
+        <width>120</width>
+        <height>171</height>
+       </rect>
+      </property>
+      <property name="title" >
+       <string>Color and Opacity</string>
+      </property>
+      <widget class="QSlider" name="sliderR" >
+       <property name="geometry" >
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>10</width>
+         <height>111</height>
+        </rect>
+       </property>
+       <property name="maximum" >
+        <number>10000</number>
+       </property>
+       <property name="pageStep" >
+        <number>5000</number>
+       </property>
+       <property name="sliderPosition" >
+        <number>5000</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+      <widget class="QSlider" name="sliderG" >
+       <property name="geometry" >
+        <rect>
+         <x>30</x>
+         <y>50</y>
+         <width>10</width>
+         <height>111</height>
+        </rect>
+       </property>
+       <property name="maximum" >
+        <number>10000</number>
+       </property>
+       <property name="pageStep" >
+        <number>5000</number>
+       </property>
+       <property name="sliderPosition" >
+        <number>5000</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+      <widget class="QSlider" name="sliderB" >
+       <property name="geometry" >
+        <rect>
+         <x>50</x>
+         <y>50</y>
+         <width>10</width>
+         <height>111</height>
+        </rect>
+       </property>
+       <property name="maximum" >
+        <number>10000</number>
+       </property>
+       <property name="singleStep" >
+        <number>1</number>
+       </property>
+       <property name="pageStep" >
+        <number>5000</number>
+       </property>
+       <property name="sliderPosition" >
+        <number>5000</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_6" >
+       <property name="geometry" >
+        <rect>
+         <x>10</x>
+         <y>30</y>
+         <width>10</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text" >
+        <string>R</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_7" >
+       <property name="geometry" >
+        <rect>
+         <x>30</x>
+         <y>30</y>
+         <width>10</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text" >
+        <string>B</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_8" >
+       <property name="geometry" >
+        <rect>
+         <x>50</x>
+         <y>30</y>
+         <width>10</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text" >
+        <string>G</string>
+       </property>
+      </widget>
+      <widget class="QSlider" name="sliderO" >
+       <property name="geometry" >
+        <rect>
+         <x>90</x>
+         <y>50</y>
+         <width>10</width>
+         <height>111</height>
+        </rect>
+       </property>
+       <property name="maximum" >
+        <number>10000</number>
+       </property>
+       <property name="singleStep" >
+        <number>1</number>
+       </property>
+       <property name="pageStep" >
+        <number>5000</number>
+       </property>
+       <property name="sliderPosition" >
+        <number>5000</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_9" >
+       <property name="geometry" >
+        <rect>
+         <x>90</x>
+         <y>30</y>
+         <width>10</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text" >
+        <string>O</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="btnClearSelection" >
+      <property name="geometry" >
+       <rect>
+        <x>80</x>
+        <y>340</y>
+        <width>40</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Clear</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnSelectAll" >
+      <property name="geometry" >
+       <rect>
+        <x>30</x>
+        <y>340</y>
+        <width>41</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>All</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_3" >
+     <attribute name="title" >
+      <string>Types</string>
+     </attribute>
+     <widget class="QLabel" name="label_10" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>111</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Types of Agents:</string>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="listWidgetTypes" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>151</width>
+        <height>301</height>
+       </rect>
+      </property>
+      <property name="selectionMode" >
+       <enum>QAbstractItemView::SingleSelection</enum>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_6" >
+      <property name="geometry" >
+       <rect>
+        <x>190</x>
+        <y>50</y>
+        <width>120</width>
+        <height>171</height>
+       </rect>
+      </property>
+      <property name="title" >
+       <string>Color and Opacity</string>
+      </property>
+      <widget class="QSlider" name="sliderR_3" >
+       <property name="geometry" >
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>10</width>
+         <height>111</height>
+        </rect>
+       </property>
+       <property name="maximum" >
+        <number>10000</number>
+       </property>
+       <property name="pageStep" >
+        <number>5000</number>
+       </property>
+       <property name="sliderPosition" >
+        <number>5000</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+      <widget class="QSlider" name="sliderG_3" >
+       <property name="geometry" >
+        <rect>
+         <x>30</x>
+         <y>50</y>
+         <width>10</width>
+         <height>111</height>
+        </rect>
+       </property>
+       <property name="maximum" >
+        <number>10000</number>
+       </property>
+       <property name="pageStep" >
+        <number>5000</number>
+       </property>
+       <property name="sliderPosition" >
+        <number>5000</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+      <widget class="QSlider" name="sliderB_3" >
+       <property name="geometry" >
+        <rect>
+         <x>50</x>
+         <y>50</y>
+         <width>10</width>
+         <height>111</height>
+        </rect>
+       </property>
+       <property name="maximum" >
+        <number>10000</number>
+       </property>
+       <property name="singleStep" >
+        <number>1</number>
+       </property>
+       <property name="pageStep" >
+        <number>5000</number>
+       </property>
+       <property name="sliderPosition" >
+        <number>5000</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_15" >
+       <property name="geometry" >
+        <rect>
+         <x>10</x>
+         <y>30</y>
+         <width>10</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text" >
+        <string>R</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_16" >
+       <property name="geometry" >
+        <rect>
+         <x>30</x>
+         <y>30</y>
+         <width>10</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text" >
+        <string>B</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_17" >
+       <property name="geometry" >
+        <rect>
+         <x>50</x>
+         <y>30</y>
+         <width>10</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text" >
+        <string>G</string>
+       </property>
+      </widget>
+      <widget class="QSlider" name="sliderO_3" >
+       <property name="geometry" >
+        <rect>
+         <x>90</x>
+         <y>50</y>
+         <width>10</width>
+         <height>111</height>
+        </rect>
+       </property>
+       <property name="maximum" >
+        <number>10000</number>
+       </property>
+       <property name="singleStep" >
+        <number>1</number>
+       </property>
+       <property name="pageStep" >
+        <number>5000</number>
+       </property>
+       <property name="sliderPosition" >
+        <number>5000</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_18" >
+       <property name="geometry" >
+        <rect>
+         <x>90</x>
+         <y>30</y>
+         <width>10</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text" >
+        <string>O</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="btnSetColor" >
+      <property name="geometry" >
+       <rect>
+        <x>190</x>
+        <y>230</y>
+        <width>80</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Set Color</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1068</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_File" >
+    <property name="title" >
+     <string>&amp;File</string>
+    </property>
+    <addaction name="action_Quit" />
+    <addaction name="action_Load_Agent_Data" />
+   </widget>
+   <addaction name="menu_File" />
+  </widget>
+  <widget class="QStatusBar" name="statusbar" />
+  <action name="action_Quit" >
+   <property name="text" >
+    <string>&amp;Quit</string>
+   </property>
+  </action>
+  <action name="action_Load_Agent_Data" >
+   <property name="text" >
+    <string>&amp;Load Agent Data</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>btnPlay</sender>
+   <signal>clicked()</signal>
+   <receiver>SwarmVisClass</receiver>
+   <slot>btnPlay_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>130</x>
+     <y>505</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>49</x>
+     <y>173</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>menubar</sender>
+   <signal>triggered(QAction*)</signal>
+   <receiver>SwarmVisClass</receiver>
+   <slot>menubar_action_handler(QAction*)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>15</x>
+     <y>12</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>239</x>
+     <y>71</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnClearSelection</sender>
+   <signal>clicked()</signal>
+   <receiver>SwarmVisClass</receiver>
+   <slot>btnClearSelection_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>110</x>
+     <y>425</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>281</x>
+     <y>479</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnSelectAll</sender>
+   <signal>clicked()</signal>
+   <receiver>SwarmVisClass</receiver>
+   <slot>btnSelectAll_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>58</x>
+     <y>425</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>331</x>
+     <y>526</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>listWidgetTypes</sender>
+   <signal>itemSelectionChanged()</signal>
+   <receiver>SwarmVisClass</receiver>
+   <slot>typeSelectionChanged()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>143</x>
+     <y>137</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>278</x>
+     <y>504</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnSetColor</sender>
+   <signal>clicked()</signal>
+   <receiver>SwarmVisClass</receiver>
+   <slot>btnSetColor_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>261</x>
+     <y>319</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>340</x>
+     <y>462</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>btnPlay_clicked()</slot>
+  <slot>menubar_action_handler(QAction*)</slot>
+  <slot>btnStop_clicked()</slot>
+  <slot>btnClearSelection_clicked()</slot>
+  <slot>btnSelectAll_clicked()</slot>
+  <slot>typeSelectionChanged()</slot>
+  <slot>btnSetColor_clicked()</slot>
+  <signal>playSignal()</signal>
+  <signal>boundingBox_toggled(bool)</signal>
+ </slots>
+</ui>
