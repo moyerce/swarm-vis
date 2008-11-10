@@ -1,6 +1,8 @@
 #ifndef AGENT_H_
 #define AGENT_H_
 
+#include <QColor>
+
 class Agent
 {
 public:
@@ -27,10 +29,13 @@ public:
 	 */		
 	void setZ(double z);
 	
-	void setType(int type);
+	void setType(int type) { this->type = type; }
+	void setColor(QColor color){ this->color = color; };
+	void setSize(double size){ this->size = size; };
+	void setGlyph(int glyph){ this->glyph = glyph; };
 	
 	/** Get the X-Coordinate of the Agent
-	 * @return the x-coordinate of the agent.  
+	 * @return the x-coordinate of the agent.
 	 */
 	double getX();
 	/** Get the Y-Coordinate of the Agent
@@ -42,7 +47,10 @@ public:
 	 */
 	double getZ();
 	
-	int getType();
+	int getType(){ return type; };
+	QColor getColor(){ return color; };
+	double getSize(){ return size; };
+	int getGlyph(){ return glyph; };
 	
 	
 private:
@@ -50,6 +58,9 @@ private:
 	double y;  // the z-coordinate
 	double z;  // the y-coordinate
 	int type;  // the type of agent
+	QColor color;
+	double size;
+	int glyph;
 
 };
 

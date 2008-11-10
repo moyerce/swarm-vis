@@ -47,6 +47,7 @@
 	QPoint lastPos;
 	bool showPaths;
 	bool showBoundingBox;
+	bool sameColor;
 
 	double agentComponentR;
 	double agentComponentG;
@@ -59,8 +60,8 @@
 	double individualAgentComponentO;
 	QList<QListWidgetItem*> selectedAgents;
 
-	void buildTrail(int length);
-	void showSelectedPaths();
+	void buildTrail(int agentIndex, int length);
+	void showSelectedPaths(int index);
 	void paintAxis();
 	void normalizeAngle(int *angle);
 
@@ -69,6 +70,8 @@
 	QList<double> agentTypeColorG;
 	QList<double> agentTypeColorB;
 	QList<double> agentTypeColorO;
+
+	bool colorOverride;
 	 
 
 
@@ -77,7 +80,7 @@
 	void setXRotation(int angle);
 	void setYRotation(int angle);
 	void setZRotation(int angle);
-	void setPointSize(double size);
+	
 	void setTrailLength(int length);
 	void toggleShowPaths(bool toggle);
 	void agentsColorValueR(int value);
@@ -91,6 +94,8 @@
 	void selectedAgentsChanged(QList<QListWidgetItem*> selection);
 	void boundingBox_toggled(bool value);	
 	void updateAgentTypesColor(QList<int>, QList<double>, QList<double>, QList<double>, QList<double>);
+	void showPathWithSameColor(bool value);
+	void override_toggled(bool value);
 	
   signals:
       void timeIndexChanged(int timeIndex);

@@ -19,51 +19,30 @@
 	zoom = 400.0;
 	showPaths = false;
 	showBoundingBox = true;
+	sameColor = false;
 
 	agentComponentR = 0.0;
 	agentComponentG = 0.0;
 	agentComponentB = 1.0;
 	agentComponentO = 1.0;
-	individualAgentComponentR = 0.5;
-	individualAgentComponentG = 0.5;
-	individualAgentComponentB = 0.5;
-	individualAgentComponentO = 0.5;
+	individualAgentComponentR = 1.0;
+	individualAgentComponentG = 1.0;
+	individualAgentComponentB = 1.0;
+	individualAgentComponentO = 1.0;
+
+	colorOverride = false;
 
  }
 
- GLWidget::~GLWidget()
- {   
- }
 
- QSize GLWidget::minimumSizeHint() const
- {
-     return QSize(50, 50);
- }
-
- QSize GLWidget::sizeHint() const
- {
-     return QSize(600, 600);
- }
-
- void GLWidget::setTimeIndex(int timeIndex)
- {   
-	 std::cout << "TimeIndex:"<< timeIndex << std::endl;
-	 currentTime = timeIndex;
-	 initialized = true;
-	
-	 timeIndexChanged(currentTime); //signal that a new time index was received
-	 updateGL();
- }
 
 void GLWidget::initializeGL ()
 {
-	glClearColor (0.0, 0.0, 0.0, 0.0);
+	glClearColor (1.0, 1.0, 1.0, 0.0);
 	glEnable (GL_DEPTH_TEST);
 	glEnable(GL_POINT_SMOOTH);
 	//glViewport(0, 0, 800, 600);
 	//gluPerspective(45.0,800/600,0.1,100.0);
-	
-
 }
 
 void  GLWidget::paintGL()
@@ -71,56 +50,81 @@ void  GLWidget::paintGL()
 	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//glTranslated(-300.0, 0.0, 0.0);
-	//glScaled(400.0, 400.0, 0.0);
-	glScaled(zoom, zoom, 0.0);
-	
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	
+	glScaled(zoom, zoom, 0.0);	
 	//rotate the view
 	glRotated(xRot / 16.0, 1.0, 0.0, 0.0);
 	glRotated(yRot / 16.0, 0.0, 1.0, 0.0);
 	glRotated(zRot / 16.0, 0.0, 0.0, 1.0);
-	glPointSize(pointSize);
+	//glPointSize(pointSize);
 	
 	if (showBoundingBox) paintAxis();
 
 	if (initialized)
-	{		
-		glColor4d (agentComponentR, agentComponentG, agentComponentB, agentComponentO);
-		
+	{			
 	    std::vector<Agent> currentAgents = agent_array[currentTime];
 		std::vector<Agent>::iterator iter; //the iterator for the agent vector
 		iter = currentAgents.begin(); //set the start of the iterator
-				
-			
+		int i = 0;
+		
 		while( iter != currentAgents.end() )
-		{
-			Agent a = *iter;			
-			if (agentTypes.contains(a.getType()))
+		{		
+			Agent a = *iter;					
+			if (agentTypes.contains(a.getType()) && colorOverride)
 			{
-				//std::cout << "Index:" << agentTypes.indexOf(a.getType())<<std::endl;
+				glPointSize(a.getSize());
+	
 				double r = agentTypeColorR.at(agentTypes.indexOf(a.getType()));
 				double g = agentTypeColorG.at(agentTypes.indexOf(a.getType()));
 				double b = agentTypeColorB.at(agentTypes.indexOf(a.getType()));
 				double o = agentTypeColorO.at(agentTypes.indexOf(a.getType()));
 				//std::cout << c[0] <<"::"<<c[1] <<"::" <<c[2]<<"::"<<c[3] << std::endl;
-				glColor4d (r, g, b, o);
+				glColor4d (r, g, b, o);				
+				glBegin (GL_POINTS);
+					glVertex3d (a.getX(),  a.getY(), a.getZ());
+				glEnd ();
+				if (showPaths)
+				{
+					if (sameColor)
+						glColor4d (r, g, b, individualAgentComponentO);						
+					else
+						glColor4d (individualAgentComponentR, individualAgentComponentG, individualAgentComponentB, individualAgentComponentO);
+					showSelectedPaths(i);					
+				}
+				buildTrail(i, trailLength);
 			}
 			else
-			{
-				glColor4d (agentComponentR, agentComponentG, agentComponentB, agentComponentO);
-				//std::cout << "ERROR"<<std::endl;
-			}
-			glBegin (GL_POINTS);
-				glVertex3d ( a.getX(),  a.getY(), a.getZ());
-			glEnd ();
-		      //glVertex3d (translatePoint(a.getX(),maxSize),  translatePoint(a.getY(),maxSize), translatePoint(a.getZ(),maxSize));		      
-		      iter++;
-		}
-		
+			{				
+				glPointSize(a.getSize()); //set the agent's point size
+	
+				QColor c = a.getColor(); //set the agents color				
+				double r = (double)c.red() / 255;
+				double g = (double)c.green() / 255;
+				double b = (double)c.blue() / 255;
+				double o = (double)c.alpha() / 255;
+				
+				glColor4d (r, g, b, o);
 
-		buildTrail(trailLength);		
-		if (showPaths) showSelectedPaths();
+				glBegin (GL_POINTS);
+					glVertex3d ( a.getX(),  a.getY(), a.getZ());
+				glEnd ();
+				if (showPaths)
+				{
+					if (sameColor)
+						glColor4d (r, g, b, individualAgentComponentO);
+					else
+						glColor4d (individualAgentComponentR, individualAgentComponentG, individualAgentComponentB, individualAgentComponentO);						
+					showSelectedPaths(i);
+					//buildTrail(i, trailLength);
+				}
+				buildTrail(i, trailLength);
+				
+			}			
+		      //glVertex3d (translatePoint(a.getX(),maxSize),  translatePoint(a.getY(),maxSize), translatePoint(a.getZ(),maxSize));		      
+		    iter++;
+			i++;
+		}
+		//buildTrail(trailLength);		
 	}
 }
 
@@ -134,7 +138,7 @@ void GLWidget::paintAxis()
 	glVertex3f(0.0, 0.0, -1.0);
 	glVertex3f(0.0, 0.0, 1.0);
 	glEnd( );*/
-	glColor4d (1.0, 1.0, 1.0, 1.0);
+	glColor4d (0.0, 0.0, 0.0, 1.0);
 	glBegin(GL_LINES);
 	 	
 	 	glVertex3d(-1.0, 1.0,-1.0);
@@ -252,63 +256,57 @@ void GLWidget::setYRotation(int angle)
      }
  }
  
- void GLWidget::setPointSize(double size)
- {
-	 pointSize = size;
-	 updateGL();
- }
  void GLWidget::setTrailLength(int length)
  {
 	 trailLength = length;
 	 updateGL();
  }
  
- void GLWidget::buildTrail(int length)
+ void GLWidget::buildTrail(int agentIndex, int length)
  {	
 	 glPointSize(2);	 
 	 for(int i = 1; i <= length; i++)
 	 {
 		if ((currentTime - i) >= 0)
 		{
-			std::vector<Agent> currentAgents = agent_array[currentTime - i];
-	 		std::vector<Agent>::iterator iter; //the iterator for the agent vector
-	 		iter = currentAgents.begin(); //set the start of the iterator
-		
-	 		//glColor3d (1.0, 1.0, 1.0); //set color to blue
-	 		glColor4d (1.0, 1.0, 1.0, 1.0 - (double)i / 100.0);
-	 	
+			Agent a = agent_array[currentTime - i][agentIndex];
+	 			 	
 	 		glBegin (GL_POINTS);	
-	 		while( iter != currentAgents.end() )
-	 		{
-	 			Agent a = *iter;		     
-	 			glVertex3d ( a.getX(),  a.getY(), a.getZ());
-	 			iter++;
-	 		}
+	 		
+			QColor c = a.getColor(); //set the agents color				
+			double r = (double)c.red() / 255;
+			double g = (double)c.green() / 255;
+			double b = (double)c.blue() / 255;
+			//double o = (double)c.alpha() / 255;
+			
+			glColor4d (r, g, b, 0.7 - 0.7*(double)i / (double)length);
+	 				     
+	 		glVertex3d ( a.getX(),  a.getY(), a.getZ());	 		
+	 	
 	 		glEnd ();
 		}
-	 }
-	 glPointSize(pointSize);	 
+	 }	 
  }
- void GLWidget::showSelectedPaths()
+ void GLWidget::showSelectedPaths(int index)
  {	
 	glPointSize(2);
 	//glColor3d (1.0, 1.0, 1.0); //set color to blue
-	glColor4d (individualAgentComponentR, individualAgentComponentG, individualAgentComponentB, individualAgentComponentO);	 	 	
-	glBegin (GL_POINTS);
+		
+	glBegin (GL_POINTS);	
 	
 	for (int i = 0; i < selectedAgents.size(); i++)
 	{
 		QListWidgetItem *item = selectedAgents.at(i);
 		bool * temp;
-		int index = item->data(Qt::ToolTipRole).toInt(temp);
-		
-		for(int j = 0; j < maxTimeIndex; j++)
-		{			
-			glVertex3d(agent_array[j][index].getX(), agent_array[j][index].getY(), agent_array[j][index].getZ()); 		
+		if (index == item->data(Qt::ToolTipRole).toInt(temp))
+		{
+			for(int j = 0; j < maxTimeIndex; j++)
+			{			
+				glVertex3d(agent_array[j][index].getX(), agent_array[j][index].getY(), agent_array[j][index].getZ()); 		
+			}
 		}
 	}
-	glEnd ();
-	glPointSize(pointSize);	
+	glEnd ();	
  }
 
 void GLWidget::toggleShowPaths(bool toggle)
@@ -380,6 +378,42 @@ void GLWidget::updateAgentTypesColor(QList<int> type, QList<double> r, QList<dou
 	agentTypeColorG = g;
 	agentTypeColorB = b;
 	agentTypeColorO = o;
+	updateGL();
+}
+
+void GLWidget::showPathWithSameColor(bool value)
+{
+	sameColor = value;
+	updateGL();
+}
+
+ GLWidget::~GLWidget()
+ {   
+ }
+
+ QSize GLWidget::minimumSizeHint() const
+ {
+     return QSize(50, 50);
+ }
+
+ QSize GLWidget::sizeHint() const
+ {
+     return QSize(600, 600);
+ }
+
+ void GLWidget::setTimeIndex(int timeIndex)
+ {   
+	 std::cout << "TimeIndex:"<< timeIndex << std::endl;
+	 currentTime = timeIndex;
+	 initialized = true;
+	
+	 timeIndexChanged(currentTime); //signal that a new time index was received
+	 updateGL();
+ }
+
+void GLWidget::override_toggled(bool value)
+{
+	colorOverride = value;
 	updateGL();
 }
 

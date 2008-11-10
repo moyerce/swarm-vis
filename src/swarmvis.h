@@ -11,6 +11,8 @@
 #include <QListWidget>
 #include <QListWidgetItem>
 #include <sstream>
+#include <QColorDialog>
+#include <QDialog>
 
 
 class SwarmVis : public QMainWindow
@@ -35,7 +37,10 @@ private slots:
 	void menubar_action_handler(QAction* action);
 	void listSelectionChanged();
 	void typeSelectionChanged();
+	void agentSelectionChanged();
 	void btnSetColor_clicked();
+	void btnSetColor_2_clicked();
+	void btnSetAgentSize_clicked();
 	    
 private:
     Ui::SwarmVisClass ui;
@@ -45,10 +50,11 @@ private:
 	QList<int> typeList;
 	QListWidgetItem *typeSelectedItem;
 	QList<int> agentTypeIndex;
+	QList<int> agentIndex;
 	QList<double> agentR;
 	QList<double> agentG;
 	QList<double> agentB;
-	QList<double> agentO;
+	QList<double> agentO;	
 
     void createThread();
 	void populateListView();
