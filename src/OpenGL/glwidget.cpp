@@ -84,7 +84,8 @@ void  GLWidget::paintGL()
 						glColor4d (r, g, b, trackColorO);						
 					else
 						glColor4d (trackColorR, trackColorG, trackColorB, trackColorO);
-					showSelectedPaths(i);					
+					showSelectedPaths(i);
+					std::cout << a.getX() <<  a.getY() << a.getZ() <<std::endl;
 				}
 				buildTrail(i, trailLength);
 			}
@@ -110,6 +111,7 @@ void  GLWidget::paintGL()
 					else
 						glColor4d (trackColorR, trackColorG, trackColorB, trackColorO);						
 					showSelectedPaths(i);
+					std::cout << a.getX() <<  a.getY() << a.getZ() <<std::endl;
 					//buildTrail(i, trailLength);
 				}
 				buildTrail(i, trailLength);
@@ -286,8 +288,9 @@ void GLWidget::setYRotation(int angle)
  {	
 	glPointSize(2);
 	//glColor3d (1.0, 1.0, 1.0); //set color to blue
-		
-	glBegin (GL_POINTS);	
+
+	std::cout<< "Index: "<< index<< std::endl;
+	glBegin(GL_POINTS);
 	
 	for (int i = 0; i < selectedAgents.size(); i++)
 	{
@@ -301,7 +304,7 @@ void GLWidget::setYRotation(int angle)
 			}
 		}
 	}
-	glEnd ();	
+	glEnd();	
  }
 
 void GLWidget::toggleShowPaths(bool toggle)

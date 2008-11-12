@@ -128,7 +128,7 @@ std::vector<Agent> AgentArray::parseAgentsFromFile(std::string filename)
 		cerr << "Error: file could not be opened" << endl;	    
 	}
 	
-	file >> x;
+	/*file >> x;
 	file >> y;
 	if (dimensions == 3) file >> z;
 	else z = 0.0;
@@ -137,20 +137,23 @@ std::vector<Agent> AgentArray::parseAgentsFromFile(std::string filename)
 	else type = 0;
 	
 	Agent *a = new Agent(normalize(x, rangeX), normalize(y, rangeY), normalize(z, rangeZ), type);	
-	agentVector.push_back(*a);
+	agentVector.push_back(*a);*/
 	
-	while ( !file.eof() )
-	{ // keep reading until end-of-file
+	int i = 0;
+	while ( !file.eof() && (numAgents > i) )
+	{  //keep reading until end-of-file
 		file >> x; // sets EOF flag if no value found
 		file >> y;		
 		if (dimensions == 3) file >> z;
 	
 		if (agentTypes == 1) file >> type;
 			
-		Agent *b = new Agent(normalize(x, rangeX), normalize(y, rangeY), normalize(z, rangeZ), type);			
+		Agent *b = new Agent(normalize(x, rangeX), normalize(y, rangeY), normalize(z, rangeZ), type);
+		std::cout << "x: "<< x << "y: "<< y <<"z: "<< z <<std::endl;
+		std::cout << "loop:" << i << std::endl;
+		i++;	
 		agentVector.push_back(*b);		
-	}
-	
+	}	
 	file.close();
 	cout << "End-of-file reached.." << endl;
 	
