@@ -29,10 +29,10 @@
    <widget class="QGroupBox" name="groupBox_2" >
     <property name="geometry" >
      <rect>
-      <x>10</x>
-      <y>450</y>
-      <width>191</width>
-      <height>181</height>
+      <x>20</x>
+      <y>440</y>
+      <width>251</width>
+      <height>191</height>
      </rect>
     </property>
     <property name="title" >
@@ -41,7 +41,7 @@
     <widget class="QPushButton" name="btnStop" >
      <property name="geometry" >
       <rect>
-       <x>50</x>
+       <x>80</x>
        <y>30</y>
        <width>31</width>
        <height>27</height>
@@ -54,7 +54,7 @@
     <widget class="QPushButton" name="btnPlay" >
      <property name="geometry" >
       <rect>
-       <x>90</x>
+       <x>120</x>
        <y>30</y>
        <width>31</width>
        <height>27</height>
@@ -69,7 +69,7 @@
       <rect>
        <x>10</x>
        <y>70</y>
-       <width>171</width>
+       <width>221</width>
        <height>16</height>
       </rect>
      </property>
@@ -80,11 +80,14 @@
     <widget class="QDoubleSpinBox" name="dSpinBoxDelay" >
      <property name="geometry" >
       <rect>
-       <x>10</x>
-       <y>140</y>
+       <x>140</x>
+       <y>110</y>
        <width>62</width>
        <height>27</height>
       </rect>
+     </property>
+     <property name="minimum" >
+      <double>0.010000000000000</double>
      </property>
      <property name="maximum" >
       <double>10.000000000000000</double>
@@ -109,6 +112,19 @@
       <string>Frame Delay in ms:</string>
      </property>
     </widget>
+    <widget class="QCheckBox" name="chkContinuousPlay" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>150</y>
+       <width>151</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Continuous Playback</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QTabWidget" name="tabWidget" >
     <property name="geometry" >
@@ -120,17 +136,86 @@
      </rect>
     </property>
     <property name="currentIndex" >
-     <number>3</number>
+     <number>0</number>
     </property>
+    <widget class="QWidget" name="tab_4" >
+     <attribute name="title" >
+      <string>Agents</string>
+     </attribute>
+     <widget class="QTableWidget" name="tableWidget" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>371</width>
+        <height>291</height>
+       </rect>
+      </property>
+      <property name="sortingEnabled" >
+       <bool>false</bool>
+      </property>
+      <property name="rowCount" >
+       <number>0</number>
+      </property>
+      <property name="columnCount" >
+       <number>0</number>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnSetColor_2" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>330</y>
+        <width>80</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Select Color</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnSetColor_3" >
+      <property name="geometry" >
+       <rect>
+        <x>190</x>
+        <y>330</y>
+        <width>80</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Set Size</string>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="dSpinBoxAgentSize" >
+      <property name="geometry" >
+       <rect>
+        <x>120</x>
+        <y>330</y>
+        <width>62</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="minimum" >
+       <double>0.500000000000000</double>
+      </property>
+      <property name="singleStep" >
+       <double>0.500000000000000</double>
+      </property>
+      <property name="value" >
+       <double>4.000000000000000</double>
+      </property>
+     </widget>
+    </widget>
     <widget class="QWidget" name="tab" >
      <attribute name="title" >
-      <string>Display</string>
+      <string>Trails</string>
      </attribute>
      <widget class="QLabel" name="label_3" >
       <property name="geometry" >
        <rect>
-        <x>240</x>
-        <y>110</y>
+        <x>20</x>
+        <y>30</y>
         <width>121</width>
         <height>17</height>
        </rect>
@@ -142,201 +227,14 @@
      <widget class="QSpinBox" name="spinBoxTrailLength" >
       <property name="geometry" >
        <rect>
-        <x>240</x>
-        <y>130</y>
+        <x>20</x>
+        <y>50</y>
         <width>51</width>
         <height>27</height>
        </rect>
       </property>
       <property name="maximum" >
        <number>200</number>
-      </property>
-     </widget>
-     <widget class="QGroupBox" name="groupBox_5" >
-      <property name="geometry" >
-       <rect>
-        <x>240</x>
-        <y>180</y>
-        <width>120</width>
-        <height>171</height>
-       </rect>
-      </property>
-      <property name="title" >
-       <string>Color and Opacity</string>
-      </property>
-      <widget class="QSlider" name="sliderR_2" >
-       <property name="geometry" >
-        <rect>
-         <x>10</x>
-         <y>50</y>
-         <width>10</width>
-         <height>111</height>
-        </rect>
-       </property>
-       <property name="maximum" >
-        <number>10000</number>
-       </property>
-       <property name="pageStep" >
-        <number>5000</number>
-       </property>
-       <property name="value" >
-        <number>0</number>
-       </property>
-       <property name="sliderPosition" >
-        <number>0</number>
-       </property>
-       <property name="orientation" >
-        <enum>Qt::Vertical</enum>
-       </property>
-      </widget>
-      <widget class="QSlider" name="sliderG_2" >
-       <property name="geometry" >
-        <rect>
-         <x>30</x>
-         <y>50</y>
-         <width>10</width>
-         <height>111</height>
-        </rect>
-       </property>
-       <property name="maximum" >
-        <number>10000</number>
-       </property>
-       <property name="pageStep" >
-        <number>5000</number>
-       </property>
-       <property name="value" >
-        <number>0</number>
-       </property>
-       <property name="sliderPosition" >
-        <number>0</number>
-       </property>
-       <property name="orientation" >
-        <enum>Qt::Vertical</enum>
-       </property>
-      </widget>
-      <widget class="QSlider" name="sliderB_2" >
-       <property name="geometry" >
-        <rect>
-         <x>50</x>
-         <y>50</y>
-         <width>10</width>
-         <height>111</height>
-        </rect>
-       </property>
-       <property name="maximum" >
-        <number>10000</number>
-       </property>
-       <property name="singleStep" >
-        <number>1</number>
-       </property>
-       <property name="pageStep" >
-        <number>5000</number>
-       </property>
-       <property name="value" >
-        <number>10000</number>
-       </property>
-       <property name="sliderPosition" >
-        <number>10000</number>
-       </property>
-       <property name="orientation" >
-        <enum>Qt::Vertical</enum>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_11" >
-       <property name="geometry" >
-        <rect>
-         <x>10</x>
-         <y>30</y>
-         <width>10</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text" >
-        <string>R</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_12" >
-       <property name="geometry" >
-        <rect>
-         <x>30</x>
-         <y>30</y>
-         <width>10</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text" >
-        <string>B</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_13" >
-       <property name="geometry" >
-        <rect>
-         <x>50</x>
-         <y>30</y>
-         <width>10</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text" >
-        <string>G</string>
-       </property>
-      </widget>
-      <widget class="QSlider" name="sliderO_2" >
-       <property name="geometry" >
-        <rect>
-         <x>90</x>
-         <y>50</y>
-         <width>10</width>
-         <height>111</height>
-        </rect>
-       </property>
-       <property name="maximum" >
-        <number>10000</number>
-       </property>
-       <property name="singleStep" >
-        <number>1</number>
-       </property>
-       <property name="pageStep" >
-        <number>5000</number>
-       </property>
-       <property name="value" >
-        <number>10000</number>
-       </property>
-       <property name="sliderPosition" >
-        <number>10000</number>
-       </property>
-       <property name="orientation" >
-        <enum>Qt::Vertical</enum>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_14" >
-       <property name="geometry" >
-        <rect>
-         <x>90</x>
-         <y>30</y>
-         <width>10</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text" >
-        <string>O</string>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QCheckBox" name="chkBoundingBox" >
-      <property name="geometry" >
-       <rect>
-        <x>220</x>
-        <y>20</y>
-        <width>151</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="text" >
-       <string>Show Bounding Box</string>
-      </property>
-      <property name="checked" >
-       <bool>true</bool>
       </property>
      </widget>
     </widget>
@@ -416,8 +314,11 @@
        <property name="pageStep" >
         <number>5000</number>
        </property>
+       <property name="value" >
+        <number>0</number>
+       </property>
        <property name="sliderPosition" >
-        <number>5000</number>
+        <number>0</number>
        </property>
        <property name="orientation" >
         <enum>Qt::Vertical</enum>
@@ -439,7 +340,7 @@
         <number>5000</number>
        </property>
        <property name="sliderPosition" >
-        <number>5000</number>
+        <number>0</number>
        </property>
        <property name="orientation" >
         <enum>Qt::Vertical</enum>
@@ -463,8 +364,11 @@
        <property name="pageStep" >
         <number>5000</number>
        </property>
+       <property name="value" >
+        <number>0</number>
+       </property>
        <property name="sliderPosition" >
-        <number>5000</number>
+        <number>0</number>
        </property>
        <property name="orientation" >
         <enum>Qt::Vertical</enum>
@@ -528,7 +432,7 @@
         <number>5000</number>
        </property>
        <property name="sliderPosition" >
-        <number>5000</number>
+        <number>3500</number>
        </property>
        <property name="orientation" >
         <enum>Qt::Vertical</enum>
@@ -645,72 +549,24 @@
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="tab_4" >
+    <widget class="QWidget" name="tab_5" >
      <attribute name="title" >
-      <string>Agents</string>
+      <string>Misc</string>
      </attribute>
-     <widget class="QTableWidget" name="tableWidget" >
+     <widget class="QCheckBox" name="chkBoundingBox" >
       <property name="geometry" >
        <rect>
-        <x>10</x>
+        <x>20</x>
         <y>30</y>
-        <width>371</width>
-        <height>291</height>
-       </rect>
-      </property>
-      <property name="sortingEnabled" >
-       <bool>false</bool>
-      </property>
-      <property name="rowCount" >
-       <number>0</number>
-      </property>
-      <property name="columnCount" >
-       <number>0</number>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="btnSetColor_2" >
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>330</y>
-        <width>80</width>
-        <height>27</height>
+        <width>151</width>
+        <height>23</height>
        </rect>
       </property>
       <property name="text" >
-       <string>Select Color</string>
+       <string>Show Bounding Box</string>
       </property>
-     </widget>
-     <widget class="QPushButton" name="btnSetColor_3" >
-      <property name="geometry" >
-       <rect>
-        <x>190</x>
-        <y>330</y>
-        <width>80</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text" >
-       <string>Set Size</string>
-      </property>
-     </widget>
-     <widget class="QDoubleSpinBox" name="dSpinBoxAgentSize" >
-      <property name="geometry" >
-       <rect>
-        <x>120</x>
-        <y>330</y>
-        <width>62</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="minimum" >
-       <double>0.500000000000000</double>
-      </property>
-      <property name="singleStep" >
-       <double>0.500000000000000</double>
-      </property>
-      <property name="value" >
-       <double>4.000000000000000</double>
+      <property name="checked" >
+       <bool>true</bool>
       </property>
      </widget>
     </widget>
@@ -755,8 +611,8 @@
    <slot>btnPlay_clicked()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>130</x>
-     <y>505</y>
+     <x>170</x>
+     <y>520</y>
     </hint>
     <hint type="destinationlabel" >
      <x>49</x>
@@ -883,8 +739,8 @@
    <slot>btnSetAgentSize_clicked()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>176</x>
-     <y>422</y>
+     <x>212</x>
+     <y>426</y>
     </hint>
     <hint type="destinationlabel" >
      <x>248</x>

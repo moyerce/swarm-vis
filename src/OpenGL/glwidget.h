@@ -31,8 +31,7 @@
 	void mouseMoveEvent(QMouseEvent *event);
 	void wheelEvent(QWheelEvent *event);
 
- private:
-	int COLORDIVISOR;
+ private:	
 	std::vector<Agent> *agent_array;
 	double maxSize;
 	int maxTimeIndex;
@@ -49,15 +48,10 @@
 	bool showBoundingBox;
 	bool sameColor;
 
-	double agentComponentR;
-	double agentComponentG;
-	double agentComponentB;
-	double agentComponentO;
-
-	double individualAgentComponentR;
-	double individualAgentComponentG;
-	double individualAgentComponentB;
-	double individualAgentComponentO;
+	double trackColorR;
+	double trackColorG;
+	double trackColorB;
+	double trackColorO;
 	QList<QListWidgetItem*> selectedAgents;
 
 	void buildTrail(int agentIndex, int length);
@@ -82,15 +76,8 @@
 	void setZRotation(int angle);
 	
 	void setTrailLength(int length);
-	void toggleShowPaths(bool toggle);
-	void agentsColorValueR(int value);
-	void agentsColorValueG(int value);
-	void agentsColorValueB(int value);
-	void agentsColorValueO(int value);
-	void individualAgentsColorValueR(int value);
-	void individualAgentsColorValueG(int value);
-	void individualAgentsColorValueB(int value);
-	void individualAgentsColorValueO(int value);
+	void toggleShowPaths(bool toggle);	
+	void setTrackColor(double r, double g, double b, double o);
 	void selectedAgentsChanged(QList<QListWidgetItem*> selection);
 	void boundingBox_toggled(bool value);	
 	void updateAgentTypesColor(QList<int>, QList<double>, QList<double>, QList<double>, QList<double>);
