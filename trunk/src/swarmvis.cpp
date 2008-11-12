@@ -15,41 +15,36 @@ SwarmVis::SwarmVis(QWidget *parent)
 	thread = NULL;
 	typeSelectedItem = NULL;
 	
-			
+	// always visible items	
 	connect(ui.timeSlider, SIGNAL(valueChanged(int)), glWidget, SLOT(setTimeIndex(int)));
-	connect(ui.chkOverrideAgentColor, SIGNAL(toggled(bool)), glWidget, SLOT(override_toggled(bool)));
+	connect(ui.timeSlider, SIGNAL(valueChanged(int)), this, SLOT(setGroupBoxLabel(int)));
+	// items on the TRAILS tab
 	connect(ui.spinBoxTrailLength, SIGNAL(valueChanged(int)), glWidget, SLOT(setTrailLength(int)));
+	// items on the TRACKS tab
+	connect(ui.sliderR, SIGNAL(valueChanged(int)), this, SLOT(trackColorR_Changed()));
+	connect(ui.sliderG, SIGNAL(valueChanged(int)), this, SLOT(trackColorG_Changed()));
+	connect(ui.sliderB, SIGNAL(valueChanged(int)), this, SLOT(trackColorB_Changed()));
+	connect(ui.sliderO, SIGNAL(valueChanged(int)), this, SLOT(trackColorO_Changed()));
+	connect(this, SIGNAL(trackColorChanged(double, double, double, double)), glWidget, SLOT(setTrackColor(double, double, double, double)));
 	connect(ui.chkAgentPaths, SIGNAL(toggled(bool)), glWidget, SLOT(toggleShowPaths(bool)));
 	connect(ui.chkSameColor, SIGNAL(toggled(bool)), glWidget, SLOT(showPathWithSameColor(bool)));
-
-	connect(ui.sliderR, SIGNAL(valueChanged(int)), glWidget, SLOT(individualAgentsColorValueR(int)));
-	connect(ui.sliderG, SIGNAL(valueChanged(int)), glWidget, SLOT(individualAgentsColorValueG(int)));
-	connect(ui.sliderB, SIGNAL(valueChanged(int)), glWidget, SLOT(individualAgentsColorValueB(int)));
-	connect(ui.sliderO, SIGNAL(valueChanged(int)), glWidget, SLOT(individualAgentsColorValueO(int)));
-	connect(this, SIGNAL(selectedAgentsChanged(QList<QListWidgetItem*>)), glWidget, SLOT(selectedAgentsChanged(QList<QListWidgetItem*>)));
-
-	connect(ui.sliderR_2, SIGNAL(valueChanged(int)), glWidget, SLOT(agentsColorValueR(int)));
-	connect(ui.sliderG_2, SIGNAL(valueChanged(int)), glWidget, SLOT(agentsColorValueG(int)));
-	connect(ui.sliderB_2, SIGNAL(valueChanged(int)), glWidget, SLOT(agentsColorValueB(int)));
-	connect(ui.sliderO_2, SIGNAL(valueChanged(int)), glWidget, SLOT(agentsColorValueO(int)));
-
-	connect(ui.chkBoundingBox, SIGNAL(toggled(bool)), glWidget, SLOT(boundingBox_toggled(bool)));
+	// items on the TYPES tab
+	connect(ui.chkOverrideAgentColor, SIGNAL(toggled(bool)), glWidget, SLOT(override_toggled(bool)));
 	connect(this, SIGNAL(updateAgentTypesColor(QList<int>, QList<double>, QList<double>, QList<double>, QList<double>)),
 		glWidget, SLOT(updateAgentTypesColor(QList<int>, QList<double>, QList<double>, QList<double>, QList<double>)));
+	// items on the AGENTS tab
+	connect(this, SIGNAL(selectedAgentsChanged(QList<QListWidgetItem*>)), glWidget, SLOT(selectedAgentsChanged(QList<QListWidgetItem*>)));
+	connect(ui.listWidgetAgents, SIGNAL(itemSelectionChanged()), this, SLOT(trackSelectionChanged()));
+	// items on the MISC tab
+	connect(ui.chkBoundingBox, SIGNAL(toggled(bool)), glWidget, SLOT(boundingBox_toggled(bool)));
+	
+	setupUI();
 }
 
 SwarmVis::~SwarmVis()
 {
 
 }
-
-void SwarmVis::listSelectionChanged()
-{
-	QList<QListWidgetItem*> selectedAgents = ui.listWidgetAgents->selectedItems();
-	selectedAgentsChanged(selectedAgents);
-}
-
-
 
 void SwarmVis::btnPlay_clicked()
 {	
@@ -61,8 +56,34 @@ void SwarmVis::btnPlay_clicked()
 	else
 	{
 		startSignal();
-	}
+	}	
+}
+
+void SwarmVis::setupUI()
+{
 	
+}
+
+void SwarmVis::loadNewData()
+{	
+	ui.listWidgetAgents->clear();
+	ui.listWidgetTypes->clear();
+	ui.tableWidget->clear();
+	ui.tableWidget->insertColumn(0);
+	ui.tableWidget->insertColumn(1);	
+	ui.tableWidget->insertColumn(2);	
+	ui.tableWidget->insertColumn(3);
+	QStringList headers;
+    headers << "Agents" << "Color" << "Size" << "Glyph";
+	ui.tableWidget->setHorizontalHeaderLabels(headers);
+	ui.tableWidget->setRowCount(0);
+	typeList.clear();	
+	agentTypeIndex.clear();
+	agentIndex.clear();
+	agentR.clear();
+	agentG.clear();
+	agentB.clear();
+	agentO.clear();
 }
 
 void SwarmVis::menubar_action_handler(QAction* action)
@@ -71,36 +92,42 @@ void SwarmVis::menubar_action_handler(QAction* action)
 	{
 		exit(0);
 	}
+	// Action handler for loading data
 	if (action->text().compare("&Load Agent Data") == 0)
-	{			
+	{
+		// Prompt user for an .info File		
 		QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
 							"/home/workspace5/3DSwarmData/",
 							tr("Info (*.info);;Text file (*.txt);;XML files (*.xml);; All File (*.*)"));
 
 		if (fileName.length() > 0)
 		{
-		std::string str =  fileName.toStdString();
-		size_t found;		
-		found = str.find_last_of("/");
-		std::string directory = str.substr(0, found+1);
-		std::string filename = str.substr(found + 1);
-		//std::cout << directory << std::endl;
-		//std::cout << filename << std::endl;
-		
-		agents = new AgentArray(directory, filename);
-		ui.timeSlider->setMaximum(agents->getTimeSteps() - 1);
-		std::vector<Agent> * v = agents->getAgentsVector();
-		glWidget->setInput(v, agents->getTimeSteps() - 1);
-		//createThread();
-		populateListView();
+			loadNewData();
+			std::string str =  fileName.toStdString();
+			size_t found;		
+			found = str.find_last_of("/");
+			std::string directory = str.substr(0, found+1);
+			std::string filename = str.substr(found + 1);
+			
+			// Initialize the Agents
+			agents = new AgentArray(directory, filename);
+			ui.timeSlider->setMaximum(agents->getTimeSteps() - 1);
+			std::vector<Agent> * v = agents->getAgentsVector();
+			glWidget->setInput(v, agents->getTimeSteps() - 1);
+			
+			// Initialize the GUI components
+			populateListView();
 		}
 	}	
 }
 
-
 void SwarmVis::threadFinished()
 {
 	ui.timeSlider->setValue(0);
+	if (ui.chkContinuousPlay->isChecked())
+	{
+		btnPlay_clicked();
+	}
 }
 
 void SwarmVis::createThread()
@@ -112,7 +139,8 @@ void SwarmVis::createThread()
 	connect(ui.dSpinBoxDelay, SIGNAL(valueChanged(double)), thread, SLOT(setDelay(double)));
 	connect(ui.btnStop, SIGNAL(clicked()), thread, SLOT(startStopThread()));
 	connect(this, SIGNAL(startSignal()), thread, SLOT(startStopThread()));
-	connect(thread, SIGNAL(finished()), this, SLOT(threadFinished()));
+	connect(thread, SIGNAL(finished()), this, SLOT(threadFinished()));	
+
 }
 
 void SwarmVis::btnSelectAll_clicked()
@@ -134,29 +162,15 @@ void SwarmVis::btnClearSelection_clicked()
 
 void SwarmVis::populateListView()
 {
-	ui.listWidgetAgents->clear();
-	ui.listWidgetTypes->clear();
-	//setup the table
-	ui.tableWidget->clear();	
-	ui.tableWidget->insertColumn(0);	
-	ui.tableWidget->insertColumn(1);	
-	ui.tableWidget->insertColumn(2);	
-	ui.tableWidget->insertColumn(3);	
-	QStringList headers;
-    headers << "Agents" << "Color" << "Size" << "Glyph";
-	ui.tableWidget->setHorizontalHeaderLabels(headers);
-	//end setup the table
-	
-	typeList.clear();
-
 	for (int i = 0; i < agents->getNumAgents(); i++)
 	{	
-		//the agents view	
-		QListWidgetItem * item = new QListWidgetItem;
 		std::string s;
 		std::stringstream out;
 		out << "Agent" << i;
 		s = out.str();				
+
+		//the path of agents view	
+		QListWidgetItem * item = new QListWidgetItem;		
 		item->setText(s.c_str());
 		item->setData(Qt::ToolTipRole, i);	
 		ui.listWidgetAgents->addItem(item);
@@ -186,6 +200,7 @@ void SwarmVis::populateListView()
 		}		
 	}
 	
+	//Populate the list of Types with the different types
 	for (int i = 0; i < typeList.size(); i++) 
 	{ 
 		QListWidgetItem * item = new QListWidgetItem;
@@ -196,9 +211,13 @@ void SwarmVis::populateListView()
 		item->setText(s.c_str());
 		ui.listWidgetTypes->addItem(item);
 	}
+	ui.tableWidget->resizeColumnsToContents();
+}
 
-	connect(ui.listWidgetAgents, SIGNAL(itemSelectionChanged()), this, SLOT(listSelectionChanged()));
-	//QList<QListWidgetItem *> QListWidget::selectedItems () const
+void SwarmVis::trackSelectionChanged()
+{
+	QList<QListWidgetItem*> selectedAgents = ui.listWidgetAgents->selectedItems();
+	selectedAgentsChanged(selectedAgents);
 }
 
 void SwarmVis::typeSelectionChanged()
@@ -226,8 +245,41 @@ void SwarmVis::agentSelectionChanged()
 	}
 }
 
+void SwarmVis::btnSetColor_clicked()
+{
+	if (typeSelectedItem!=NULL)
+	{			
+		QColor color = QColorDialog::getColor(typeSelectedItem->backgroundColor(), this );	
+		typeSelectedItem->setBackgroundColor(color);
+		double r = color.redF();
+		double g = color.greenF();
+		double b = color.blueF();
+		double o = color.alphaF();
+		
+		bool * temp;
+		int val = typeSelectedItem->data(Qt::DisplayRole).toInt(temp);		
+		if (!agentTypeIndex.contains(val))
+		{		
+			agentTypeIndex.append(val);
+			agentR.append(r);
+			agentG.append(g);
+			agentB.append(b);
+			agentO.append(o);
+		}
+		else
+		{		
+			agentR.replace(agentTypeIndex.indexOf(val),r);
+			agentG.replace(agentTypeIndex.indexOf(val),g);
+			agentB.replace(agentTypeIndex.indexOf(val),b);
+			agentO.replace(agentTypeIndex.indexOf(val),o);			
+		}
+		
+		updateAgentTypesColor(agentTypeIndex, agentR, agentG, agentB, agentO);			
+	}
+}
 void SwarmVis::btnSetColor_2_clicked()
 {
+//sets the color for each individual agent that is selected
 	if (agentIndex.size() > 0)
 	{
 		QTableWidgetItem * first = ui.tableWidget->item(agentIndex.at(0), 1);
@@ -251,9 +303,9 @@ void SwarmVis::btnSetColor_2_clicked()
 		//glWidget->setInput(agent_array,agents->getTimeSteps());
 	}
 }
-
 void SwarmVis::btnSetAgentSize_clicked()
 {
+//sets the size for each individual agent that is selected
 	if (agentIndex.size() > 0)
 	{	
 		std::vector<Agent> *agent_array = agents->getAgentsVector();
@@ -276,50 +328,44 @@ void SwarmVis::btnSetAgentSize_clicked()
 	}
 }
 
-void SwarmVis::btnSetColor_clicked()
+void SwarmVis::setGroupBoxLabel(int frame)
 {
-	if (typeSelectedItem!=NULL)
-	{			
-		QColor color = QColorDialog::getColor(typeSelectedItem->backgroundColor(), this );	
-		//double r = (double)ui.sliderR_3->value ()/(double)10000;
-		//double g = (double)ui.sliderG_3->value ()/(double)10000;
-		//double b = (double)ui.sliderB_3->value ()/(double)10000;
-		//double o = (double)ui.sliderO_3->value ()/(double)10000;
-		//QColor color; // =	QColor( 100, 100, 100, 255 );
-		//color.setRgbF(r, g, b, o);		
-		typeSelectedItem->setBackgroundColor(color);
-		double r = color.redF();
-		double g = color.greenF();
-		double b = color.blueF();
-		double o = color.alphaF();
-		
-		bool * temp;
-		int val = typeSelectedItem->data(Qt::DisplayRole).toInt(temp);		
-		if (!agentTypeIndex.contains(val))
-		{
-			//std::cout<<"DOES NOT CONTAIN"<<std::endl;
-			agentTypeIndex.append(val);
-			agentR.append(r);
-			agentG.append(g);
-			agentB.append(b);
-			agentO.append(o);
-		}
-		else
-		{
-			//std::cout<<"DOES CONTAIN"<<std::endl;
-			agentR.replace(agentTypeIndex.indexOf(val),r);
-			agentG.replace(agentTypeIndex.indexOf(val),g);
-			agentB.replace(agentTypeIndex.indexOf(val),b);
-			agentO.replace(agentTypeIndex.indexOf(val),o);			
-		}
-		/*for (int i = 0; i < agentR.size(); i++)
-		{
-			double c[4] = {agentR.at(i),agentG.at(i),agentB.at(i),agentO.at(i)};
-			double nc[4] = {c[0],c[1],c[2],c[3]};
-			std::cout << nc[0] <<"::"<<nc[1] <<"::" <<nc[2]<<"::"<<nc[3] << std::endl<<std::endl;		
-		}*/		
-		updateAgentTypesColor(agentTypeIndex, agentR, agentG, agentB, agentO);			
-	}
+	QString s("OpenGL Window - Frame ");
+	s.append(QString::number(frame, 10));
+	ui.groupBox->setTitle(s);
+}
+
+void SwarmVis::trackColorR_Changed()
+{	
+	double r = (double)ui.sliderR->value() / (double)ui.sliderR->maximum();
+	double g = (double)ui.sliderG->value() / (double)ui.sliderG->maximum();
+	double b = (double)ui.sliderB->value() / (double)ui.sliderB->maximum();
+	double o = (double)ui.sliderO->value() / (double)ui.sliderO->maximum();
+	trackColorChanged(r, g, b, o);
+}
+void SwarmVis::trackColorG_Changed()
+{
+	double r = (double)ui.sliderR->value() / (double)ui.sliderR->maximum();
+	double g = (double)ui.sliderG->value() / (double)ui.sliderG->maximum();
+	double b = (double)ui.sliderB->value() / (double)ui.sliderB->maximum();
+	double o = (double)ui.sliderO->value() / (double)ui.sliderO->maximum();
+	trackColorChanged(r, g, b, o);
+}
+void SwarmVis::trackColorB_Changed()
+{
+	double r = (double)ui.sliderR->value() / (double)ui.sliderR->maximum();
+	double g = (double)ui.sliderG->value() / (double)ui.sliderG->maximum();
+	double b = (double)ui.sliderB->value() / (double)ui.sliderB->maximum();
+	double o = (double)ui.sliderO->value() / (double)ui.sliderO->maximum();
+	trackColorChanged(r, g, b, o);
+}
+void SwarmVis::trackColorO_Changed()
+{
+	double r = (double)ui.sliderR->value() / (double)ui.sliderR->maximum();
+	double g = (double)ui.sliderG->value() / (double)ui.sliderG->maximum();
+	double b = (double)ui.sliderB->value() / (double)ui.sliderB->maximum();
+	double o = (double)ui.sliderO->value() / (double)ui.sliderO->maximum();
+	trackColorChanged(r, g, b, o);
 }
 
 

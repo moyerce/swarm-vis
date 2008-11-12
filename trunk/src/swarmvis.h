@@ -28,6 +28,7 @@ signals:
     void startSignal();
 	void selectedAgentsChanged(QList<QListWidgetItem*>);
 	void updateAgentTypesColor(QList<int>, QList<double>, QList<double>, QList<double>, QList<double>);
+	void trackColorChanged(double, double, double, double);
        
 private slots:
 	void btnPlay_clicked();
@@ -35,12 +36,18 @@ private slots:
 	void btnSelectAll_clicked();
 	void threadFinished();
 	void menubar_action_handler(QAction* action);
-	void listSelectionChanged();
+	void trackSelectionChanged();
 	void typeSelectionChanged();
 	void agentSelectionChanged();
 	void btnSetColor_clicked();
 	void btnSetColor_2_clicked();
 	void btnSetAgentSize_clicked();
+	void setGroupBoxLabel(int frame);
+	
+	void trackColorR_Changed();
+	void trackColorG_Changed();
+	void trackColorB_Changed();
+	void trackColorO_Changed();
 	    
 private:
     Ui::SwarmVisClass ui;
@@ -58,6 +65,8 @@ private:
 
     void createThread();
 	void populateListView();
+	void loadNewData();
+	void setupUI();
 };
 
 #endif // SWARMVIS_H

@@ -7,7 +7,7 @@ MyThread::MyThread(QObject *parent, int maxTimeIndex, double delayToNextFrame)
 	maxTime = maxTimeIndex;
 	delay = delayToNextFrame;
 	currentTime = 0;
-	stopped = false;
+	stopped = false;	
 }
 
 void MyThread::custom_sleep(double delay)
@@ -35,7 +35,7 @@ void MyThread::run()
 		}
 		else
 		{
-			break;
+			break;			
 		}
 		}
 	}		
@@ -59,3 +59,4 @@ void MyThread::setDelay(double ms)
 {
 	delay = ms;
 }
+

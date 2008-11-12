@@ -8,7 +8,6 @@
  GLWidget::GLWidget(QWidget *parent)
      : QGLWidget(parent)
  {	
-	COLORDIVISOR = 10000;
 	initialized = false;
 
 	xRot = 0;
@@ -21,14 +20,10 @@
 	showBoundingBox = true;
 	sameColor = false;
 
-	agentComponentR = 0.0;
-	agentComponentG = 0.0;
-	agentComponentB = 1.0;
-	agentComponentO = 1.0;
-	individualAgentComponentR = 1.0;
-	individualAgentComponentG = 1.0;
-	individualAgentComponentB = 1.0;
-	individualAgentComponentO = 1.0;
+	trackColorR = 0.0;
+	trackColorG = 0.0;
+	trackColorB = 0.0;
+	trackColorO = 0.35;
 
 	colorOverride = false;
 
@@ -86,9 +81,9 @@ void  GLWidget::paintGL()
 				if (showPaths)
 				{
 					if (sameColor)
-						glColor4d (r, g, b, individualAgentComponentO);						
+						glColor4d (r, g, b, trackColorO);						
 					else
-						glColor4d (individualAgentComponentR, individualAgentComponentG, individualAgentComponentB, individualAgentComponentO);
+						glColor4d (trackColorR, trackColorG, trackColorB, trackColorO);
 					showSelectedPaths(i);					
 				}
 				buildTrail(i, trailLength);
@@ -111,9 +106,9 @@ void  GLWidget::paintGL()
 				if (showPaths)
 				{
 					if (sameColor)
-						glColor4d (r, g, b, individualAgentComponentO);
+						glColor4d (r, g, b, trackColorO);
 					else
-						glColor4d (individualAgentComponentR, individualAgentComponentG, individualAgentComponentB, individualAgentComponentO);						
+						glColor4d (trackColorR, trackColorG, trackColorB, trackColorO);						
 					showSelectedPaths(i);
 					//buildTrail(i, trailLength);
 				}
@@ -316,46 +311,12 @@ void GLWidget::toggleShowPaths(bool toggle)
 	updateGL();
 }
 
-
-void GLWidget::agentsColorValueR(int value)
+void GLWidget::setTrackColor(double r, double g, double b, double o)
 {
-	agentComponentR = (double)value /(double)COLORDIVISOR;
-	updateGL();
-}
-void GLWidget::agentsColorValueG(int value)
-{
-	agentComponentG = (double)value /(double)COLORDIVISOR;
-	updateGL();
-}
-void GLWidget::agentsColorValueB(int value)
-{
-	agentComponentB = (double)value /(double)COLORDIVISOR;
-	updateGL();
-}
-void GLWidget::agentsColorValueO(int value)
-{
-	agentComponentO = (double)value /(double)COLORDIVISOR;
-	updateGL();
-}
-
-void GLWidget::individualAgentsColorValueR(int value)
-{
-	individualAgentComponentR = (double)value /(double)COLORDIVISOR;
-	updateGL();
-}
-void GLWidget::individualAgentsColorValueG(int value)
-{
-	individualAgentComponentG = (double)value /(double)COLORDIVISOR;
-	updateGL();
-}
-void GLWidget::individualAgentsColorValueB(int value)
-{
-	individualAgentComponentB = (double)value /(double)COLORDIVISOR;
-	updateGL();
-}
-void GLWidget::individualAgentsColorValueO(int value)
-{
-	individualAgentComponentO = (double)value /(double)COLORDIVISOR;
+	trackColorR = r;
+	trackColorG = g;
+	trackColorB = b;
+	trackColorO = o;
 	updateGL();
 }
 
@@ -403,7 +364,7 @@ void GLWidget::showPathWithSameColor(bool value)
 
  void GLWidget::setTimeIndex(int timeIndex)
  {   
-	 std::cout << "TimeIndex:"<< timeIndex << std::endl;
+	 //std::cout << "TimeIndex:"<< timeIndex << std::endl;
 	 currentTime = timeIndex;
 	 initialized = true;
 	
