@@ -46,13 +46,14 @@
 	QPoint lastPos;
 	bool showPaths;
 	bool showBoundingBox;
+	bool depthChecking;
 	bool sameColor;
 
 	double trackColorR;
 	double trackColorG;
 	double trackColorB;
 	double trackColorO;
-	QList<QListWidgetItem*> selectedAgents;
+	QList<int> selectedTrackAgents;
 
 	void buildTrail(int agentIndex, int length);
 	void showSelectedPaths(int index);
@@ -78,11 +79,12 @@
 	void setTrailLength(int length);
 	void toggleShowPaths(bool toggle);	
 	void setTrackColor(double r, double g, double b, double o);
-	void selectedAgentsChanged(QList<QListWidgetItem*> selection);
+	void selectedTrackAgentsChanged(QList<int> selection);
 	void boundingBox_toggled(bool value);	
 	void updateAgentTypesColor(QList<int>, QList<double>, QList<double>, QList<double>, QList<double>);
 	void showPathWithSameColor(bool value);
 	void override_toggled(bool value);
+	void depthChecking_toggled(bool value);
 	
   signals:
       void timeIndexChanged(int timeIndex);
