@@ -242,25 +242,6 @@
      <attribute name="title" >
       <string>Tracks</string>
      </attribute>
-     <widget class="QListWidget" name="listWidgetAgents" >
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>30</y>
-        <width>151</width>
-        <height>301</height>
-       </rect>
-      </property>
-      <property name="selectionMode" >
-       <enum>QAbstractItemView::ExtendedSelection</enum>
-      </property>
-      <property name="selectionBehavior" >
-       <enum>QAbstractItemView::SelectRows</enum>
-      </property>
-      <property name="modelColumn" >
-       <number>0</number>
-      </property>
-     </widget>
      <widget class="QCheckBox" name="chkAgentPaths" >
       <property name="geometry" >
        <rect>
@@ -491,6 +472,16 @@
        <string>Show Track in Agent Color</string>
       </property>
      </widget>
+     <widget class="QTableWidget" name="tableWidgetTracks" >
+      <property name="geometry" >
+       <rect>
+        <x>20</x>
+        <y>31</y>
+        <width>131</width>
+        <height>291</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_3" >
      <attribute name="title" >
@@ -564,6 +555,22 @@
       </property>
       <property name="text" >
        <string>Show Bounding Box</string>
+      </property>
+      <property name="checked" >
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="chkDepthChecking" >
+      <property name="geometry" >
+       <rect>
+        <x>20</x>
+        <y>70</y>
+        <width>161</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Enable Depth Checking</string>
       </property>
       <property name="checked" >
        <bool>true</bool>

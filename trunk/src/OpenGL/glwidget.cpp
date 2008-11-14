@@ -18,6 +18,7 @@
 	zoom = 400.0;
 	showPaths = false;
 	showBoundingBox = true;
+	depthChecking = true;
 	sameColor = false;
 
 	trackColorR = 0.0;
@@ -34,18 +35,24 @@
 void GLWidget::initializeGL ()
 {
 	glClearColor (1.0, 1.0, 1.0, 0.0);
-	glEnable (GL_DEPTH_TEST);
+	//glEnable (GL_DEPTH_TEST);
 	glEnable(GL_POINT_SMOOTH);
 	//glViewport(0, 0, 800, 600);
 	//gluPerspective(45.0,800/600,0.1,100.0);
 }
 
 void  GLWidget::paintGL()
-{		
+{
+	if (depthChecking) glEnable(GL_DEPTH_TEST);
+	else glDisable(GL_DEPTH_TEST);
+
 	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//glBlendFunc(GL_DST_ALPHA, GL_ONE_MINUS_DST_ALPHA);  
+
+
 	glScaled(zoom, zoom, 0.0);	
 	//rotate the view
 	glRotated(xRot / 16.0, 1.0, 0.0, 0.0);
@@ -85,7 +92,7 @@ void  GLWidget::paintGL()
 					else
 						glColor4d (trackColorR, trackColorG, trackColorB, trackColorO);
 					showSelectedPaths(i);
-					std::cout << a.getX() <<  a.getY() << a.getZ() <<std::endl;
+					//std::cout << a.getX() <<  a.getY() << a.getZ() <<std::endl;
 				}
 				buildTrail(i, trailLength);
 			}
@@ -111,7 +118,7 @@ void  GLWidget::paintGL()
 					else
 						glColor4d (trackColorR, trackColorG, trackColorB, trackColorO);						
 					showSelectedPaths(i);
-					std::cout << a.getX() <<  a.getY() << a.getZ() <<std::endl;
+					//std::cout << a.getX() <<  a.getY() << a.getZ() <<std::endl;
 					//buildTrail(i, trailLength);
 				}
 				buildTrail(i, trailLength);
@@ -264,11 +271,17 @@ void GLWidget::setYRotation(int angle)
 	 glPointSize(2);	 
 	 for(int i = 1; i <= length; i++)
 	 {
-		if ((currentTime - i) >= 0)
+		int k = currentTime - i;
+		if ((k) >= 0)
 		{
-			Agent a = agent_array[currentTime - i][agentIndex];
-	 			 	
-	 		glBegin (GL_POINTS);	
+			int k = currentTime - i;
+			Agent a = agent_array[k][agentIndex];
+			Agent ab;
+			if (k != 0)
+	 			ab = agent_array[k - 1][agentIndex];
+			else
+				ab = a;
+	 		
 	 		
 			QColor c = a.getColor(); //set the agents color				
 			double r = (double)c.red() / 255;
@@ -277,9 +290,10 @@ void GLWidget::setYRotation(int angle)
 			//double o = (double)c.alpha() / 255;
 			
 			glColor4d (r, g, b, 0.7 - 0.7*(double)i / (double)length);
-	 				     
-	 		glVertex3d ( a.getX(),  a.getY(), a.getZ());	 		
-	 	
+	 		glBegin (GL_LINES);
+	     
+	 		glVertex3d ( a.getX(),  a.getY(), a.getZ());
+			glVertex3d ( ab.getX(),  ab.getY(), ab.getZ());	 	
 	 		glEnd ();
 		}
 	 }	 
@@ -289,18 +303,21 @@ void GLWidget::setYRotation(int angle)
 	glPointSize(2);
 	//glColor3d (1.0, 1.0, 1.0); //set color to blue
 
-	std::cout<< "Index: "<< index<< std::endl;
-	glBegin(GL_POINTS);
+	//std::cout<< "Index: "<< index<< std::endl;
+	glBegin(GL_LINES);
 	
-	for (int i = 0; i < selectedAgents.size(); i++)
+	for (int i = 0; i < selectedTrackAgents.size(); i++)
 	{
-		QListWidgetItem *item = selectedAgents.at(i);
-		bool * temp;
-		if (index == item->data(Qt::ToolTipRole).toInt(temp))
+		int agent = selectedTrackAgents.at(i);		
+		if (index == agent)
 		{
+			//std::cout<< "AgentID: "<< agent<< std::endl;
 			for(int j = 0; j < maxTimeIndex; j++)
-			{			
-				glVertex3d(agent_array[j][index].getX(), agent_array[j][index].getY(), agent_array[j][index].getZ()); 		
+			{
+				int k = j+ 1;
+				glVertex3d(agent_array[j][index].getX(), agent_array[j][index].getY(), agent_array[j][index].getZ());
+				if (k < maxTimeIndex)
+					glVertex3d(agent_array[k][index].getX(), agent_array[k][index].getY(), agent_array[k][index].getZ());
 			}
 		}
 	}
@@ -323,9 +340,9 @@ void GLWidget::setTrackColor(double r, double g, double b, double o)
 	updateGL();
 }
 
-void GLWidget::selectedAgentsChanged(QList<QListWidgetItem*> selection)
+void GLWidget::selectedTrackAgentsChanged(QList<int> selection)
 {	
-	selectedAgents = selection;
+	selectedTrackAgents = selection;
 	updateGL();
 }
 
@@ -378,6 +395,12 @@ void GLWidget::showPathWithSameColor(bool value)
 void GLWidget::override_toggled(bool value)
 {
 	colorOverride = value;
+	updateGL();
+}
+
+void GLWidget::depthChecking_toggled(bool value)
+{
+	depthChecking = value;
 	updateGL();
 }
 

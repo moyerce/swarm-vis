@@ -26,11 +26,11 @@ void AgentArray::readInfoFile(std::string directory, std::string filename)
 		std::string fname = directory + filename;
 		const char *name = fname.c_str();	
 		ifstream file;		
-		cout << "Opening File:" << filename << endl;
+		//cout << "Opening File:" << filename << endl;
 		file.open(name);
 		if(!file)
 		{
-				cerr << "Error: file could not be opened" << endl;	    
+				cerr << "Error: "<< filename << " could not be opened" << endl;	    
 		}
 		char word[255];
 		bool processing_files = false;
@@ -40,7 +40,7 @@ void AgentArray::readInfoFile(std::string directory, std::string filename)
 		{
 			file.getline(word, 255, '\n');
 			std::string s = word;			
-			cout << s << endl;
+			//cout << s << endl;
 			if (!processing_files)
 			{
 				processing_files = parseStringContent(s);
@@ -121,7 +121,7 @@ std::vector<Agent> AgentArray::parseAgentsFromFile(std::string filename)
 	double z;
 	int type;
 		
-	cout << "Opening File:" << filename << endl;
+	//cout << "Opening File:" << filename << endl;
 	file.open(name);
 	if(!file)
 	{
@@ -149,13 +149,13 @@ std::vector<Agent> AgentArray::parseAgentsFromFile(std::string filename)
 		if (agentTypes == 1) file >> type;
 			
 		Agent *b = new Agent(normalize(x, rangeX), normalize(y, rangeY), normalize(z, rangeZ), type);
-		std::cout << "x: "<< x << "y: "<< y <<"z: "<< z <<std::endl;
-		std::cout << "loop:" << i << std::endl;
+		//std::cout << "x: "<< x << "y: "<< y <<"z: "<< z <<std::endl;
+		//std::cout << "loop:" << i << std::endl;
 		i++;	
 		agentVector.push_back(*b);		
 	}	
 	file.close();
-	cout << "End-of-file reached.." << endl;
+	//cout << "End-of-file reached.." << endl;
 	
 	return agentVector;
 }

@@ -26,7 +26,7 @@ public:
 signals:
 	void playSignal();
     void startSignal();
-	void selectedAgentsChanged(QList<QListWidgetItem*>);
+	void selectedTrackAgentsChanged(QList<int>);
 	void updateAgentTypesColor(QList<int>, QList<double>, QList<double>, QList<double>, QList<double>);
 	void trackColorChanged(double, double, double, double);
        

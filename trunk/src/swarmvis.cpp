@@ -33,10 +33,11 @@ SwarmVis::SwarmVis(QWidget *parent)
 	connect(this, SIGNAL(updateAgentTypesColor(QList<int>, QList<double>, QList<double>, QList<double>, QList<double>)),
 		glWidget, SLOT(updateAgentTypesColor(QList<int>, QList<double>, QList<double>, QList<double>, QList<double>)));
 	// items on the AGENTS tab
-	connect(this, SIGNAL(selectedAgentsChanged(QList<QListWidgetItem*>)), glWidget, SLOT(selectedAgentsChanged(QList<QListWidgetItem*>)));
-	connect(ui.listWidgetAgents, SIGNAL(itemSelectionChanged()), this, SLOT(trackSelectionChanged()));
+	connect(this, SIGNAL(selectedTrackAgentsChanged(QList<int>)), glWidget, SLOT(selectedTrackAgentsChanged(QList<int>)));
+	connect(ui.tableWidgetTracks, SIGNAL(itemSelectionChanged()), this, SLOT(trackSelectionChanged()));
 	// items on the MISC tab
 	connect(ui.chkBoundingBox, SIGNAL(toggled(bool)), glWidget, SLOT(boundingBox_toggled(bool)));
+	connect(ui.chkDepthChecking, SIGNAL(toggled(bool)), glWidget, SLOT(depthChecking_toggled(bool)));
 	
 	setupUI();
 }
@@ -66,7 +67,13 @@ void SwarmVis::setupUI()
 
 void SwarmVis::loadNewData()
 {	
-	ui.listWidgetAgents->clear();
+	ui.tableWidgetTracks->clear();
+	ui.tableWidgetTracks->insertColumn(0);
+	QStringList tracksHeader;
+    tracksHeader << "Agents";
+	ui.tableWidgetTracks->setHorizontalHeaderLabels(tracksHeader);
+	ui.tableWidgetTracks->setRowCount(0);
+	
 	ui.listWidgetTypes->clear();
 	ui.tableWidget->clear();
 	ui.tableWidget->insertColumn(0);
@@ -155,7 +162,7 @@ void SwarmVis::btnSelectAll_clicked()
 
 void SwarmVis::btnClearSelection_clicked()
 {
-	QItemSelectionModel * selectionModel = ui.listWidgetAgents->selectionModel();
+	QItemSelectionModel * selectionModel = ui.tableWidgetTracks->selectionModel();
 	selectionModel->clearSelection();
 }
 
@@ -170,10 +177,15 @@ void SwarmVis::populateListView()
 		s = out.str();				
 
 		//the path of agents view	
-		QListWidgetItem * item = new QListWidgetItem;		
-		item->setText(s.c_str());
-		item->setData(Qt::ToolTipRole, i);	
-		ui.listWidgetAgents->addItem(item);
+		//QListWidgetItem * item = new QListWidgetItem;		
+		//item->setText(s.c_str());
+		//item->setData(Qt::ToolTipRole, i);	
+		//ui.listWidgetAgents->addItem(item);
+
+		QTableWidgetItem *item = new QTableWidgetItem(s.c_str());
+		int r = ui.tableWidgetTracks->rowCount();
+		ui.tableWidgetTracks->insertRow(r);
+		ui.tableWidgetTracks->setItem(r, 0, item);
 
 		//the table view
 		QTableWidgetItem *tItem0 = new QTableWidgetItem(s.c_str());
@@ -216,8 +228,21 @@ void SwarmVis::populateListView()
 
 void SwarmVis::trackSelectionChanged()
 {
-	QList<QListWidgetItem*> selectedAgents = ui.listWidgetAgents->selectedItems();
-	selectedAgentsChanged(selectedAgents);
+	QList<QTableWidgetItem*> selectedAgents = ui.tableWidgetTracks->selectedItems();
+	QList<int> list;
+	for (int i = 0; i < selectedAgents.size(); i++)
+	{
+		QTableWidgetItem* item = selectedAgents.at(i);
+		int index = item->row();
+
+		if (!list.contains(index))
+		{
+			list.append(index);
+			//std::cout<<index<<std::endl;
+		}
+		
+	}
+	selectedTrackAgentsChanged(list);
 }
 
 void SwarmVis::typeSelectionChanged()
