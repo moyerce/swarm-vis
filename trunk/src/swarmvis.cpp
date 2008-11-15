@@ -280,8 +280,6 @@ void SwarmVis::btnSetColor_clicked()
 {
 	if (typeSelectedItem!=NULL)
 	{
-		std::cout << "A" << std::endl;
-	
 		QColor color = QColorDialog::getColor(typeSelectedItem->backgroundColor(), this );	
 		typeSelectedItem->setBackgroundColor(color);
 		double r = color.redF();
@@ -289,19 +287,11 @@ void SwarmVis::btnSetColor_clicked()
 		double b = color.blueF();
 		double o = color.alphaF();
 
-		std::cout << "B" << std::endl;
-
-		
-		bool * temp;
+		bool * temp = new bool;
 		
 		QVariant qv = typeSelectedItem->data(Qt::DisplayRole);
 		
-		std::cout << "Can we convert this to an int?" <<   qv.canConvert<int>() << std::endl;
-		
 		int val = qv.toInt(temp);		
-
-		std::cout << "C" << std::endl;
-
 
 		if (!agentTypeIndex.contains(val))
 		{		
@@ -318,15 +308,11 @@ void SwarmVis::btnSetColor_clicked()
 			agentB.replace(agentTypeIndex.indexOf(val),b);
 			agentO.replace(agentTypeIndex.indexOf(val),o);			
 		}
-		
-		std::cout << "D" << std::endl;
 
+		updateAgentTypesColor(agentTypeIndex, agentR, agentG, agentB, agentO);		
 		
-		updateAgentTypesColor(agentTypeIndex, agentR, agentG, agentB, agentO);			
+		delete temp;
 	}
-	
-	std::cout << "E" << std::endl;
-
 }
 void SwarmVis::btnSetColor_2_clicked()
 {
