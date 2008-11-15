@@ -293,7 +293,12 @@ void SwarmVis::btnSetColor_clicked()
 
 		
 		bool * temp;
-		int val = typeSelectedItem->data(Qt::DisplayRole).toInt(temp);		
+		
+		QVariant qv = typeSelectedItem->data(Qt::DisplayRole);
+		
+		std::cout << "Can we convert this to an int?" <<   qv.canConvert<int>() << std::endl;
+		
+		int val = qv.toInt(temp);		
 
 		std::cout << "C" << std::endl;
 
