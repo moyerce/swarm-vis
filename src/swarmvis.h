@@ -63,6 +63,8 @@ private:
 	QList<double> agentB;
 	QList<double> agentO;	
 
+	bool isLoaded;
+
     void createThread();
 	void populateListView();
 	void loadNewData();

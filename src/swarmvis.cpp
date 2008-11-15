@@ -15,6 +15,8 @@ SwarmVis::SwarmVis(QWidget *parent)
 	thread = NULL;
 	typeSelectedItem = NULL;
 	
+	isLoaded = false;
+	
 	// always visible items	
 	connect(ui.timeSlider, SIGNAL(valueChanged(int)), glWidget, SLOT(setTimeIndex(int)));
 	connect(ui.timeSlider, SIGNAL(valueChanged(int)), this, SLOT(setGroupBoxLabel(int)));
@@ -49,15 +51,18 @@ SwarmVis::~SwarmVis()
 
 void SwarmVis::btnPlay_clicked()
 {	
-	if (thread == NULL || thread->isFinished ())
+	if (isLoaded)
 	{
-		createThread();
-		thread->start();
+		if (thread == NULL || thread->isFinished ())
+		{
+			createThread();
+			thread->start();
+		}
+		else
+		{
+			startSignal();
+		}
 	}
-	else
-	{
-		startSignal();
-	}	
 }
 
 void SwarmVis::setupUI()
@@ -91,6 +96,7 @@ void SwarmVis::loadNewData()
 	agentG.clear();
 	agentB.clear();
 	agentO.clear();
+	isLoaded = true;
 }
 
 void SwarmVis::menubar_action_handler(QAction* action)
@@ -273,16 +279,25 @@ void SwarmVis::agentSelectionChanged()
 void SwarmVis::btnSetColor_clicked()
 {
 	if (typeSelectedItem!=NULL)
-	{			
+	{
+		std::cout << "A" << std::endl;
+	
 		QColor color = QColorDialog::getColor(typeSelectedItem->backgroundColor(), this );	
 		typeSelectedItem->setBackgroundColor(color);
 		double r = color.redF();
 		double g = color.greenF();
 		double b = color.blueF();
 		double o = color.alphaF();
+
+		std::cout << "B" << std::endl;
+
 		
 		bool * temp;
 		int val = typeSelectedItem->data(Qt::DisplayRole).toInt(temp);		
+
+		std::cout << "C" << std::endl;
+
+
 		if (!agentTypeIndex.contains(val))
 		{		
 			agentTypeIndex.append(val);
@@ -299,8 +314,14 @@ void SwarmVis::btnSetColor_clicked()
 			agentO.replace(agentTypeIndex.indexOf(val),o);			
 		}
 		
+		std::cout << "D" << std::endl;
+
+		
 		updateAgentTypesColor(agentTypeIndex, agentR, agentG, agentB, agentO);			
 	}
+	
+	std::cout << "E" << std::endl;
+
 }
 void SwarmVis::btnSetColor_2_clicked()
 {
