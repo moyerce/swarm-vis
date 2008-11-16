@@ -282,12 +282,23 @@ void GLWidget::setYRotation(int angle)
 			else
 				ab = a;
 	 		
-	 		
-			QColor c = a.getColor(); //set the agents color				
-			double r = (double)c.red() / 255;
-			double g = (double)c.green() / 255;
-			double b = (double)c.blue() / 255;
-			//double o = (double)c.alpha() / 255;
+			double r, g, b;
+			QColor c;
+			
+	 		if ( agentTypes.contains(a.getType()) && colorOverride )
+	 		{
+				c = a.getColor(); //set the agents color				
+				r = agentTypeColorR.at(agentTypes.indexOf(ab.getType()));
+				g = agentTypeColorB.at(agentTypes.indexOf(ab.getType()));
+				b = agentTypeColorB.at(agentTypes.indexOf(ab.getType()));
+	 		}
+	 		else
+	 		{
+				c = a.getColor(); //set the agents color				
+				r = (double)c.red() / 255;
+				g = (double)c.green() / 255;
+				b = (double)c.blue() / 255;
+			}
 			
 			glColor4d (r, g, b, 0.7 - 0.7*(double)i / (double)length);
 	 		glBegin (GL_LINES);
