@@ -231,9 +231,9 @@ void SwarmVis::populateListView()
 		}
 	}
 	//get the counts for the types of agents
-	std::map<std::string, int> counts_average;
-	std::map<std::string, int> counts_first;
-	std::map<std::string, int> counts_last;
+	std::map<std::string, double> counts_average;
+	std::map<std::string, double> counts_first;
+	std::map<std::string, double> counts_last;
 	std::vector<Agent> * agents_array = agents->getAgentsVector();
 	for (int i = 0; i < agents->getNumAgents(); i++)
 	{
@@ -267,12 +267,12 @@ void SwarmVis::populateListView()
 		QColor color = QColor::fromRgbF(0.0, 0.0, 1.0, 1.0);
 		colorItem->setBackgroundColor(color);
 		
-		int average = counts_average[typeList.at(i)]/agents->getTimeSteps();
-		QTableWidgetItem *total = new QTableWidgetItem(QString::number(average, 10));
-		int first = counts_first[typeList.at(i)];
-		QTableWidgetItem *total_first = new QTableWidgetItem(QString::number(first, 10));
-		int last = counts_last[typeList.at(i)];
-		QTableWidgetItem *total_last = new QTableWidgetItem(QString::number(last, 10));
+		double average = counts_average[typeList.at(i)]/agents->getTimeSteps();
+		QTableWidgetItem *total = new QTableWidgetItem(QString::number(average, 'f', 3));
+		double first = counts_first[typeList.at(i)];
+		QTableWidgetItem *total_first = new QTableWidgetItem(QString::number(first, 'f', 3));
+		double last = counts_last[typeList.at(i)];
+		QTableWidgetItem *total_last = new QTableWidgetItem(QString::number(last, 'f', 3));
 
 		int row = ui.tableWidgetTypes->rowCount();
 		ui.tableWidgetTypes->insertRow(row);
