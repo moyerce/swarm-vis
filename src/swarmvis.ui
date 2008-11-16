@@ -227,7 +227,7 @@
        <rect>
         <x>280</x>
         <y>330</y>
-        <width>80</width>
+        <width>90</width>
         <height>26</height>
        </rect>
       </property>
@@ -251,7 +251,7 @@
      <widget class="QCheckBox" name="chkAgentPaths" >
       <property name="geometry" >
        <rect>
-        <x>170</x>
+        <x>195</x>
         <y>30</y>
         <width>101</width>
         <height>23</height>
@@ -303,7 +303,7 @@
      <widget class="QCheckBox" name="chkSameColor" >
       <property name="geometry" >
        <rect>
-        <x>170</x>
+        <x>195</x>
         <y>60</y>
         <width>205</width>
         <height>23</height>
@@ -318,7 +318,7 @@
        <rect>
         <x>20</x>
         <y>31</y>
-        <width>131</width>
+        <width>155</width>
         <height>291</height>
        </rect>
       </property>
@@ -326,7 +326,7 @@
      <widget class="QGroupBox" name="groupBox_3" >
       <property name="geometry" >
        <rect>
-        <x>170</x>
+        <x>195</x>
         <y>280</y>
         <width>131</width>
         <height>91</height>
@@ -365,7 +365,7 @@
      <widget class="QGroupBox" name="groupBox_4" >
       <property name="geometry" >
        <rect>
-        <x>170</x>
+        <x>195</x>
         <y>100</y>
         <width>120</width>
         <height>171</height>
@@ -569,9 +569,9 @@
      <widget class="QCheckBox" name="chkOverrideAgentColor" >
       <property name="geometry" >
        <rect>
-        <x>270</x>
-        <y>30</y>
-        <width>141</width>
+        <x>125</x>
+        <y>345</y>
+        <width>200</width>
         <height>21</height>
        </rect>
       </property>
@@ -584,7 +584,7 @@
        <rect>
         <x>10</x>
         <y>30</y>
-        <width>251</width>
+        <width>390</width>
         <height>291</height>
        </rect>
       </property>
