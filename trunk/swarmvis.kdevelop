@@ -38,8 +38,8 @@
       <version>4</version>
       <includestyle>4</includestyle>
       <designerintegration>ExternalDesigner</designerintegration>
-      <qmake>/usr/local/Trolltech/Qt-4.4.3/bin/qmake</qmake>
-      <designer>/usr/local/Trolltech/Qt-4.4.3/bin/designer</designer>
+      <qmake>/usr/bin/qmake</qmake>
+      <designer>/usr/bin/designer</designer>
       <root>/usr/lib/qt4</root>
       <designerpluginpaths/>
     </qt>
