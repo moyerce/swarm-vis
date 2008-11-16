@@ -222,43 +222,17 @@
        <double>4.000000000000000</double>
       </property>
      </widget>
-    </widget>
-    <widget class="QWidget" name="tab" >
-     <property name="geometry" >
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>415</width>
-       <height>383</height>
-      </rect>
-     </property>
-     <attribute name="title" >
-      <string>Trails</string>
-     </attribute>
-     <widget class="QLabel" name="label_3" >
+     <widget class="QPushButton" name="btnSetGlyph" >
       <property name="geometry" >
        <rect>
-        <x>20</x>
-        <y>30</y>
-        <width>121</width>
-        <height>17</height>
+        <x>280</x>
+        <y>330</y>
+        <width>80</width>
+        <height>26</height>
        </rect>
       </property>
       <property name="text" >
-       <string>Agent Trail Length:</string>
-      </property>
-     </widget>
-     <widget class="QSpinBox" name="spinBoxTrailLength" >
-      <property name="geometry" >
-       <rect>
-        <x>20</x>
-        <y>50</y>
-        <width>100</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="maximum" >
-       <number>5000</number>
+       <string>Set Glyph</string>
       </property>
      </widget>
     </widget>
@@ -279,12 +253,12 @@
        <rect>
         <x>170</x>
         <y>30</y>
-        <width>91</width>
+        <width>101</width>
         <height>23</height>
        </rect>
       </property>
       <property name="text" >
-       <string>Show Path</string>
+       <string>Show Tracks</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_5" >
@@ -300,11 +274,99 @@
        <string>Listing of Agents:</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="btnClearSelection" >
+      <property name="geometry" >
+       <rect>
+        <x>80</x>
+        <y>340</y>
+        <width>40</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Clear</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnSelectAll" >
+      <property name="geometry" >
+       <rect>
+        <x>30</x>
+        <y>340</y>
+        <width>41</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>All</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="chkSameColor" >
+      <property name="geometry" >
+       <rect>
+        <x>170</x>
+        <y>60</y>
+        <width>205</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Show Track in Agent Color</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="tableWidgetTracks" >
+      <property name="geometry" >
+       <rect>
+        <x>20</x>
+        <y>31</y>
+        <width>131</width>
+        <height>291</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_3" >
+      <property name="geometry" >
+       <rect>
+        <x>170</x>
+        <y>280</y>
+        <width>131</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="title" >
+       <string>Trails</string>
+      </property>
+      <widget class="QLabel" name="label_3" >
+       <property name="geometry" >
+        <rect>
+         <x>10</x>
+         <y>30</y>
+         <width>121</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text" >
+        <string>Agent Trail Length:</string>
+       </property>
+      </widget>
+      <widget class="QSpinBox" name="spinBoxTrailLength" >
+       <property name="geometry" >
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>100</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <property name="maximum" >
+        <number>5000</number>
+       </property>
+      </widget>
+     </widget>
      <widget class="QGroupBox" name="groupBox_4" >
       <property name="geometry" >
        <rect>
-        <x>260</x>
-        <y>130</y>
+        <x>170</x>
+        <y>100</y>
         <width>120</width>
         <height>171</height>
        </rect>
@@ -465,55 +527,6 @@
        </property>
       </widget>
      </widget>
-     <widget class="QPushButton" name="btnClearSelection" >
-      <property name="geometry" >
-       <rect>
-        <x>80</x>
-        <y>340</y>
-        <width>40</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text" >
-       <string>Clear</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="btnSelectAll" >
-      <property name="geometry" >
-       <rect>
-        <x>30</x>
-        <y>340</y>
-        <width>41</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text" >
-       <string>All</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="chkSameColor" >
-      <property name="geometry" >
-       <rect>
-        <x>170</x>
-        <y>60</y>
-        <width>205</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="text" >
-       <string>Show Track in Agent Color</string>
-      </property>
-     </widget>
-     <widget class="QTableWidget" name="tableWidgetTracks" >
-      <property name="geometry" >
-       <rect>
-        <x>20</x>
-        <y>31</y>
-        <width>131</width>
-        <height>291</height>
-       </rect>
-      </property>
-     </widget>
     </widget>
     <widget class="QWidget" name="tab_3" >
      <property name="geometry" >
@@ -540,19 +553,6 @@
        <string>Types of Agents:</string>
       </property>
      </widget>
-     <widget class="QListWidget" name="listWidgetTypes" >
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>30</y>
-        <width>151</width>
-        <height>301</height>
-       </rect>
-      </property>
-      <property name="selectionMode" >
-       <enum>QAbstractItemView::SingleSelection</enum>
-      </property>
-     </widget>
      <widget class="QPushButton" name="btnSetColor" >
       <property name="geometry" >
        <rect>
@@ -569,14 +569,24 @@
      <widget class="QCheckBox" name="chkOverrideAgentColor" >
       <property name="geometry" >
        <rect>
-        <x>190</x>
+        <x>270</x>
         <y>30</y>
-        <width>175</width>
+        <width>141</width>
         <height>21</height>
        </rect>
       </property>
       <property name="text" >
        <string>Override Agent Color</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="tableWidgetTypes" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>251</width>
+        <height>291</height>
+       </rect>
       </property>
      </widget>
     </widget>
@@ -621,7 +631,7 @@
        <string>Enable Depth Checking</string>
       </property>
       <property name="checked" >
-       <bool>true</bool>
+       <bool>false</bool>
       </property>
      </widget>
     </widget>
@@ -733,18 +743,18 @@
    </hints>
   </connection>
   <connection>
-   <sender>listWidgetTypes</sender>
-   <signal>itemSelectionChanged()</signal>
+   <sender>btnSetGlyph</sender>
+   <signal>clicked()</signal>
    <receiver>SwarmVisClass</receiver>
-   <slot>typeSelectionChanged()</slot>
+   <slot>btnSetGlyph_clicked()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>143</x>
-     <y>137</y>
+     <x>349</x>
+     <y>413</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>278</x>
-     <y>504</y>
+     <x>367</x>
+     <y>624</y>
     </hint>
    </hints>
   </connection>
@@ -755,8 +765,8 @@
    <slot>btnSetColor_clicked()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>83</x>
-     <y>436</y>
+     <x>85</x>
+     <y>434</y>
     </hint>
     <hint type="destinationlabel" >
      <x>340</x>
@@ -781,6 +791,22 @@
    </hints>
   </connection>
   <connection>
+   <sender>btnSetColor_3</sender>
+   <signal>clicked()</signal>
+   <receiver>SwarmVisClass</receiver>
+   <slot>btnSetAgentSize_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>214</x>
+     <y>424</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>248</x>
+     <y>579</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
    <sender>btnSetColor_2</sender>
    <signal>clicked()</signal>
    <receiver>SwarmVisClass</receiver>
@@ -796,22 +822,6 @@
     </hint>
    </hints>
   </connection>
-  <connection>
-   <sender>btnSetColor_3</sender>
-   <signal>clicked()</signal>
-   <receiver>SwarmVisClass</receiver>
-   <slot>btnSetAgentSize_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>212</x>
-     <y>426</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>248</x>
-     <y>579</y>
-    </hint>
-   </hints>
-  </connection>
  </connections>
  <slots>
   <slot>btnPlay_clicked()</slot>
@@ -824,6 +834,7 @@
   <slot>agentSelectionChanged()</slot>
   <slot>btnSetColor_2_clicked()</slot>
   <slot>btnSetAgentSize_clicked()</slot>
+  <slot>btnSetGlyph_clicked()</slot>
   <signal>playSignal()</signal>
   <signal>boundingBox_toggled(bool)</signal>
  </slots>

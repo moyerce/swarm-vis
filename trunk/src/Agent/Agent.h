@@ -2,6 +2,7 @@
 #define AGENT_H_
 
 #include <QColor>
+#include <string>
 
 class Agent
 {
@@ -14,7 +15,7 @@ public:
 		  int type - the type of the agent
 	 * @return
 	 */
-	Agent(double x, double y, double z, int type);
+	Agent(double x, double y, double z, std::string type);
 	/** Destructor.*/
 	virtual ~Agent();
 	/** Set the X-Coordinate of the Agent
@@ -32,7 +33,7 @@ public:
 	/** Set the type of the Agent
 	 * @param int type - the type of the agent
 	 */
-	void setType(int type) { this->type = type; }
+	void setType(std::string type) { this->type = type; }
 	/** Set the color of the Agent
 	 *  @param QColor color - and rgba color representation
 	 */
@@ -60,7 +61,7 @@ public:
 	/** Get the type of the Agent
 	 * @return the type
 	 */
-	int getType(){ return type; };
+	std::string getType(){ return type; };
 	/** Get the color of the Agent
 	 * @return the color
 	 */
@@ -78,7 +79,7 @@ private:
 	double x;  // the x-coordinate
 	double y;  // the z-coordinate
 	double z;  // the y-coordinate
-	int type;  // the type of agent
+	std::string type;  // the type of agent
 	QColor color;	// the color of the Agent
 	double size;	// the size (mostly for the point size in openGL
 	int glyph;	// the glyph to use to represent the agent

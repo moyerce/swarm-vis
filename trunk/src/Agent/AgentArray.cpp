@@ -90,7 +90,7 @@ std::vector<Agent> AgentArray::parseAgentsFromFile(std::string filename)
 	double x;
 	double y;
 	double z;
-	int type;
+	std::string type;
 	
 	file.open(name);
 	if(!file) std::cerr << "Error: file could not be opened" << std::endl;
@@ -105,7 +105,7 @@ std::vector<Agent> AgentArray::parseAgentsFromFile(std::string filename)
 		else x = 0.0;
 		// if types are present in the file
 		if (agentTypes == 1) file >> type;
-		else type = 0;
+		else type = "none";
 		// create a new agent
 		Agent *b = new Agent(normalize(x, rangeX), normalize(y, rangeY), normalize(z, rangeZ), type);
 		i++;
