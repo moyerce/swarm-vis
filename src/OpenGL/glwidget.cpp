@@ -269,7 +269,7 @@ void GLWidget::setYRotation(int angle)
  void GLWidget::buildTrail(int agentIndex, int length)
  {	
 	 glPointSize(2);	 
-	 for(int i = 1; i <= length; i++)
+	 for(int i = 0; i <= length; i++)
 	 {
 		int k = currentTime - i;
 		if ((k) >= 0)
