@@ -378,7 +378,7 @@
         </rect>
        </property>
        <property name="text" >
-        <string>B</string>
+        <string>G</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_8" >
@@ -391,7 +391,7 @@
         </rect>
        </property>
        <property name="text" >
-        <string>G</string>
+        <string>B</string>
        </property>
       </widget>
       <widget class="QSlider" name="sliderO" >
