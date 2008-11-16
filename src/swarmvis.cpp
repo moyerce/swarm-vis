@@ -1,7 +1,5 @@
 #include "swarmvis.h"
-#include <string>
-#include <vector>
-#include <iostream>
+#include <QLayout>
 
 SwarmVis::SwarmVis(QWidget *parent)
     : QMainWindow(parent)
@@ -12,9 +10,9 @@ SwarmVis::SwarmVis(QWidget *parent)
 	QHBoxLayout *layout = new QHBoxLayout;
 	layout->addWidget(glWidget);
 	ui.groupBox->setLayout(layout);
+	
 	thread = NULL;
 	typeSelectedItem = NULL;
-	
 	isLoaded = false;
 	
 	// always visible items	
@@ -50,7 +48,7 @@ SwarmVis::~SwarmVis()
 }
 
 void SwarmVis::btnPlay_clicked()
-{	
+{
 	if (isLoaded)
 	{
 		if (thread == NULL || thread->isFinished ())
@@ -67,29 +65,37 @@ void SwarmVis::btnPlay_clicked()
 
 void SwarmVis::setupUI()
 {
-	
-}
-
-void SwarmVis::loadNewData()
-{	
-	ui.tableWidgetTracks->clear();
 	ui.tableWidgetTracks->insertColumn(0);
 	QStringList tracksHeader;
-    tracksHeader << "Agents";
+	tracksHeader << "Agents";
 	ui.tableWidgetTracks->setHorizontalHeaderLabels(tracksHeader);
-	ui.tableWidgetTracks->setRowCount(0);
-	
-	ui.listWidgetTypes->clear();
-	ui.tableWidget->clear();
+
 	ui.tableWidget->insertColumn(0);
 	ui.tableWidget->insertColumn(1);	
 	ui.tableWidget->insertColumn(2);	
 	ui.tableWidget->insertColumn(3);
 	QStringList headers;
-    headers << "Agents" << "Color" << "Size" << "Glyph";
+	headers << "Agents" << "Color" << "Size" << "Glyph";
+	ui.tableWidget->setHorizontalHeaderLabels(headers);
+}
+
+void SwarmVis::loadNewData()
+{
+	ui.tableWidgetTracks->clear();
+	QStringList tracksHeader;
+	tracksHeader << "Agents";
+	ui.tableWidgetTracks->setHorizontalHeaderLabels(tracksHeader);
+	ui.tableWidgetTracks->setRowCount(0);
+	
+	ui.listWidgetTypes->clear();
+
+	ui.tableWidget->clear();
+	QStringList headers;
+	headers << "Agents" << "Color" << "Size" << "Glyph";
 	ui.tableWidget->setHorizontalHeaderLabels(headers);
 	ui.tableWidget->setRowCount(0);
-	typeList.clear();	
+
+	typeList.clear();
 	agentTypeIndex.clear();
 	agentIndex.clear();
 	agentR.clear();
@@ -108,7 +114,7 @@ void SwarmVis::menubar_action_handler(QAction* action)
 	// Action handler for loading data
 	if (action->text().compare("&Load Agent Data") == 0)
 	{
-		// Prompt user for an .info File		
+		// Prompt user for an .info File
 		QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
 							"/home/workspace5/3DSwarmData/",
 							tr("Info (*.info);;Text file (*.txt);;XML files (*.xml);; All File (*.*)"));
@@ -117,9 +123,9 @@ void SwarmVis::menubar_action_handler(QAction* action)
 		{
 			loadNewData();
 			std::string str =  fileName.toStdString();
-			size_t found;		
+			size_t found;
 			found = str.find_last_of("/");
-			std::string directory = str.substr(0, found+1);
+			std::string directory = str.substr(0, found + 1);
 			std::string filename = str.substr(found + 1);
 			
 			// Initialize the Agents
@@ -131,7 +137,7 @@ void SwarmVis::menubar_action_handler(QAction* action)
 			// Initialize the GUI components
 			populateListView();
 		}
-	}	
+	}
 }
 
 void SwarmVis::threadFinished()
@@ -144,7 +150,7 @@ void SwarmVis::threadFinished()
 }
 
 void SwarmVis::createThread()
-{	
+{
 	double DELAY = ui.dSpinBoxDelay->value();
 	thread = new MyThread(this, agents->getTimeSteps() - 1, DELAY);
 	connect(thread, SIGNAL(playSignal()), ui.timeSlider, SLOT(addStep()));
@@ -152,8 +158,7 @@ void SwarmVis::createThread()
 	connect(ui.dSpinBoxDelay, SIGNAL(valueChanged(double)), thread, SLOT(setDelay(double)));
 	connect(ui.btnStop, SIGNAL(clicked()), thread, SLOT(startStopThread()));
 	connect(this, SIGNAL(startSignal()), thread, SLOT(startStopThread()));
-	connect(thread, SIGNAL(finished()), this, SLOT(threadFinished()));	
-
+	connect(thread, SIGNAL(finished()), this, SLOT(threadFinished()));
 }
 
 void SwarmVis::btnSelectAll_clicked()
@@ -172,22 +177,16 @@ void SwarmVis::btnClearSelection_clicked()
 	selectionModel->clearSelection();
 }
 
-
 void SwarmVis::populateListView()
 {
 	for (int i = 0; i < agents->getNumAgents(); i++)
-	{	
+	{
 		std::string s;
 		std::stringstream out;
 		out << "Agent" << i;
-		s = out.str();				
+		s = out.str();
 
-		//the path of agents view	
-		//QListWidgetItem * item = new QListWidgetItem;		
-		//item->setText(s.c_str());
-		//item->setData(Qt::ToolTipRole, i);	
-		//ui.listWidgetAgents->addItem(item);
-
+		//the path of agents view
 		QTableWidgetItem *item = new QTableWidgetItem(s.c_str());
 		int r = ui.tableWidgetTracks->rowCount();
 		ui.tableWidgetTracks->insertRow(r);
@@ -215,17 +214,17 @@ void SwarmVis::populateListView()
 			{
 				typeList.append(agents_array[j][i].getType());
 			}
-		}		
+		}
 	}
 	
 	//Populate the list of Types with the different types
-	for (int i = 0; i < typeList.size(); i++) 
-	{ 
+	for (int i = 0; i < typeList.size(); i++)
+	{
 		QListWidgetItem * item = new QListWidgetItem;
 		std::string s;
-		std::stringstream out;		
+		std::stringstream out;
 		out << typeList.at(i);
-		s = out.str();		
+		s = out.str();
 		item->setText(s.c_str());
 		ui.listWidgetTypes->addItem(item);
 	}
@@ -244,7 +243,6 @@ void SwarmVis::trackSelectionChanged()
 		if (!list.contains(index))
 		{
 			list.append(index);
-			//std::cout<<index<<std::endl;
 		}
 		
 	}
@@ -255,9 +253,6 @@ void SwarmVis::typeSelectionChanged()
 {
 	QList<QListWidgetItem*> selectedType = ui.listWidgetTypes->selectedItems();
 	typeSelectedItem = selectedType.at(0);
-	//QColor c = typeSelectedItem->backgroundColor();
-	//bool * temp;
-	//int index = item->data(Qt::ToolTipRole).toInt(temp);	
 }
 
 void SwarmVis::agentSelectionChanged()
@@ -271,7 +266,6 @@ void SwarmVis::agentSelectionChanged()
 		if (!agentIndex.contains(index))
 		{
 			agentIndex.append(index);
-			//std::cout<<index<<std::endl;
 		}
 	}
 }
@@ -280,21 +274,18 @@ void SwarmVis::btnSetColor_clicked()
 {
 	if (typeSelectedItem!=NULL)
 	{
-		QColor color = QColorDialog::getColor(typeSelectedItem->backgroundColor(), this );	
+		QColor color = QColorDialog::getColor(typeSelectedItem->backgroundColor(), this );
 		typeSelectedItem->setBackgroundColor(color);
 		double r = color.redF();
 		double g = color.greenF();
 		double b = color.blueF();
 		double o = color.alphaF();
 
-		bool * temp = new bool;
-		
-		QVariant qv = typeSelectedItem->data(Qt::DisplayRole);
-		
-		int val = qv.toInt(temp);		
+		bool temp;
+		int val = typeSelectedItem->text().toInt(&temp, 10);
 
 		if (!agentTypeIndex.contains(val))
-		{		
+		{
 			agentTypeIndex.append(val);
 			agentR.append(r);
 			agentG.append(g);
@@ -302,21 +293,19 @@ void SwarmVis::btnSetColor_clicked()
 			agentO.append(o);
 		}
 		else
-		{		
+		{
 			agentR.replace(agentTypeIndex.indexOf(val),r);
 			agentG.replace(agentTypeIndex.indexOf(val),g);
 			agentB.replace(agentTypeIndex.indexOf(val),b);
-			agentO.replace(agentTypeIndex.indexOf(val),o);			
+			agentO.replace(agentTypeIndex.indexOf(val),o);
 		}
 
-		updateAgentTypesColor(agentTypeIndex, agentR, agentG, agentB, agentO);		
-		
-		delete temp;
+		updateAgentTypesColor(agentTypeIndex, agentR, agentG, agentB, agentO);
 	}
 }
 void SwarmVis::btnSetColor_2_clicked()
 {
-//sets the color for each individual agent that is selected
+	//sets the color for each individual agent that is selected
 	if (agentIndex.size() > 0)
 	{
 		QTableWidgetItem * first = ui.tableWidget->item(agentIndex.at(0), 1);
@@ -342,7 +331,7 @@ void SwarmVis::btnSetColor_2_clicked()
 }
 void SwarmVis::btnSetAgentSize_clicked()
 {
-//sets the size for each individual agent that is selected
+	//sets the size for each individual agent that is selected
 	if (agentIndex.size() > 0)
 	{	
 		std::vector<Agent> *agent_array = agents->getAgentsVector();

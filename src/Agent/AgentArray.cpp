@@ -1,19 +1,8 @@
 #include "AgentArray.h"
-#include <fstream>
-#include <iostream>
-using namespace std;
-
-
 
 AgentArray::AgentArray(std::string directory, std::string filename)
 {
-	readInfoFile(directory, filename);	
-	/*for (int i = 0; i < timeSteps; i++)
-	{		
-		std::string current_filename = filename + padString(6, i + 1) + ".txt";		
-		agent_array[i] = parseAgentsFromFile(current_filename);
-		
-	}*/	
+	readInfoFile(directory, filename);
 }
 
 AgentArray::~AgentArray()
@@ -21,17 +10,15 @@ AgentArray::~AgentArray()
 }
 
 void AgentArray::readInfoFile(std::string directory, std::string filename)
-{	
+{
 		//read the info.txt file
 		std::string fname = directory + filename;
-		const char *name = fname.c_str();	
-		ifstream file;		
-		//cout << "Opening File:" << filename << endl;
+		const char *name = fname.c_str();
+		std::ifstream file;
+		
 		file.open(name);
-		if(!file)
-		{
-				cerr << "Error: "<< filename << " could not be opened" << endl;	    
-		}
+		if(!file) std::cerr << "Error: "<< filename << " could not be opened" << std::endl;
+
 		char word[255];
 		bool processing_files = false;
 		
@@ -39,75 +26,59 @@ void AgentArray::readInfoFile(std::string directory, std::string filename)
 		while ( !file.eof() )
 		{
 			file.getline(word, 255, '\n');
-			std::string s = word;			
-			//cout << s << endl;
+			std::string s = word;
 			if (!processing_files)
 			{
 				processing_files = parseStringContent(s);
 			}
 			else
-			{				
+			{
 				if (s != "")
 				{
-					agent_array[i] = parseAgentsFromFile(directory + s);					
+					agent_array[i] = parseAgentsFromFile(directory + s);
 					i++;
 				}
 			}
 			
-		}		
+		}
 		file.close();
 }
 
 int AgentArray::getValue(std::string s)
 {
-	int index = s.find("=",0);		
-	stringstream ss(s.substr(index+1,s.length()));		
+	int index = s.find("=", 0);
+	std::stringstream ss(s.substr(index + 1, s.length()));
 	int n;
-	ss >> n;	
+	ss >> n;
 	return n;
 }
 
 bool AgentArray::parseStringContent(std::string s)
 {
-	string::size_type loc;
+	std::string::size_type loc;
 	
 	loc = s.find( "FILES", 0 );
-	if( loc != string::npos) return true;
-		
+	if( loc != std::string::npos) return true;
 	loc = s.find( "DIMENSIONS", 0 );
-	if( loc != string::npos) dimensions = getValue(s);
+	if( loc != std::string::npos) dimensions = getValue(s);
 	loc = s.find( "AGENTS", 0 );
-	if( loc != string::npos) numAgents = getValue(s);
+	if( loc != std::string::npos) numAgents = getValue(s);
 	loc = s.find( "FRAMES", 0 );
-	if( loc != string::npos)
+	if( loc != std::string::npos)
 	{
-		timeSteps = getValue(s);		
-		agent_array = new std::vector<Agent>[timeSteps];		
+		timeSteps = getValue(s);
+		agent_array = new std::vector<Agent>[timeSteps];
 	}
 	loc = s.find( "RANGEX", 0 );
-	if( loc != string::npos) rangeX = getValue(s);
+	if( loc != std::string::npos) rangeX = getValue(s);
 	loc = s.find( "RANGEY", 0 );
-	if( loc != string::npos) rangeY = getValue(s);
+	if( loc != std::string::npos) rangeY = getValue(s);
 	loc = s.find( "RANGEZ", 0 );
-	if( loc != string::npos) rangeZ = getValue(s);
+	if( loc != std::string::npos) rangeZ = getValue(s);
 	loc = s.find( "AGENTTYPES", 0 );
-	if( loc != string::npos) agentTypes = getValue(s);
-	
+	if( loc != std::string::npos) agentTypes = getValue(s);
 	
 	return false;
-}
-
-std::string AgentArray::padString(int length, int n)
-{
-	stringstream s;
-	s << n;
-	std::string s2 = s.str();
-	std::string prepended = "";
-	for (int i = 0; i < length - s2.size(); i++)
-	{
-		prepended += "0";
-	}
-	return prepended + s.str();
 }
 
 std::vector<Agent> AgentArray::parseAgentsFromFile(std::string filename)
@@ -115,52 +86,36 @@ std::vector<Agent> AgentArray::parseAgentsFromFile(std::string filename)
 	std::vector<Agent> agentVector;
 	const char *name = filename.c_str();	
 	
-	ifstream file;
+	std::ifstream file;
 	double x;
 	double y;
 	double z;
 	int type;
-		
-	//cout << "Opening File:" << filename << endl;
+	
 	file.open(name);
-	if(!file)
-	{
-		cerr << "Error: file could not be opened" << endl;	    
-	}
-	
-	/*file >> x;
-	file >> y;
-	if (dimensions == 3) file >> z;
-	else z = 0.0;
-	
-	if (agentTypes == 1) file >> type;
-	else type = 0;
-	
-	Agent *a = new Agent(normalize(x, rangeX), normalize(y, rangeY), normalize(z, rangeZ), type);	
-	agentVector.push_back(*a);*/
+	if(!file) std::cerr << "Error: file could not be opened" << std::endl;
 	
 	int i = 0;
 	while ( !file.eof() && (numAgents > i) )
-	{  //keep reading until end-of-file
-		file >> x; // sets EOF flag if no value found
-		file >> y;		
+	{
+		file >> x;
+		file >> y;
+		// if dimensions was specified
 		if (dimensions == 3) file >> z;
-	
+		else x = 0.0;
+		// if types are present in the file
 		if (agentTypes == 1) file >> type;
-			
+		else type = 0;
+		// create a new agent
 		Agent *b = new Agent(normalize(x, rangeX), normalize(y, rangeY), normalize(z, rangeZ), type);
-		//std::cout << "x: "<< x << "y: "<< y <<"z: "<< z <<std::endl;
-		//std::cout << "loop:" << i << std::endl;
-		i++;	
-		agentVector.push_back(*b);		
-	}	
+		i++;
+		agentVector.push_back(*b);
+	}
 	file.close();
-	//cout << "End-of-file reached.." << endl;
-	
 	return agentVector;
 }
 
-vector<Agent> * AgentArray::getAgentsVector()
+std::vector<Agent> * AgentArray::getAgentsVector()
 {
 	return agent_array;
 }
@@ -168,16 +123,8 @@ vector<Agent> * AgentArray::getAgentsVector()
 double AgentArray::normalize(double val, double maxRange)
 {
 	double mid = maxRange / 2;
-	if (val == mid) 
-	{
-		return 0;
-	}
-	else if (val > mid)//between 0 and 1
-	{
-		return (val - mid) / mid;
-	}
-	else
-	{
-		return -1.0 + (val / mid);
-	}
+	
+	if (val == mid) return 0;
+	else if (val > mid) return (val - mid) / mid;
+	else return -1.0 + (val / mid);
 }

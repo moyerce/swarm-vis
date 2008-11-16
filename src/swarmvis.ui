@@ -13,11 +13,19 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>24</y>
+     <width>1068</width>
+     <height>638</height>
+    </rect>
+   </property>
    <widget class="QGroupBox" name="groupBox" >
     <property name="geometry" >
      <rect>
-      <x>440</x>
-      <y>10</y>
+      <x>460</x>
+      <y>20</y>
       <width>600</width>
       <height>600</height>
      </rect>
@@ -80,7 +88,7 @@
     <widget class="QDoubleSpinBox" name="dSpinBoxDelay" >
      <property name="geometry" >
       <rect>
-       <x>140</x>
+       <x>130</x>
        <y>110</y>
        <width>62</width>
        <height>27</height>
@@ -131,14 +139,22 @@
      <rect>
       <x>20</x>
       <y>20</y>
-      <width>401</width>
-      <height>401</height>
+      <width>419</width>
+      <height>409</height>
      </rect>
     </property>
     <property name="currentIndex" >
      <number>0</number>
     </property>
     <widget class="QWidget" name="tab_4" >
+     <property name="geometry" >
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>415</width>
+       <height>383</height>
+      </rect>
+     </property>
      <attribute name="title" >
       <string>Agents</string>
      </attribute>
@@ -208,6 +224,14 @@
      </widget>
     </widget>
     <widget class="QWidget" name="tab" >
+     <property name="geometry" >
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>415</width>
+       <height>383</height>
+      </rect>
+     </property>
      <attribute name="title" >
       <string>Trails</string>
      </attribute>
@@ -239,6 +263,14 @@
      </widget>
     </widget>
     <widget class="QWidget" name="tab_2" >
+     <property name="geometry" >
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>415</width>
+       <height>383</height>
+      </rect>
+     </property>
      <attribute name="title" >
       <string>Tracks</string>
      </attribute>
@@ -484,6 +516,14 @@
      </widget>
     </widget>
     <widget class="QWidget" name="tab_3" >
+     <property name="geometry" >
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>415</width>
+       <height>383</height>
+      </rect>
+     </property>
      <attribute name="title" >
       <string>Types</string>
      </attribute>
@@ -541,6 +581,14 @@
      </widget>
     </widget>
     <widget class="QWidget" name="tab_5" >
+     <property name="geometry" >
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>415</width>
+       <height>383</height>
+      </rect>
+     </property>
      <attribute name="title" >
       <string>Misc</string>
      </attribute>
@@ -585,7 +633,7 @@
      <x>0</x>
      <y>0</y>
      <width>1068</width>
-     <height>25</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File" >
@@ -597,7 +645,16 @@
    </widget>
    <addaction name="menu_File" />
   </widget>
-  <widget class="QStatusBar" name="statusbar" />
+  <widget class="QStatusBar" name="statusbar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>662</y>
+     <width>1068</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
   <action name="action_Quit" >
    <property name="text" >
     <string>&amp;Quit</string>
