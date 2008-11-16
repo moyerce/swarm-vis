@@ -29,7 +29,8 @@ signals:
 	void playSignal();
 	void startSignal();
 	void selectedTrackAgentsChanged(QList<int>);
-	void updateAgentTypesColor(QList<int>, QList<double>, QList<double>, QList<double>, QList<double>);
+	void selectedTypesAgentsChanged(QList<std::string>);
+	void updateAgentTypesColor(QList<std::string>, QList<QColor>);
 	void trackColorChanged(double, double, double, double);
 
 private slots:
@@ -49,15 +50,16 @@ private slots:
 	void trackColorG_Changed();
 	void trackColorB_Changed();
 	void trackColorO_Changed();
+	void btnSetGlyph_clicked();
 
 private:
 	Ui::SwarmVisClass ui;
 	MyThread *thread;
 	GLWidget *glWidget;
 	AgentArray *agents;
-	QList<int> typeList;
-	QListWidgetItem *typeSelectedItem;
-	QList<int> agentTypeIndex;
+	//QList<std::string> typeList;	
+	//QList<std::string> agentTypeIndex;
+	QList<std::string> typeIndex;
 	QList<int> agentIndex;
 	QList<double> agentR;
 	QList<double> agentG;

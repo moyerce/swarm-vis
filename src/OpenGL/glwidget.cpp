@@ -11,7 +11,7 @@ GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
 	zoom = 400.0;
 	showPaths = false;
 	showBoundingBox = true;
-	depthChecking = true;
+	depthChecking = false;
 	sameColor = false;
 	colorOverride = false;
 	trackColorR = 0.0;
@@ -56,15 +56,22 @@ void  GLWidget::paintGL()
 			if (agentTypes.contains(a.getType()) && colorOverride)
 			{
 				glPointSize(a.getSize());
-	
-				double r = agentTypeColorR.at(agentTypes.indexOf(a.getType()));
-				double g = agentTypeColorG.at(agentTypes.indexOf(a.getType()));
-				double b = agentTypeColorB.at(agentTypes.indexOf(a.getType()));
-				double o = agentTypeColorO.at(agentTypes.indexOf(a.getType()));
+				
+				int index = agentTypes.indexOf(a.getType(), 0);
+				QColor c = agentTypeColors.at(index);
+				//double r = agentTypeColorR.at(agentTypes.indexOf(a.getType()));
+				//double g = agentTypeColorG.at(agentTypes.indexOf(a.getType()));
+				//double b = agentTypeColorB.at(agentTypes.indexOf(a.getType()));
+				//double o = agentTypeColorO.at(agentTypes.indexOf(a.getType()));
+				double r = (double)c.red() / 255;
+				double g = (double)c.green() / 255;
+				double b = (double)c.blue() / 255;
+				double o = (double)c.alpha() / 255;
 
 				glColor4d (r, g, b, o);
+
 				glBegin (GL_POINTS);
-					glVertex3d (a.getX(),  a.getY(), a.getZ());
+					glVertex3d (a.getX(), a.getY(), a.getZ());
 				glEnd ();
 				if (showPaths)
 				{
@@ -85,9 +92,9 @@ void  GLWidget::paintGL()
 				double o = (double)c.alpha() / 255;
 				
 				glColor4d (r, g, b, o);
-
+				
 				glBegin (GL_POINTS);
-					glVertex3d ( a.getX(),  a.getY(), a.getZ());
+					glVertex3d (a.getX(), a.getY(), a.getZ());
 				glEnd ();
 				if (showPaths)
 				{
@@ -260,10 +267,13 @@ void GLWidget::buildTrail(int agentIndex, int length)
 
 			if ( agentTypes.contains(a.getType()) && colorOverride )
 			{
-				c = a.getColor(); //set the agents color
-				r = agentTypeColorR.at(agentTypes.indexOf(ab.getType()));
-				g = agentTypeColorB.at(agentTypes.indexOf(ab.getType()));
-				b = agentTypeColorB.at(agentTypes.indexOf(ab.getType()));
+				int index = agentTypes.indexOf(a.getType(), 0);
+				c = agentTypeColors.at(index);
+				//c = a.getColor(); //set the agents color
+				r = (double)c.red() / 255;
+				g = (double)c.green() / 255;
+				b = (double)c.blue() / 255;
+				//o = (double)c.alpha() / 255;
 			}
 			else
 			{
@@ -330,13 +340,10 @@ void GLWidget::boundingBox_toggled(bool value)
 	updateGL();
 }
 
-void GLWidget::updateAgentTypesColor(QList<int> type, QList<double> r, QList<double> g, QList<double> b, QList<double> o)
+void GLWidget::updateAgentTypesColor(QList<std::string> type, QList<QColor> color)
 {
 	agentTypes = type;
-	agentTypeColorR = r;
-	agentTypeColorG = g;
-	agentTypeColorB = b;
-	agentTypeColorO = o;
+	agentTypeColors = color;
 	updateGL();
 }
 

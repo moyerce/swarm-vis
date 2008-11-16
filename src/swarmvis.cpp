@@ -12,7 +12,7 @@ SwarmVis::SwarmVis(QWidget *parent)
 	ui.groupBox->setLayout(layout);
 	
 	thread = NULL;
-	typeSelectedItem = NULL;
+	//typeSelectedItem = NULL;
 	isLoaded = false;
 	
 	// always visible items	
@@ -30,8 +30,8 @@ SwarmVis::SwarmVis(QWidget *parent)
 	connect(ui.chkSameColor, SIGNAL(toggled(bool)), glWidget, SLOT(showPathWithSameColor(bool)));
 	// items on the TYPES tab
 	connect(ui.chkOverrideAgentColor, SIGNAL(toggled(bool)), glWidget, SLOT(override_toggled(bool)));
-	connect(this, SIGNAL(updateAgentTypesColor(QList<int>, QList<double>, QList<double>, QList<double>, QList<double>)),
-		glWidget, SLOT(updateAgentTypesColor(QList<int>, QList<double>, QList<double>, QList<double>, QList<double>)));
+	connect(ui.tableWidgetTypes, SIGNAL(itemSelectionChanged()), this, SLOT(typeSelectionChanged()));
+	connect(this, SIGNAL(updateAgentTypesColor(QList<std::string>, QList<QColor>)), glWidget, SLOT(updateAgentTypesColor(QList<std::string>, QList<QColor>)));
 	// items on the AGENTS tab
 	connect(this, SIGNAL(selectedTrackAgentsChanged(QList<int>)), glWidget, SLOT(selectedTrackAgentsChanged(QList<int>)));
 	connect(ui.tableWidgetTracks, SIGNAL(itemSelectionChanged()), this, SLOT(trackSelectionChanged()));
@@ -77,6 +77,15 @@ void SwarmVis::setupUI()
 	QStringList headers;
 	headers << "Agents" << "Color" << "Size" << "Glyph";
 	ui.tableWidget->setHorizontalHeaderLabels(headers);
+
+	ui.tableWidgetTypes->insertColumn(0);
+	ui.tableWidgetTypes->insertColumn(1);
+	ui.tableWidgetTypes->insertColumn(2);
+	ui.tableWidgetTypes->insertColumn(3);
+	ui.tableWidgetTypes->insertColumn(4);
+	QStringList typesHeaders;
+	typesHeaders << "Agents" << "Color" << "# at t = 0" << "# at last t" << "Average";
+	ui.tableWidgetTypes->setHorizontalHeaderLabels(typesHeaders);
 }
 
 void SwarmVis::loadNewData()
@@ -87,16 +96,19 @@ void SwarmVis::loadNewData()
 	ui.tableWidgetTracks->setHorizontalHeaderLabels(tracksHeader);
 	ui.tableWidgetTracks->setRowCount(0);
 	
-	ui.listWidgetTypes->clear();
+	ui.tableWidgetTypes->clear();
+	QStringList typesHeaders;
+	typesHeaders << "Types" << "Color" << "First" << "Last" << "Avg";
+	ui.tableWidgetTypes->setHorizontalHeaderLabels(typesHeaders);
+	ui.tableWidgetTypes->setRowCount(0);
 
 	ui.tableWidget->clear();
 	QStringList headers;
 	headers << "Agents" << "Color" << "Size" << "Glyph";
 	ui.tableWidget->setHorizontalHeaderLabels(headers);
 	ui.tableWidget->setRowCount(0);
-
-	typeList.clear();
-	agentTypeIndex.clear();
+	
+	typeIndex.clear();
 	agentIndex.clear();
 	agentR.clear();
 	agentG.clear();
@@ -179,6 +191,8 @@ void SwarmVis::btnClearSelection_clicked()
 
 void SwarmVis::populateListView()
 {
+	QList<std::string> typeList;
+
 	for (int i = 0; i < agents->getNumAgents(); i++)
 	{
 		std::string s;
@@ -216,19 +230,60 @@ void SwarmVis::populateListView()
 			}
 		}
 	}
+	//get the counts for the types of agents
+	std::map<std::string, int> counts_average;
+	std::map<std::string, int> counts_first;
+	std::map<std::string, int> counts_last;
+	std::vector<Agent> * agents_array = agents->getAgentsVector();
+	for (int i = 0; i < agents->getNumAgents(); i++)
+	{
+		for (int j = 0; j < agents->getTimeSteps(); j++)
+		{
+			for (int k = 0; k < typeList.size(); k++)
+			{
+				if (typeList.at(k) == agents_array[j][i].getType())
+				{
+					++counts_average[typeList.at(k)];
+					if (j == 0)
+					{
+						++counts_first[typeList.at(k)];
+					}
+					if (j == agents->getTimeSteps() - 1)
+					{
+						++counts_last[typeList.at(k)];
+					}
+				}
+			}
+		}
+	}
 	
 	//Populate the list of Types with the different types
 	for (int i = 0; i < typeList.size(); i++)
 	{
-		QListWidgetItem * item = new QListWidgetItem;
-		std::string s;
-		std::stringstream out;
-		out << typeList.at(i);
-		s = out.str();
-		item->setText(s.c_str());
-		ui.listWidgetTypes->addItem(item);
+		std::string s = typeList.at(i);
+		QTableWidgetItem * item = new QTableWidgetItem(s.c_str());
+		
+		QTableWidgetItem *colorItem = new QTableWidgetItem("");
+		QColor color = QColor::fromRgbF(0.0, 0.0, 1.0, 1.0);
+		colorItem->setBackgroundColor(color);
+		
+		int average = counts_average[typeList.at(i)]/agents->getTimeSteps();
+		QTableWidgetItem *total = new QTableWidgetItem(QString::number(average, 10));
+		int first = counts_first[typeList.at(i)];
+		QTableWidgetItem *total_first = new QTableWidgetItem(QString::number(first, 10));
+		int last = counts_last[typeList.at(i)];
+		QTableWidgetItem *total_last = new QTableWidgetItem(QString::number(last, 10));
+
+		int row = ui.tableWidgetTypes->rowCount();
+		ui.tableWidgetTypes->insertRow(row);
+		ui.tableWidgetTypes->setItem(row, 0, item);
+		ui.tableWidgetTypes->setItem(row, 1, colorItem);
+		ui.tableWidgetTypes->setItem(row, 2, total_first);
+		ui.tableWidgetTypes->setItem(row, 3, total_last);
+		ui.tableWidgetTypes->setItem(row, 4, total);
 	}
 	ui.tableWidget->resizeColumnsToContents();
+	ui.tableWidgetTypes->resizeColumnsToContents();
 }
 
 void SwarmVis::trackSelectionChanged()
@@ -251,8 +306,21 @@ void SwarmVis::trackSelectionChanged()
 
 void SwarmVis::typeSelectionChanged()
 {
-	QList<QListWidgetItem*> selectedType = ui.listWidgetTypes->selectedItems();
-	typeSelectedItem = selectedType.at(0);
+	typeIndex.clear();
+	QList<QTableWidgetItem*> selectedAgents = ui.tableWidgetTypes->selectedItems();
+	
+	for (int i = 0; i < selectedAgents.size(); i++)
+	{
+		QTableWidgetItem* rowItem = selectedAgents.at(i);
+		QTableWidgetItem* item = ui.tableWidgetTypes->item(rowItem->row(), 0);
+		std::string type_name = item->text().toStdString();
+
+		if (!typeIndex.contains(type_name))
+		{
+			typeIndex.append(type_name);
+		}
+		
+	}
 }
 
 void SwarmVis::agentSelectionChanged()
@@ -272,35 +340,36 @@ void SwarmVis::agentSelectionChanged()
 
 void SwarmVis::btnSetColor_clicked()
 {
-	if (typeSelectedItem!=NULL)
+	//typeIndex contains the names of the types (must NOT be an integer)
+	if (typeIndex.size() > 0)
 	{
-		QColor color = QColorDialog::getColor(typeSelectedItem->backgroundColor(), this );
-		typeSelectedItem->setBackgroundColor(color);
-		double r = color.redF();
-		double g = color.greenF();
-		double b = color.blueF();
-		double o = color.alphaF();
+		QColor color = QColorDialog::getColor(QColor(0,0,0), this );
 
-		bool temp;
-		int val = typeSelectedItem->text().toInt(&temp, 10);
-
-		if (!agentTypeIndex.contains(val))
+		//std::vector<Agent> *agent_array = agents->getAgentsVector();
+		for (int i = 0; i < typeIndex.size(); i++)
 		{
-			agentTypeIndex.append(val);
-			agentR.append(r);
-			agentG.append(g);
-			agentB.append(b);
-			agentO.append(o);
+			for (int j = 0; j < ui.tableWidgetTypes->rowCount(); j++)
+			{
+				QTableWidgetItem * colorItem = ui.tableWidgetTypes->item(j, 1);
+				QTableWidgetItem * nameItem = ui.tableWidgetTypes->item(j, 0);
+				if (nameItem->text().toStdString() == typeIndex.at(i))
+				{
+					colorItem->setBackgroundColor(color);
+				}
+			}
 		}
-		else
+		QList<std::string> types;
+		QList<QColor> colors;
+		for (int i = 0; i < ui.tableWidgetTypes->rowCount(); i++)
 		{
-			agentR.replace(agentTypeIndex.indexOf(val),r);
-			agentG.replace(agentTypeIndex.indexOf(val),g);
-			agentB.replace(agentTypeIndex.indexOf(val),b);
-			agentO.replace(agentTypeIndex.indexOf(val),o);
+			QTableWidgetItem * colorItem = ui.tableWidgetTypes->item(i, 1);
+			QColor c = colorItem->backgroundColor();
+			colors.append(c);
+			QTableWidgetItem * nameItem = ui.tableWidgetTypes->item(i, 0);
+			std::string s = nameItem->text().toStdString();
+			types.append(s);
 		}
-
-		updateAgentTypesColor(agentTypeIndex, agentR, agentG, agentB, agentO);
+		updateAgentTypesColor(types, colors);
 	}
 }
 void SwarmVis::btnSetColor_2_clicked()
@@ -392,6 +461,31 @@ void SwarmVis::trackColorO_Changed()
 	double b = (double)ui.sliderB->value() / (double)ui.sliderB->maximum();
 	double o = (double)ui.sliderO->value() / (double)ui.sliderO->maximum();
 	trackColorChanged(r, g, b, o);
+}
+
+void SwarmVis::btnSetGlyph_clicked()
+{
+	//sets the glyph for each individual agent that is selected
+	if (agentIndex.size() > 0)
+	{	
+		std::vector<Agent> *agent_array = agents->getAgentsVector();
+				
+		for (int i = 0; i < agentIndex.size(); i++)
+		{
+			int aIndex = agentIndex.at(i);
+			//set the items size
+			QTableWidgetItem * item = ui.tableWidget->item(aIndex, 3);
+			
+			item->setText("2");
+
+			for (int j = 0; j < agents->getTimeSteps(); j++)
+			{
+				//set the agents size
+				agent_array[j][aIndex].setGlyph(2);
+			}
+		}
+		//glWidget->setInput(agent_array,agents->getTimeSteps());
+	}
 }
 
 

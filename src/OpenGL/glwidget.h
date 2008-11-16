@@ -56,11 +56,8 @@ private:
 	double trackColorB;
 	double trackColorO;
 	QList<int> selectedTrackAgents;
-	QList<int> agentTypes;
-	QList<double> agentTypeColorR;
-	QList<double> agentTypeColorG;
-	QList<double> agentTypeColorB;
-	QList<double> agentTypeColorO;
+	QList<std::string> agentTypes;
+	QList<QColor> agentTypeColors;
 	bool colorOverride;
 
 	void buildTrail(int agentIndex, int length);
@@ -78,7 +75,7 @@ public slots:
 	void setTrackColor(double r, double g, double b, double o);
 	void selectedTrackAgentsChanged(QList<int> selection);
 	void boundingBox_toggled(bool value);	
-	void updateAgentTypesColor(QList<int>, QList<double>, QList<double>, QList<double>, QList<double>);
+	void updateAgentTypesColor(QList<std::string>, QList<QColor>);
 	void showPathWithSameColor(bool value);
 	void override_toggled(bool value);
 	void depthChecking_toggled(bool value);

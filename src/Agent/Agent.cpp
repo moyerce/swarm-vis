@@ -4,7 +4,7 @@
 Agent::Agent()
 {
 }
-Agent::Agent(double x, double y, double z, int type)
+Agent::Agent(double x, double y, double z, std::string type)
 {
 	this->x = x;
 	this->y = y; 
