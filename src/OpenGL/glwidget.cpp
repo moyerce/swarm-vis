@@ -194,7 +194,13 @@ void GLWidget::wheelEvent(QWheelEvent *event)
 	
 	if (event->orientation() == Qt::Vertical)
 	{
-		zoom += numSteps * 20; 		
+		zoom += numSteps * 20;
+		
+		// don't let it zoom so far out it starts zooming back in
+		if (zoom < 0)
+		{
+			zoom = 0;		
+		}
 	} 
 	event->accept();
 	updateGL();
