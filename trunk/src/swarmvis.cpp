@@ -38,6 +38,11 @@ SwarmVis::SwarmVis(QWidget *parent)
 	// items on the MISC tab
 	connect(ui.chkBoundingBox, SIGNAL(toggled(bool)), glWidget, SLOT(boundingBox_toggled(bool)));
 	connect(ui.chkDepthChecking, SIGNAL(toggled(bool)), glWidget, SLOT(depthChecking_toggled(bool)));
+	connect(ui.chkDumpImage, SIGNAL(toggled(bool)), glWidget, SLOT(dumpImage_toggled(bool)));
+	connect(ui.txtDumpImageFolder, SIGNAL(textChanged(const QString&)), glWidget, SLOT(imageFolder_changed(const QString&)));
+	
+	
+	
 	
 	setupUI();
 }
@@ -487,8 +492,5 @@ void SwarmVis::btnSetGlyph_clicked()
 		//glWidget->setInput(agent_array,agents->getTimeSteps());
 	}
 }
-
-
-
 
 

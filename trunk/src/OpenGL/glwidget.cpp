@@ -12,6 +12,7 @@ GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
 	showPaths = false;
 	showBoundingBox = true;
 	depthChecking = false;
+	dumpImage = false;
 	sameColor = false;
 	colorOverride = false;
 	trackColorR = 0.0;
@@ -108,6 +109,23 @@ void  GLWidget::paintGL()
 			iter++;
 			i++;
 		}
+	}
+	
+	if(dumpImage)
+	{
+		// dump the frame to an image
+		QImage qimg = this->grabFrameBuffer();
+
+
+		// get the file path
+		QString path =
+			dumpImageFolderPath +
+			QString("/frame") +
+			(QString::number(currentTime)).rightJustified(8, '0') +
+			QString(".png");
+
+		// save the image to a file
+		qimg.save(path, "png");	
 	}
 }
 
@@ -387,3 +405,12 @@ void GLWidget::depthChecking_toggled(bool value)
 	updateGL();
 }
 
+void GLWidget::dumpImage_toggled(bool value)
+{
+	dumpImage = value;
+}
+
+void GLWidget::imageFolder_changed(const QString &txt)
+{
+	dumpImageFolderPath = txt;
+}

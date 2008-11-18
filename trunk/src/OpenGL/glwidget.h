@@ -50,6 +50,8 @@ private:
 	bool showPaths;
 	bool showBoundingBox;
 	bool depthChecking;
+	bool dumpImage;
+	QString dumpImageFolderPath;
 	bool sameColor;
 	double trackColorR;
 	double trackColorG;
@@ -79,7 +81,9 @@ public slots:
 	void showPathWithSameColor(bool value);
 	void override_toggled(bool value);
 	void depthChecking_toggled(bool value);
-
+	void dumpImage_toggled(bool value);
+	void imageFolder_changed(const QString &txt);
+	
 signals:
       void timeIndexChanged(int timeIndex);
 };
