@@ -634,31 +634,77 @@
        <bool>false</bool>
       </property>
      </widget>
-     <widget class="QCheckBox" name="chkDumpImage" >
+     <widget class="QGroupBox" name="groupBox_5" >
       <property name="geometry" >
        <rect>
         <x>20</x>
-        <y>110</y>
-        <width>200</width>
-        <height>23</height>
+        <y>120</y>
+        <width>301</width>
+        <height>161</height>
        </rect>
       </property>
-      <property name="text" >
-       <string>Dump Frames to Image Files</string>
+      <property name="title" >
+       <string>Save Frames as Images</string>
       </property>
-      <property name="checked" >
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="txtDumpImageFolder" >
-      <property name="geometry" >
-       <rect>
-        <x>55</x>
-        <y>150</y>
-        <width>300</width>
-        <height>23</height>
-       </rect>
-      </property>
+      <widget class="QCheckBox" name="chkDumpImage" >
+       <property name="enabled" >
+        <bool>false</bool>
+       </property>
+       <property name="geometry" >
+        <rect>
+         <x>10</x>
+         <y>40</y>
+         <width>200</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text" >
+        <string>Enable Frame Dump</string>
+       </property>
+       <property name="checked" >
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="txtDumpImageFolder" >
+       <property name="enabled" >
+        <bool>false</bool>
+       </property>
+       <property name="geometry" >
+        <rect>
+         <x>10</x>
+         <y>70</y>
+         <width>181</width>
+         <height>23</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnSaveFrames" >
+       <property name="geometry" >
+        <rect>
+         <x>200</x>
+         <y>70</y>
+         <width>80</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <property name="text" >
+        <string>Save</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_2" >
+       <property name="geometry" >
+        <rect>
+         <x>10</x>
+         <y>100</y>
+         <width>271</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text" >
+        <string>Note: The selected file will be appended by a
+           frame number!</string>
+       </property>
+      </widget>
      </widget>
     </widget>
    </widget>
@@ -848,6 +894,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>btnSaveFrames</sender>
+   <signal>clicked()</signal>
+   <receiver>SwarmVisClass</receiver>
+   <slot>btnSaveFrame_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>290</x>
+     <y>221</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>298</x>
+     <y>508</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>btnPlay_clicked()</slot>
@@ -861,6 +923,7 @@
   <slot>btnSetColor_2_clicked()</slot>
   <slot>btnSetAgentSize_clicked()</slot>
   <slot>btnSetGlyph_clicked()</slot>
+  <slot>btnSaveFrame_clicked()</slot>
   <signal>playSignal()</signal>
   <signal>boundingBox_toggled(bool)</signal>
  </slots>

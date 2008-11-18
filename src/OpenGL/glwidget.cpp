@@ -115,17 +115,14 @@ void  GLWidget::paintGL()
 	{
 		// dump the frame to an image
 		QImage qimg = this->grabFrameBuffer();
-
-
 		// get the file path
 		QString path =
-			dumpImageFolderPath +
-			QString("/frame") +
+			dumpImagePath +
+			dumpImageFile +	
 			(QString::number(currentTime)).rightJustified(8, '0') +
 			QString(".png");
-
 		// save the image to a file
-		qimg.save(path, "png");	
+		qimg.save(path, "png");
 	}
 }
 
@@ -410,7 +407,20 @@ void GLWidget::dumpImage_toggled(bool value)
 	dumpImage = value;
 }
 
-void GLWidget::imageFolder_changed(const QString &txt)
+void GLWidget::imageFolder_changed(const QString &fileName)
 {
-	dumpImageFolderPath = txt;
+	//dumpImageFile = txt;
+	std::string str =  fileName.toStdString();
+	size_t found;
+	found = str.find_last_of("/");
+	std::string directory = str.substr(0, found + 1);
+	std::string filename = str.substr(found + 1);
+	if (filename.find_last_of(".") != std::string::npos)
+	{
+		size_t index = filename.find_last_of(".");
+		filename = filename.substr(0, index);
+	}
+	dumpImageFile = filename.c_str();
+	dumpImagePath = directory.c_str();
+
 }
