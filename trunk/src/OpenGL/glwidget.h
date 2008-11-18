@@ -51,7 +51,8 @@ private:
 	bool showBoundingBox;
 	bool depthChecking;
 	bool dumpImage;
-	QString dumpImageFolderPath;
+	QString dumpImageFile;
+	QString dumpImagePath;
 	bool sameColor;
 	double trackColorR;
 	double trackColorG;

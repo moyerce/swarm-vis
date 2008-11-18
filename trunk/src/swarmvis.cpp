@@ -133,7 +133,7 @@ void SwarmVis::menubar_action_handler(QAction* action)
 	{
 		// Prompt user for an .info File
 		QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
-							"/home/workspace5/3DSwarmData/",
+							"*.info",
 							tr("Info (*.info);;Text file (*.txt);;XML files (*.xml);; All File (*.*)"));
 
 		if (fileName.length() > 0)
@@ -490,6 +490,18 @@ void SwarmVis::btnSetGlyph_clicked()
 			}
 		}
 		//glWidget->setInput(agent_array,agents->getTimeSteps());
+	}
+}
+
+void SwarmVis::btnSaveFrame_clicked()
+{
+	ui.chkDumpImage->setEnabled(true);
+	QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
+							"frames.png",
+							tr("Image (*.png);;All Files (*.*)"));
+	if (fileName.length() > 0)
+	{
+		ui.txtDumpImageFolder->setText(fileName);
 	}
 }
 
