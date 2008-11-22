@@ -43,7 +43,9 @@
 
 
 \begin{abstract}
-Abstract 
+In this paper, we provide an overview of SwarmVis, a tool for visualizing swarm systems. SwarmVis is able to create informative still images and videos of swarm systems moving in two- and three- dimensional spaces through the use of several visualization techniques. We discuss what information about swarms needs to be conveyed and then explain in detail how we tackled these individually in SwarmVis. Finally, we use two case studies, a tetrahedron and a boid flock, to demonstrate how SwarmVis can be used to analyze both the low-level and swarm-level behaviors of a multi-agent system.
+
+
 \end{abstract}
 
 \section{Introduction}
@@ -60,12 +62,12 @@ and previous positions are not conveyed.}
 
 Crude visualization techniques plot the position of each agent in space as seen with a Reynolds boid flock\cite{reynolds1987} in Figure \ref{old}. A still image only shows the location of individual agents and does not convey important information such as the direction, velocity, and previous positions.
 We have implemented \textit{SwarmVis}, a toolkit for visualizing swarms, that goes beyond the simple plotting technique to solve these problems. The toolkit aims to provide visualization techniques that allow researchers to interactively investigate swarms so that researchers will be able to study interactions, fine-grained movements, and swarm behavior. Figure \ref{ShowOff} displays a swarm system with
-the addition of our tails visualization and conveys much more information than Figure \ref{old}.
+the addition of our trails visualization and conveys much more information than Figure \ref{old}.
 
 \begin{figure}[ht]
 \centering
 \includegraphics[scale=.42]{images/showoff.pdf}
-\caption{A basic visualization of a swarm that only plots points in space as well as tails of significant length.
+\caption{A basic visualization of a swarm that only plots points in space as well as trails of significant length.
 Note that important properties such as direction, velocity, structure, rotation,
 and previous positions are conveyed.}
 \label{ShowOff}
@@ -99,7 +101,7 @@ We typically do not care about the domain, but we are often able to get inspirat
 not directly explained from a visualization point of view.
 In this section, we discuss the similarities and differences between SwarmVis and some of the aforementioned related work.
 
-TODO: Give a paragraph for each related work we wish to talk about
+\textbf{TODO: Give a paragraph for each related work we wish to talk about}
 
 \begin{figure*}[ht]
 \centering
@@ -118,25 +120,27 @@ SwarmVis is mostly  implemented in the C++ language and utilizes the Qt framewor
 to build the graphical user interface and to imbed an OpenGL window.
 The user interface is split down the center,
 the left side containing the majority of the user interface and the right side containing the graphical display.
+The visualization frame in the right side can be rotated and zoomed by dragging and mouse-wheeling, respectively.
 In general, we tried to keep the interface as simple and straightforward as possible.
 A more detailed description of the user interface is given in Figure \ref{AnnotatedWindow}.
 Changes made to the visualization through the interface happen in real-time, as the visualization is playing.
-Lists are parameters are populated when a data set is loaded (more information about data sets is available in the appendix).
+Lists and parameters are populated when a data set is loaded (more information about data sets is available in the appendix).
 
 In the remainder of this section, we list the available visualizations in SwarmVis, what they convey, how they are implemented,
 how they can be enabled, and how they can be modified.
 
+\textbf{TODO: provide citations for where we got inspiration for each visualization.}
+
 
 \subsection{Visualizations}
-\subsubsection{Animation}
 
-TODO: Add Content
 
-Figure \ref{Animation}.
+
+
 
 \begin{figure}
 \centering
-\includegraphics[scale=.282]{images/animation.pdf}
+\includegraphics[scale=.282]{images/animation.png}
 \caption{
 Three captured frames from a swarm animation of three-dimensional flocking boids\cite{reynolds1987}.
 When viewed in quick succession as frames in a video, the user
@@ -144,15 +148,45 @@ is able to detect the flocks' motion and structural changes.}
 \label{Animation}
 \end{figure}
 
-\subsubsection{Color and Size}
+\subsubsection{Animation}
 
-TODO: Add Content
+The playback control (as seen in  seen in Figure \ref{AnnotatedWindow})
+gives the user the ability to specify what is being shown in visualization frame.
+The inspiration for this control is a standard media player with the ability to stop,
+play and manually move through frames (with the slider).
+In addition, the user can specify how fast the animation is created by adjusting the amount of delay between
+frames (``frame delay" box).
 
-Figure \ref{SizeAndColor}
+Viewing a swarm over several time steps conveys a great deal amount of information. It conveys direction,
+velocity and structure of the swarm by being able to see how it changes from time step to time step.
+SwarmVis manages to be incredibly smooth even with a fast frame rate and hundreds of agents on a modern
+computer\footnote{2.2 GHz MacBook Pro running Mac OS X 10.5}.
+An example of this is shown in Figure \ref{Animation}, in which a swarm is shown to be
+generally moving south with its sub-swarmsbeginning to merge.
+All of our visualizations  that can be applied to the swarm (color, size, trails, tracks) can be seen in fluid animation.
+
+
+
+
+
+
+
 
 \begin{figure}
 \centering
-\includegraphics[scale=.5]{images/sizeandcolor.pdf}
+\includegraphics[scale=.5]{images/typestab.pdf}
+\caption{
+The Types tab shows the user which different subgroups exist in the swarm and allows the user to assign a specific
+color to that group. Supplemental information helps the user
+select the groups he wants: First (number of agents in that group in the first frame),
+Last (number of agents in that group in the last frame), and Avg (average number of agents in that group during
+the entire animation).}
+\label{TypesTab}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[scale=.7]{images/sizeandcolor.pdf}
 \caption{
 A captured frame from a swarm of tetrahedra-forming boids.
 The corner agents have been given a larger size and a darker color than the edge agents.}
@@ -160,35 +194,123 @@ The corner agents have been given a larger size and a darker color than the edge
 \end{figure}
 
 
-\subsubsection{Trails and Tracks}
+\begin{figure}
+\centering
+\includegraphics[scale=.5]{images/flockcolor.pdf}
+\caption{
+A captured frame from the three-dimensional flocking swarm shown in Figures \ref{ShowOff} and \ref{Animation}.
+The trails in this image are of length 35 time steps and agents of a particular group are colored red.}
+\label{FlockColor}
+\end{figure}
 
-TODO: Add Content
 
-Figures \ref{ShowOff} and \ref{Trails}.
+\subsubsection{Color and Size}
+
+An important feature of SwarmVis is the ability to track individual agents.
+This can be done by selecting any number of agents of interest in the list of agents
+(seen in the content frame of Figure \ref{AnnotatedWindow})
+and changing their color or size with the button controls.
+For example, the corner agents have been made bigger to emphasize their importance
+in the tetrahedron swarm shown in Figure \ref{SizeAndColor}.
+
+In addition, users can change
+the color of all agents that are members of a specific group in the Types tab, as seen
+in Figure \ref{TypesTab}. This feature can be used in addition to changing the size to
+emphasize particular agents. For example, in the swarm shown in
+Figure \ref{SizeAndColor}, we color the corners black and the edges orange. Another
+example is shown in Figure \ref{FlockColor}, in which we colored the largest swarm
+red and left the other swarms blue. Changing the color of the largest flock in the flocking domain is
+particularly useful because it shows when two groups merge by changing the agents' colors
+as they collide.
+Also, this feature is great for creating figures for published articles in swarm research because
+by changing the color and size, the writer can refer to specific agents as ``the bigger agents"
+in the text instead of having to manually add labels to the images.
+
+
+
+
 
 \begin{figure}
 \centering
-\includegraphics[scale=.4]{images/trails.pdf}
+\includegraphics[scale=.5]{images/trackstab.pdf}
 \caption{
-A captured frame from the three-dimensional flocking swarm shown in Figures \ref{ShowOff} and \ref{Animation}.
-The tails in this image are of length 35 time steps.}
-\label{Trails}
+The Tracks tab allows users to add tracks and trails to agents. The length of the trails can be adjusted 
+with the ``Agent Trail Length" box. }
+\label{TracksTab}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[scale=.4]{images/track.pdf}
+\includegraphics[scale=.5]{images/closeuptrails.pdf}
 \caption{
-A captured frame from the three-dimensional flocking swarm shown in Figures \ref{ShowOff}, \ref{Animation} and \ref{Trails}.
+A captured frame from a swarm of tetrahedra-forming boids shown in Figure \ref{SizeAndColor}.
+Close up views of the swarm can convey much information about how agents interact with one another.
+In this frame, we see how the rightmost red corner agent swapped places with the rightmost edge agent.
+Then, edge agents fill in the gap by moving to the right. The different times in which each adjustment happened
+is shown by how long ago a pattern happened in the trail.}
+\label{CloseTrails}
+\end{figure}
+
+\subsubsection{Trails}
+
+Trails are one of the most important features in SwarmVis because it conveys motion, previous positions, direction,
+and change in structure, both in still images and videos. Trails are lines that hang behind agents, tracing
+their previous positions. 
+The trails are created by connecting previous positions of the agents with
+successive lines that are more opaque near the current agent and less so further back in time.
+The length of trails can be adjusted by modifying the number in the ``Agent Trail Length" text box, shown in
+Figure \ref{TracksTab}.
+
+Trails can be used to view swarm behavior at an abstract level, such as tracking the motion of several boid
+flocks at once, as seen in Figures \ref{ShowOff} and \ref{FlockColor}.
+One of the most powerful abilities of trails is to convey low-level behavior information in swarms. For example,
+in Figure \ref{CloseTrails}, we can see that the rightmost corner agent (colored red) swapped position with the rightmost
+edge agent (colored blue). Then, all the agents in that edge shifted down to accommodate.
+The time delay in behavior is shown by the ``notch" in the path happened further ago for the left agents and more recently
+in the right agents.
+This visualization feature makes qualitative analysis of how the agents behave both at a low interaction level
+and a high swarm emergent behavior level possible.
+
+
+
+
+
+
+
+\begin{figure}
+\centering
+\includegraphics[scale=.451]{images/track.pdf}
+\caption{
+A captured frame from the three-dimensional tetrahedron Figures \ref{ShowOff}, \ref{Animation} and \ref{FlockColor}.
 The lonely agent in the middle follows this gray path over its lifetime. The structure of the line in three-dimensional space
 is seen much better when able to interactively rotate the view.}
 \label{Track}
 \end{figure}
 
+
+\subsubsection{Tracks}
+
+The Tracks feature is very similar to the trails feature
+(they are implemented the same way), except that it shows the position of the agent over the entire
+lifetime of the system. At any given frame, the agent will be somewhere on the track
+For example, a track of a single agent is shown in Figure \ref{Track}.
+Several agents can be selected at once in the list of agents in the Tracks Tab (Figure \ref{TracksTab}) to
+have their trails all shown at once with the color specified by the ``Color and Opacity" sliders.
+When tracks are used in conjunction with trails, the trails are overlaid on top of the tracks so that
+both trail and track information is conveyed.
+
 \section{Results}
 
-TODO: Add Content
+To demonstrate the usefulness of SwarmVis, in this section we provide two walkthroughs as case studies, first,
+a boid flocking domain and second, a tetrahedron-forming swarm.
 
+\subsection{Case Study: Boid Flock}
+
+\textbf{TODO: add content}
+
+\subsection{Case Study: Tetrahedron-Forming Swarm}
+
+\textbf{TODO: add content}
 
 \section{Future Work}
 SwarmVis is a complete application that has accomplished all the goals that we set out to achieve. 
@@ -209,7 +331,7 @@ Having an interactive global agent list that displays all necessary information 
 the colors and effects on groups of agents more effectively. 
 
 We also plan on adding the feature to change the representation of the agent itself to better display direction. Currently, direction is
-inferred by the user by viewing the agents' tail, which may not be effective in every situation.
+inferred by the user by viewing the agents' trail, which may not be effective in every situation.
 If agents were represented as three-dimensional arrowheads or perhaps other glyphs,
 still images would convey very clearly the direction the agent is going on.
 
