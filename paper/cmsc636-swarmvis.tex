@@ -47,17 +47,28 @@ Abstract
 \end{abstract}
 
 \section{Introduction}
-Swarm systems are a collection of agents that exhibit some collective behavior. Examples of these systems include: social animals (e.g. bees, ants, schooling fish, migrating geese), particles in liquids,  and multi-robot systems. Visualizing swarm systems (swarms) effectively is difficult due to the large number of individual agents contained. A typical swarm's high density and chaotic motions amplify the complexity of swarm visualization. Effective swarm visualizations are needed to provide insight into swarm behavior and inspect local interactions.
+Swarm systems are a group of agents that exhibit some collective behavior. Examples of these systems include: social animals (e.g. bees, ants, schooling fish, migrating geese), particles in liquids,  and multi-robot systems. Visualizing swarm systems (swarms) effectively is difficult due to the large number of individual agents contained. A typical swarm's high density and chaotic motions amplify the complexity of swarm visualization. Effective swarm visualizations are needed to provide insight into swarm behavior and inspect local interactions.
 A well defined set of visualization techniques would provide researchers with these insights.
-
-Crude visualization techniques plot the position of each agent in space as seen with a Reynolds boid flock\cite{reynolds1987} in Figure \ref{old}. A still image only shows the location of individual agents and does not convey important information such as the direction, velocity, and previous positions.
-We have implemented \textit{SwarmVis}, a toolkit for visualizing swarms, that goes beyond the simple plotting technique to solve these problems. The toolkit aims to provide visualization techniques that allow researchers to interactively investigate swarms so that researchers will be able to study interactions, fine-grained movements, and swarm behavior.
 
 \begin{figure}[ht]
 \centering
-\includegraphics[scale=1]{images/basic.png}
-\caption{ }
+\includegraphics[scale=1]{images/basic.pdf}
+\caption{A basic visualization of a swarm that only plots points in space. Note that important properties such as direction, velocity
+and previous positions are not conveyed.}
 \label{old}
+\end{figure}
+
+Crude visualization techniques plot the position of each agent in space as seen with a Reynolds boid flock\cite{reynolds1987} in Figure \ref{old}. A still image only shows the location of individual agents and does not convey important information such as the direction, velocity, and previous positions.
+We have implemented \textit{SwarmVis}, a toolkit for visualizing swarms, that goes beyond the simple plotting technique to solve these problems. The toolkit aims to provide visualization techniques that allow researchers to interactively investigate swarms so that researchers will be able to study interactions, fine-grained movements, and swarm behavior. Figure \ref{ShowOff} displays a swarm system with
+the addition of our tails visualization and conveys much more information than Figure \ref{old}.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=.42]{images/showoff.pdf}
+\caption{A basic visualization of a swarm that only plots points in space as well as tails of significant length.
+Note that important properties such as direction, velocity, structure, rotation,
+and previous positions are conveyed.}
+\label{ShowOff}
 \end{figure}
 
 The goal of SwarmVis is to facilitate, through visualization, the detailed analysis of emergent behavior that results from swarm systems. In order to satisfy this objective, we have created a software toolkit with the following high-level application goals and requirements in mind:
@@ -74,25 +85,117 @@ We conclude with an overview of the projects and an analysis of its effectivenes
 A brief user guide for compiling, running and loading data in SwarmVis is provided in the appendix.
 
 \section{Related Work}
-\cite{Luke}
+Not much work has been done specifically tackling the problem of effective swarm visualization. Most visualizations are
+a result of some research directed at researchers interested in swarm intelligence. Therefore, we often had to pull inspiration
+from figures in papers that had nothing to do with visualization and more to do with the swarm system itself.
+Comprehensive multi-agent and swarm system frameworks \cite{Luke}\cite{860347} have been created in the past,
+but the visualization aspect is only a component and not the main focus. Some researchers have implemented
+visualization techniques for specific swarm domains, such as the particle swarm optimization algorithm\cite{Secrest} and 
+boid flocking\cite{reynolds1987}.
+There are several articles that have used a swarm system paradigm to visualize some sort of information or domain, such as 
+data variations\cite{1382896}, art\cite{Boyd}, evolutionary algorithms\cite{spector2005ecb}\cite{Spector02evolutionarydynamics},
+flow\cite{10.1109/TVCG.2005.87}\cite{Merzkirch}, and source code commits\cite{codeswarm:website}.
+We typically do not care about the domain, but we are often able to get inspiration from the articles' figures, even if they are 
+not directly explained from a visualization point of view.
+In this section, we discuss the similarities and differences between SwarmVis and some of the aforementioned related work.
 
+TODO: Give a paragraph for each related work we wish to talk about
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[scale=.45]{images/swarmvis-annotated.pdf}
+\caption{The SwarmVis graphical user interface. 
+here is only one window in our application and from it you can navigate to all commands and visualization options.
+The interface is split between the user controls and the visualization itself. There are tabs at the top left that give
+options for different visualizations in the tab content frame. The playback frame in the bottom left works similar to a
+standard media player. The visualization frame shows the swarm with all selected visualizations applied to it. In this
+screenshot, the user has two agents colored red with all other options standard. }
+\label{AnnotatedWindow}
+\end{figure*}
 
 \section{Implementation}
-Introduction to implementation here. Talk about how project is set up, what code and frameworks we used. Brief overview of the
-interface. Say something about the general way visualizations are made.
+SwarmVis is mostly  implemented in the C++ language and utilizes the Qt framework\cite{Qt:website}
+to build the graphical user interface and to imbed an OpenGL window.
+The user interface is split down the center,
+the left side containing the majority of the user interface and the right side containing the graphical display.
+In general, we tried to keep the interface as simple and straightforward as possible.
+A more detailed description of the user interface is given in Figure \ref{AnnotatedWindow}.
+Changes made to the visualization through the interface happen in real-time, as the visualization is playing.
+Lists are parameters are populated when a data set is loaded (more information about data sets is available in the appendix).
+
+In the remainder of this section, we list the available visualizations in SwarmVis, what they convey, how they are implemented,
+how they can be enabled, and how they can be modified.
+
 
 \subsection{Visualizations}
-Enumerate the visualizations available
+\subsubsection{Animation}
 
+TODO: Add Content
+
+Figure \ref{Animation}.
+
+\begin{figure}
+\centering
+\includegraphics[scale=.282]{images/animation.pdf}
+\caption{
+Three captured frames from a swarm animation of three-dimensional flocking boids\cite{reynolds1987}.
+When viewed in quick succession as frames in a video, the user
+is able to detect the flocks' motion and structural changes.}
+\label{Animation}
+\end{figure}
+
+\subsubsection{Color and Size}
+
+TODO: Add Content
+
+Figure \ref{SizeAndColor}
+
+\begin{figure}
+\centering
+\includegraphics[scale=.5]{images/sizeandcolor.pdf}
+\caption{
+A captured frame from a swarm of tetrahedra-forming boids.
+The corner agents have been given a larger size and a darker color than the edge agents.}
+\label{SizeAndColor}
+\end{figure}
+
+
+\subsubsection{Trails and Tracks}
+
+TODO: Add Content
+
+Figures \ref{ShowOff} and \ref{Trails}.
+
+\begin{figure}
+\centering
+\includegraphics[scale=.4]{images/trails.pdf}
+\caption{
+A captured frame from the three-dimensional flocking swarm shown in Figures \ref{ShowOff} and \ref{Animation}.
+The tails in this image are of length 35 time steps.}
+\label{Trails}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[scale=.4]{images/track.pdf}
+\caption{
+A captured frame from the three-dimensional flocking swarm shown in Figures \ref{ShowOff}, \ref{Animation} and \ref{Trails}.
+The lonely agent in the middle follows this gray path over its lifetime. The structure of the line in three-dimensional space
+is seen much better when able to interactively rotate the view.}
+\label{Track}
+\end{figure}
 
 \section{Results}
-Results here
+
+TODO: Add Content
+
 
 \section{Future Work}
 SwarmVis is a complete application that has accomplished all the goals that we set out to achieve. 
 However, there are a few user interface changes that would make usability better.
-Also, we would like SwarmVis to visualize the instantaneous velocity of agents since this information is not explicitly present in the
-graphical display. These future improvements are enumerated in this section.
+Also, we would like SwarmVis to visualize the instantaneous velocity and the depth of
+agents since this information is not explicitly present in the
+graphical display. These future improvements are discussed in this section.
 
 In the future, we would like to make it easier to select agents and determine which agents are which in the graphical display.
 To facilitate this, we hope to be able to show text labels that are adjacent to the agent in the visualization window.
@@ -109,6 +212,9 @@ We also plan on adding the feature to change the representation of the agent its
 inferred by the user by viewing the agents' tail, which may not be effective in every situation.
 If agents were represented as three-dimensional arrowheads or perhaps other glyphs,
 still images would convey very clearly the direction the agent is going on.
+
+To further enhance the information conveyed in still images, we plan on determining a sufficient way to display depth.
+We are not sure what the best technique for this would be, and no previous work to our knowledge has specifically dealt with this problem.
 
 Finally, we plan on making SwarmVis extendable through a plug-in type framework. Any new visualization effects that are added
 to SwarmVis must be hard coded into the source. This is not intuitive for a user that does not have knowledge of the source code
