@@ -293,23 +293,24 @@ void GLWidget::buildTrail(int agentIndex, int length)
 			double r, g, b;
 			QColor c;
 
-			if ( agentTypes.contains(a.getType()) && colorOverride )
+			if (showAgentVelocity)
+			{
+				c = getSpeedColor(agentIndex, currentTime);
+			}
+			else if ( agentTypes.contains(a.getType()) && colorOverride )
 			{
 				int index = agentTypes.indexOf(a.getType(), 0);
 				c = agentTypeColors.at(index);
-				//c = a.getColor(); //set the agents color
-				r = (double)c.red() / 255;
-				g = (double)c.green() / 255;
-				b = (double)c.blue() / 255;
-				//o = (double)c.alpha() / 255;
 			}
 			else
 			{
 				c = a.getColor(); //set the agents color
-				r = (double)c.red() / 255;
-				g = (double)c.green() / 255;
-				b = (double)c.blue() / 255;
 			}
+
+			r = (double)c.red() / 255;
+			g = (double)c.green() / 255;
+			b = (double)c.blue() / 255;				
+
 
 			glColor4d (r, g, b, 0.7 - 0.7*(double)i / (double)length);
 			glBegin (GL_LINES);
@@ -443,7 +444,7 @@ void GLWidget::imageFolder_changed(const QString &fileName)
 
 }
 
-void GLWidget::makeSpeedOfAgentColor(int agent, int time, double o)
+QColor GLWidget::getSpeedColor(int agent, int time)
 {
 	Agent a;
 	if (time == 0) a = agent_array[time + 1][agent];
@@ -453,6 +454,13 @@ void GLWidget::makeSpeedOfAgentColor(int agent, int time, double o)
 	int cIndex = (int)((255.0 * d) / maxDistance);
 	
 	QColor c = rainbowScale[255 - cIndex];
+
+	return c;
+}
+
+void GLWidget::makeSpeedOfAgentColor(int agent, int time, double o)
+{
+	QColor c = getSpeedColor(agent, time);
 	double r = (double)c.red() / 255;
 	double g = (double)c.green() / 255;
 	double b = (double)c.blue() / 255;

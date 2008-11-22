@@ -71,6 +71,7 @@ private:
 	void showSelectedPaths(int index, double r, double g, double b, double o, bool showSpeed);
 	void paintAxis();
 	void normalizeAngle(int *angle);
+	QColor getSpeedColor(int agent, int time);
 	void makeSpeedOfAgentColor(int agent, int time, double o);
 	void drawAgent(Agent a);
 	void initRainbowScale();
