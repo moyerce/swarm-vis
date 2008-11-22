@@ -3,6 +3,29 @@
 AgentArray::AgentArray(std::string directory, std::string filename)
 {
 	readInfoFile(directory, filename);
+	maxDistance = 0.0;
+	for (int i = 0; i < timeSteps; i++)
+		for(int j = 0; j < numAgents; j++)
+		{
+			if (i == 0)
+			{
+				agent_array[i][j].setDistance(0.0);
+			}
+			else
+			{
+				Agent cAgent = agent_array[i][j];
+				Agent pAgent = agent_array[i - 1][j];
+
+				double d = sqrt( pow((cAgent.getX() - pAgent.getX()), 2)
+					+ pow((cAgent.getY() - pAgent.getY()), 2)
+					+ pow((cAgent.getZ() - pAgent.getZ()), 2)) * 10;
+				agent_array[i][j].setDistance(d);
+				//set the maximum distance
+				if (d > maxDistance) maxDistance = d;
+				//std::cout <<"Agent["<<i<<"]["<<j<<"] = "<< d<< std::endl;
+			}
+			
+		}
 }
 
 AgentArray::~AgentArray()

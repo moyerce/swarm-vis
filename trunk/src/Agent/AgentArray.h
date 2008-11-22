@@ -7,6 +7,7 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
+#include <math.h>
 
 class AgentArray
 {
@@ -59,6 +60,10 @@ public:
 	 * @return the z-range
 	 */
 	double getRangeZ(){ return rangeZ; };
+	/** Get the maximum distance between the agents
+	 * @return the maximum distance
+	 */
+	double getMaxDistance(){ return maxDistance; };
 
 private:
 	int dimensions;
@@ -69,6 +74,7 @@ private:
 	double rangeY;
 	double rangeZ;
 	int agentTypes;
+	double maxDistance;
 
 	/** Reads positional data for an agent from a file
 	 * @param string basefile - the path to the file including the filename

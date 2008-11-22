@@ -7,7 +7,7 @@ MyThread::MyThread(QObject *parent, int maxTimeIndex, double delayToNextFrame)
 	maxTime = maxTimeIndex;
 	delay = delayToNextFrame;
 	currentTime = 0;
-	stopped = false;	
+	stopped = false;
 }
 
 void MyThread::custom_sleep(double delay)
@@ -23,7 +23,7 @@ void MyThread::custom_sleep(double delay)
 void MyThread::run()
 {	
 	currentTime = 0;
-	qDebug() << "Executing in new independant thread, GUI is NOT blocked";
+	//qDebug() << "Executing in new independant thread, GUI is NOT blocked";
 	while (true)
 	{
 		custom_sleep(delay);
@@ -35,11 +35,11 @@ void MyThread::run()
 		}
 		else
 		{
-			break;			
+			break;
 		}
 		}
 	}		
-	qDebug() << "Thread done";		
+	//qDebug() << "Thread done";
 	//terminate();
 	quit();
 	//exec();

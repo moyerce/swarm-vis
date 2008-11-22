@@ -23,7 +23,7 @@ public:
 
 	QSize minimumSizeHint() const;
 	QSize sizeHint() const;
-	void setInput( std::vector<Agent> * agents, int maxTime);
+	void setInput( std::vector<Agent> * agents, int maxTime, double maxDistance);
 
 protected:
 	void initializeGL();
@@ -50,6 +50,8 @@ private:
 	bool showPaths;
 	bool showBoundingBox;
 	bool depthChecking;
+	bool showAgentVelocity;
+	bool showTrackVelocity;
 	bool dumpImage;
 	QString dumpImageFile;
 	QString dumpImagePath;
@@ -62,11 +64,16 @@ private:
 	QList<std::string> agentTypes;
 	QList<QColor> agentTypeColors;
 	bool colorOverride;
+	double maxDistance;
+	QColor rainbowScale[256];
 
 	void buildTrail(int agentIndex, int length);
-	void showSelectedPaths(int index);
+	void showSelectedPaths(int index, double r, double g, double b, double o, bool showSpeed);
 	void paintAxis();
 	void normalizeAngle(int *angle);
+	void makeSpeedOfAgentColor(int agent, int time, double o);
+	void drawAgent(Agent a);
+	void initRainbowScale();
 
 public slots:
 	void setTimeIndex(int timeIndex);
@@ -84,6 +91,8 @@ public slots:
 	void depthChecking_toggled(bool value);
 	void dumpImage_toggled(bool value);
 	void imageFolder_changed(const QString &txt);
+	void agentVelocity_toggled(bool);
+	void trackVelocity_toggled(bool);
 	
 signals:
       void timeIndexChanged(int timeIndex);
