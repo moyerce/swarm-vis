@@ -599,7 +599,7 @@
        </rect>
       </property>
       <property name="text" >
-       <string>Map Agent Velocity to Color</string>
+       <string>Show Agent Velocity</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_11" >
@@ -652,7 +652,7 @@
        </rect>
       </property>
       <property name="text" >
-       <string>Show Velocity in Agent Tracks</string>
+       <string>Velocity in Tracks</string>
       </property>
      </widget>
      <widget class="QGroupBox" name="groupBox_6" >
