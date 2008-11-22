@@ -5,8 +5,8 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    SwarmVis w;
-    w.show();
-    return a.exec();
+	QApplication a(argc, argv);
+	SwarmVis w;
+	w.show();
+	return a.exec();
 }

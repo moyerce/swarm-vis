@@ -46,6 +46,10 @@ public:
 	 *  @param int glyph - an index used to pick a glyph to represent the agent
 	 */
 	void setGlyph(int glyph){ this->glyph = glyph; };	
+	/** Set the normalized distance to the previous agent
+	 *  @param double d - the normalized distance
+	 */
+	void setDistance(double d){ this->distance = d; };	
 	/** Get the X-Coordinate of the Agent
 	 * @return the x-coordinate of the agent.
 	 */
@@ -74,11 +78,17 @@ public:
 	 * @return the glyph indicator
 	 */
 	int getGlyph(){ return glyph; };
+	/** Get the normalized distance of the Agent in relation
+	 *  to the agent's previous time step
+	 * @return the distance
+	 */
+	double getDistance(){ return distance; };
 
 private:
 	double x;  // the x-coordinate
 	double y;  // the z-coordinate
 	double z;  // the y-coordinate
+	double distance;   //the normalized distances to the agent in the previous timestep
 	std::string type;  // the type of agent
 	QColor color;	// the color of the Agent
 	double size;	// the size (mostly for the point size in openGL

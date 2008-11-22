@@ -16,6 +16,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <QLayout>
 
 class SwarmVis : public QMainWindow
 {
@@ -50,7 +51,6 @@ private slots:
 	void trackColorG_Changed();
 	void trackColorB_Changed();
 	void trackColorO_Changed();
-	void btnSetGlyph_clicked();
 	void btnSaveFrame_clicked();
 
 private:

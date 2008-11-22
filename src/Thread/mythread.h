@@ -15,7 +15,7 @@ class MyThread : public QThread
 	private:
 		int maxTime;
 		double delay;
-		int currentTime;		
+		int currentTime;
 		void custom_sleep (double delay);
 		bool stopped;
 		bool continuousPlay;
@@ -26,7 +26,7 @@ class MyThread : public QThread
 	private slots:
 		void setTimeIndex(int timeIndex);
 		void setDelay(double ms);
-		void startStopThread();		
+		void startStopThread();
 };
 
 

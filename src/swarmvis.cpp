@@ -1,31 +1,51 @@
 #include "swarmvis.h"
-#include <QLayout>
+
+#include <fstream>
+#include <iostream>
+#include <string>
 
 SwarmVis::SwarmVis(QWidget *parent)
     : QMainWindow(parent)
 {
 	ui.setupUi(this);
-	
+	try
+	{
+		std::ifstream inp;
+		std::ofstream out;
+		std::string image = "rainbow.png";
+		inp.open(image.c_str(), std::ifstream::in);
+		inp.close();
+		if(inp.fail())
+		{
+			throw 1;
+		}
+		ui.lblImage->setPixmap(QPixmap::fromImage(QImage::QImage("rainbow.png")));
+	}
+	catch (int ex)
+	{
+		std::cout << "The file rainbow.png could not be found in the application directory."<<std::endl;
+		std::cout << "Please copy that file! I'm continuing without it now."<<std::endl;
+		ui.lblImage->setText("rainbow.png\n not found!");
+	}
+
 	glWidget = new GLWidget(this);
 	QHBoxLayout *layout = new QHBoxLayout;
 	layout->addWidget(glWidget);
 	ui.groupBox->setLayout(layout);
 	
 	thread = NULL;
-	//typeSelectedItem = NULL;
 	isLoaded = false;
 	
 	// always visible items	
 	connect(ui.timeSlider, SIGNAL(valueChanged(int)), glWidget, SLOT(setTimeIndex(int)));
-	connect(ui.timeSlider, SIGNAL(valueChanged(int)), this, SLOT(setGroupBoxLabel(int)));
-	// items on the TRAILS tab
-	connect(ui.spinBoxTrailLength, SIGNAL(valueChanged(int)), glWidget, SLOT(setTrailLength(int)));
+	connect(ui.timeSlider, SIGNAL(valueChanged(int)), this, SLOT(setGroupBoxLabel(int)));	
 	// items on the TRACKS tab
 	connect(ui.sliderR, SIGNAL(valueChanged(int)), this, SLOT(trackColorR_Changed()));
 	connect(ui.sliderG, SIGNAL(valueChanged(int)), this, SLOT(trackColorG_Changed()));
 	connect(ui.sliderB, SIGNAL(valueChanged(int)), this, SLOT(trackColorB_Changed()));
 	connect(ui.sliderO, SIGNAL(valueChanged(int)), this, SLOT(trackColorO_Changed()));
 	connect(this, SIGNAL(trackColorChanged(double, double, double, double)), glWidget, SLOT(setTrackColor(double, double, double, double)));
+	connect(ui.spinBoxTrailLength, SIGNAL(valueChanged(int)), glWidget, SLOT(setTrailLength(int)));
 	connect(ui.chkAgentPaths, SIGNAL(toggled(bool)), glWidget, SLOT(toggleShowPaths(bool)));
 	connect(ui.chkSameColor, SIGNAL(toggled(bool)), glWidget, SLOT(showPathWithSameColor(bool)));
 	// items on the TYPES tab
@@ -35,14 +55,14 @@ SwarmVis::SwarmVis(QWidget *parent)
 	// items on the AGENTS tab
 	connect(this, SIGNAL(selectedTrackAgentsChanged(QList<int>)), glWidget, SLOT(selectedTrackAgentsChanged(QList<int>)));
 	connect(ui.tableWidgetTracks, SIGNAL(itemSelectionChanged()), this, SLOT(trackSelectionChanged()));
+	// items on the Velocity tab
+	connect(ui.chkShowAgentVelocity, SIGNAL(toggled(bool)), glWidget, SLOT(agentVelocity_toggled(bool)));
+	connect(ui.chkShowTrackVelocity, SIGNAL(toggled(bool)), glWidget, SLOT(trackVelocity_toggled(bool)));
 	// items on the MISC tab
 	connect(ui.chkBoundingBox, SIGNAL(toggled(bool)), glWidget, SLOT(boundingBox_toggled(bool)));
 	connect(ui.chkDepthChecking, SIGNAL(toggled(bool)), glWidget, SLOT(depthChecking_toggled(bool)));
 	connect(ui.chkDumpImage, SIGNAL(toggled(bool)), glWidget, SLOT(dumpImage_toggled(bool)));
 	connect(ui.txtDumpImageFolder, SIGNAL(textChanged(const QString&)), glWidget, SLOT(imageFolder_changed(const QString&)));
-	
-	
-	
 	
 	setupUI();
 }
@@ -76,11 +96,11 @@ void SwarmVis::setupUI()
 	ui.tableWidgetTracks->setHorizontalHeaderLabels(tracksHeader);
 
 	ui.tableWidget->insertColumn(0);
-	ui.tableWidget->insertColumn(1);	
-	ui.tableWidget->insertColumn(2);	
-	ui.tableWidget->insertColumn(3);
+	ui.tableWidget->insertColumn(1);
+	ui.tableWidget->insertColumn(2);
+	//ui.tableWidget->insertColumn(3);
 	QStringList headers;
-	headers << "Agents" << "Color" << "Size" << "Glyph";
+	headers << "Agents" << "Color" << "Size";
 	ui.tableWidget->setHorizontalHeaderLabels(headers);
 
 	ui.tableWidgetTypes->insertColumn(0);
@@ -109,7 +129,7 @@ void SwarmVis::loadNewData()
 
 	ui.tableWidget->clear();
 	QStringList headers;
-	headers << "Agents" << "Color" << "Size" << "Glyph";
+	headers << "Agents" << "Color" << "Size";
 	ui.tableWidget->setHorizontalHeaderLabels(headers);
 	ui.tableWidget->setRowCount(0);
 	
@@ -149,7 +169,7 @@ void SwarmVis::menubar_action_handler(QAction* action)
 			agents = new AgentArray(directory, filename);
 			ui.timeSlider->setMaximum(agents->getTimeSteps() - 1);
 			std::vector<Agent> * v = agents->getAgentsVector();
-			glWidget->setInput(v, agents->getTimeSteps() - 1);
+			glWidget->setInput(v, agents->getTimeSteps() - 1, agents->getMaxDistance());
 			
 			// Initialize the GUI components
 			populateListView();
@@ -217,13 +237,13 @@ void SwarmVis::populateListView()
 		QColor color = QColor::fromRgbF(0.0, 0.0, 1.0, 1.0);
 		tItem1->setBackgroundColor(color);
 		QTableWidgetItem *tItem2 = new QTableWidgetItem("3.0");
-		QTableWidgetItem *tItem3 = new QTableWidgetItem("1");
+		//QTableWidgetItem *tItem3 = new QTableWidgetItem("1");
 		int row = ui.tableWidget->rowCount();
 		ui.tableWidget->insertRow(row);
 		ui.tableWidget->setItem(row, 0, tItem0);
 		ui.tableWidget->setItem(row, 1, tItem1);
 		ui.tableWidget->setItem(row, 2, tItem2);
-		ui.tableWidget->setItem(row, 3, tItem3);
+		//ui.tableWidget->setItem(row, 3, tItem3);
 
 		//the type view
 		std::vector<Agent> * agents_array = agents->getAgentsVector();
@@ -466,31 +486,6 @@ void SwarmVis::trackColorO_Changed()
 	double b = (double)ui.sliderB->value() / (double)ui.sliderB->maximum();
 	double o = (double)ui.sliderO->value() / (double)ui.sliderO->maximum();
 	trackColorChanged(r, g, b, o);
-}
-
-void SwarmVis::btnSetGlyph_clicked()
-{
-	//sets the glyph for each individual agent that is selected
-	if (agentIndex.size() > 0)
-	{	
-		std::vector<Agent> *agent_array = agents->getAgentsVector();
-				
-		for (int i = 0; i < agentIndex.size(); i++)
-		{
-			int aIndex = agentIndex.at(i);
-			//set the items size
-			QTableWidgetItem * item = ui.tableWidget->item(aIndex, 3);
-			
-			item->setText("2");
-
-			for (int j = 0; j < agents->getTimeSteps(); j++)
-			{
-				//set the agents size
-				agent_array[j][aIndex].setGlyph(2);
-			}
-		}
-		//glWidget->setInput(agent_array,agents->getTimeSteps());
-	}
 }
 
 void SwarmVis::btnSaveFrame_clicked()
