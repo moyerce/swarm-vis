@@ -1,3 +1,180 @@
+
+########################################################
+Begin: Toolkits
+########################################################
+
+@article{Luke,
+ author = {Sean Luke and Claudio Cioffi-Revilla and Liviu Panait and Keith Sullivan and Gabriel Balan},
+ title = {MASON: A Multiagent Simulation Environment},
+ journal = {Simulation},
+ volume = {81},
+ number = {7},
+ year = {2005},
+ issn = {0037-5497},
+ pages = {517--527},
+ doi = {http://dx.doi.org/10.1177/0037549705058073},
+ publisher = {Society for Computer Simulation International},
+ address = {San Diego, CA, USA},
+ annote = {The authors describe an extensible toolkit allowing for the simulation of multi-agent systems. The toolkit is separated into a core and visualization module. The core module performs the simulation of multi-agent systems while the visualization module can be attached to the core module to create continuous live visualizations. The visualization module is extensible, allowing for the creation of application specific visualization. The toolkit was demonstrated on a variety of domain, most interestingly ant-colony optimizations. While the toolkit appears to provide great support for simulating multi-agent systems, the visualizations provided with the sample domains appear primitive. The ant-colony-optimization is projected to 2D space. Ants are represented as dots with no distinction between different classes of ants. The simulation uses two pheromone trails which are distinguished by color. The pheromone trails appear to be static (i.e. no fading over time. The paper does not provide insight on which visualizations are appropriate for different domains, nor describes what visualization techniques were used.}
+ }
+ 
+@MISC{mason:website,
+      author = {Kenneth De Jong and Sean Luke},
+      title = {MASON Multiagent Simulation Toolkit},
+      month = {September},
+      year = {2008},
+      note = {http://cs.gmu.edu/~eclab/projects/mason/}
+}
+
+
+
+########################################################
+begin: BREVE related papers
+########################################################
+
+@inproceedings{860347,
+ author = {Jon Klein},
+ title = {breve: a 3D environment for the simulation of decentralized systems and artificial life},
+ booktitle = {ICAL 2003: Proceedings of the eighth international conference on Artificial life},
+ year = {2003},
+ isbn = {0-262-69281-3},
+ pages = {329--334},
+ publisher = {MIT Press},
+ address = {Cambridge, MA, USA},
+ annote ={A simulation environment for decentralized systems called BREVE is presented. The environment provides support for continuous time and continuous 3D space simulation. Physical simulation is combined with a graphical display. BREVE distinguishes itself from other simulation packages by claiming to facilitate faster development of novel simulations through a - specifically for BREVE designed - custom object-oriented programming language developed with the intention of reducing programmer overhead. Events are supported by the BREVE environment enabling inter-agent communication (i.e. agents can ``notify'' other agents) and interaction with the 3D environment (i.e. collision detection). An example simulation describes an implementation of Reynolds ``Boids'' model using the BREVE environment. The paper does not mention any visualization techniques that are used to create the visualizations of the environment other than the simulation takes place in 3D space. It is unknown if a simulation designer can create custom representations of agents or incorporate additional information about a simulation in this environment.}
+ }
+ 
+@MISC{breve:website,
+       author = {John Klein},
+      title = {The breve Simulation Environment},
+      month = {September},
+      year = {2008},
+      note = {http://www.spiderland.org/}
+}
+
+
+@INPROCEEDINGS{Spector02evolutionarydynamics,
+    author = {Lee Spector and Jon Klein},
+    title = {Evolutionary dynamics discovered via visualization in the BRAVE simulation environment},
+    booktitle = {Eds.), Workshop Proc. of ALife VIII, UNSW},
+    year = {2002},
+    pages = {163--170},
+    publisher = {Press},
+    annote= {The paper describes the discovery of evolutionary patters through the use of visualization in the BREVE simulation environment. The BREVE environment is a simulation package for decentralized systems to simulate realistic 3D worlds. In addition to visualizing agents in a 3D environment, additional effects such as shadows, reflections, lighting, semi-transparent bitmaps, lines connecting neighboring objects, texturing objects and objects as light sources are incorporated in the simulation. The extension SwarmEvolve, which simulates evolving swarms, makes heavy use of these features for agent representation. Agents can be assigned to different bitmaps or glyphs according to their semantic involvements in the overall evolving swarm. The paper makes note that through the use of visualization, the authors were able to discover previously unnoticed patterns in goal-directed agents of evolving swarms.}
+}
+
+@inproceedings{Boyd,
+ author = {Jeffrey E. Boyd and Gerald Hushlak and Christian J. Jacob},
+ title = {SwarmArt: interactive art from swarm intelligence},
+ booktitle = {MULTIMEDIA '04: Proceedings of the 12th annual ACM international conference on Multimedia},
+ year = {2004},
+ isbn = {1-58113-893-8},
+ pages = {628--635},
+ location = {New York, NY, USA},
+ doi = {http://doi.acm.org/10.1145/1027527.1027674},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ annote = {SwarmArt is a collaboration between science and art. The Breve simulation environment, a library for swarm simulation, is used to obtain positional data over time of simulated swarms. Breve simulates swarms in a 3 dimensional environment. SwarmArt visualizes the positional data by projecting individual agents on a 2D surface. No particular information on the space transformation is given. Agents are represented as dots and distinguished from another by color. SwarmArt visualizes agents in motion by plotting the agents' positions as they change over time. Each agent possesses an agent trail that fades with time indicating current and past positions. Users are able to interact with the swarms through cameras recording user proximity to the display screen. The aim of this project was to create visually appealing swarms. The swarms did not necessarily have any underlying objective, hence there was not need to visualize information pertinent to swarms or swarm researchers in general.}
+ }
+
+
+########################################################
+end: BREVE related papers
+########################################################
+########################################################
+End: Toolkits
+########################################################
+
+
+
+########################################################
+Begin: Specific visualization techniques
+########################################################
+
+@ARTICLE{Secrest, 
+title={Visualizing particle swarm optimization - Gaussian particle swarm optimization}, 
+author={Secrest, B.R. and Lamont, G.B.}, 
+journal={Swarm Intelligence Symposium, 2003. SIS '03. Proceedings of the 2003 IEEE}, 
+year={2003}, 
+month={April}, 
+volume={}, 
+number={}, 
+pages={ 198-204}, 
+abstract={ Particle swarm optimization (PSO) conjures an image of particles searching for the optima the way bees buzz around flowers. One approach at visualizing the swarm graphs where all the particles are each generation, thus demonstrating the random nature associated with swarms of insects. Another approach is to show successive bests, thus showing the way that the swarm progresses. Some have even looked at the specific search path of the particle that eventually finds the optima. These approaches provide limited understanding of PSO. This paper presents a new visualization approach based on the probability distribution of the swarm, thus the random nature of PSO is properly visualized. The visualization allows better understanding of how to tune the algorithm and depicts weaknesses. A new algorithm based on moving the swarm a Gaussian distance from the global and local best is presented. Gaussian particle swarm optimization (GPSO) is compared to PSO.}, 
+keywords={ Gaussian distribution, data visualisation, evolutionary computation, graph theory, search problems GPSO, Gaussian distance, Gaussian particle swarm optimization, PSO, evolutionary computation, probability distribution, random nature, searching, swarm graphs, visualization approach}, 
+doi={10.1109/SIS.2003.1202268}, 
+ISSN={ }, 
+annote = {The authors present an extension to particle swarm optimization (PSO) termed Gaussian particle swarm optimization (GPSO). In GPSO, areas around global and local optima are predominately searched by using a Gaussian distribution. The authors mention that this technique is an improvement over PSO, which searches the midpoint area of global and local maxima. However, a definite performance increase was not yet proved. The authors use a histogram or binning technique to visualize the optimization process. The histogram illustrates a two-dimensional space on the x and y axis. The height of the histogram at a particular x-y coordinate indicates the concentration of particles for that cell. Histograms are generated for each generation or time-step of the optimization process showing the overall swarms convergence toward global optima. It appears that the histogram technique would not generalize well to swarms operating in higher-then-two-dimensions. The paper mentions other visualization techniques for PSO, such as plotting the positions of the swarm members and DQ-Scatterplots.}
+}
+
+########################################################
+End: Specific visualization techniques
+########################################################
+
+
+########################################################
+Begin: Other documents/websites
+########################################################
+
+@BOOK{Merzkirch,
+   author = "Wolfgang Merzkirch",
+   title= "Flow Visualization Second Edition",
+   publisher = "Academic Press Inc. (London) Ltd.",
+   year = 1987
+   }
+   
+@MISC{codeswarm:website,
+      author = {Michael Ogawa},
+      title = {code\_swarm},
+      month = {September},
+      year = {2008},
+      note = {http://vis.cs.ucdavis.edu/~ogawa/codeswarm/}
+}
+
+
+########################################################
+End: Other documents/websites
+########################################################
+
+@ARTICLE{1382896,
+title={Time-Varying Data Visualization Using Information Flocking Boids}, author={Moere, A.V.}, journal={Information Visualization, 2004. INFOVIS 2004. IEEE Symposium on}, year={2004}, month={0-0 }, volume={}, number={}, pages={97-104}, doi={10.1109/INFVIS.2004.65}, ISSN={1522-404X},
+annote = {
+In this paper, the author demonstrates how self-organization and behavior as seen in Reynolds' Boids can be used to show the change of information over time. This method is dubbed {\em Information Flocking} and combines the flocking behavior rules with clustering techniques to give users a unique perspective of changing data. The sample domain used in this paper is stock prices. The author claims that this visualization technique, although not showing actual data values, is able to convey long-term and short-term temporal similarities within time-varying data sets. Also, this method naturally has the ability to neglect noisy or insignificant data changes. The domain presented in this paper and the method of information flocking are not relevant to our project. However, the visualization of the agents this author uses is incredibly smooth looking and pretty to look at. Each agent is a single particle in 3D and its traveled path is depicted by a colored, curved line that has gradually decreasing opacity from the head. The tails are made smooth by using the {\em Catmull-Rom spline} algorithm, which generates smoother tails than linear interpolation through the previous points the agent has visited. The particles' color shows change in data: blue for a decrease and red for an increase. In addition, the visualization may include an encompassing ``blob'' that shows vicinity (data similarity). That is, if particles are in the same block, they are in the same flock. This blob method also helps the user find outliers.  
+These blobs are generated with Marching Cubes; specifically a method called ``implicit surface polygonizer.'' Unfortunately, computing the blob is too computationally intensive to be displayed every time step.  
+The author claims that this simulation was able to run in real time with 500 agents.
+}
+}
+
+@article{spector2005ecb,
+   title={{Emergence of Collective Behavior in Evolving Populations of Flying Agents}},
+   author={Spector, L. and Klein, J. and Perry, C. and Feinstein, M.},
+   journal={Genetic Programming and Evolvable Machines},
+   volume={6},
+   number={1},
+   pages={111--125},
+   year={2005},
+   publisher={Springer},
+   annote = {The authors of this paper discuss their research in developing emergence through the use of two distinct evolutionary algorithms.  
+Flying agents in a 3D environment are evolved with the desire of consuming virtual energy nodes. The evolutionary algorithms the authors use cause the agents to learn a flocking behavior. The authors argue that their experiments show that flocking is evolutionarily a good trait for survival in simulation (and perhaps the real world).  
+Also discuss in detail in the paper is the implementation of the visualization that is done in Breve, a multi-agent and artificial life simulation package for 3D environments. The authors claim that Breve ``simplifies the construction of advanced artificial life and multi- agent simulators.''  The visualizations depict multiple dimensions, other than the spatial ones, by using built-in special effects in Breve such as: shadows, reflections, fog textures, transparency, lightmaps and agent-to-agent lines. In the author's simulation, agents' similarities in species and underlying behavior are shown by a color gradient. Agents themselves are shown as cones that vary in size depending on the distance from the camera, which shows their orientation, direction and position. Also, this paper introduces the idea of leaving agent ``corpses'': if an agent is removed from the simulation or for some reason dies, it leaves behind a dark-colored corpse on the ground-level of the simulation. This adds dramatic effect as well as leaves useful information regarding where the agents are dying off. As future work, the authors discuss using dynamic-line- drawing to visualize agent communication networks in real-time as connections change.}
+}
+}
+
+@article{ 10.1109/TVCG.2005.87,
+author = {Jens Kruger and Peter Kipfer and Polina Kondratieva and Ruediger Westermann},
+title = {A Particle System for Interactive Visualization of 3D Flows}, journal ={IEEE Transactions on Visualization and Computer Graphics}, volume = {11}, number = {6}, issn = {1077-2626}, year = {2005}, pages = {744-756}, doi = {http://doi.ieeecomputersociety.org/10.1109/TVCG.2005.87},
+publisher = {IEEE Computer Society},
+address = {Los Alamitos, CA, USA},
+annote = {The authors of this paper present a system that visualizes steady 3D flows. This visualization is made interactive by enabling the user to place streamlines and virtually explore renderings at higher resolutions. The contribution of this work is in how the authors used the computer's graphics processing unit to speed up renderings.  
+Although we are not particularly interested in the hardware issues presented in this paper, the authors do discuss some visualization techniques for displaying particles. The authors provide sample output images with particles represented as simple spheres, ellipsoids that show orientation, or arrows that show direction. Also, some visualizations shown introduce color as an indicator of the velocity of the particle. The authors also suggest that you render the particles in sorted order according to the distance to the actor. This way, particles that should be ``in front'' of the other ones are rendered last. The authors also discuss the concept of ``stream ribbons:'' basically a streamline that looks like a ribbon. This has the advantage over streamlines that it shows the rotation of the particle, as well as previous locations.}
+}
+}
+
+
+%%%%% BEGIN GENERIC SWARM INTELLIGENCE CITATIONS %%%%%%%
+
+
+
 @book{bonabeau1999sin,
   title={{Swarm Intelligence: From Natural to Artificial Systems}},
   author={Bonabeau, E. and Dorigo, M. and Theraulaz, G.},
@@ -148,3 +325,6 @@ year={2002},
   year={1981},
   publisher={Chichester: John Wiley}
 }
+
+%%%%% END GENERIC SWARM INTELLIGENCE CITATIONS %%%%%%%
+
