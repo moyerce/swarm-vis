@@ -64,7 +64,7 @@ Crude visualization techniques plot the position of each agent in space as seen 
 We have implemented \textit{SwarmVis}, a toolkit for visualizing swarms, that goes beyond the simple plotting technique to solve these problems. The toolkit aims to provide visualization techniques that allow researchers to interactively investigate swarms so that researchers will be able to study interactions, fine-grained movements, and swarm behavior. Figure \ref{ShowOff} displays a swarm system with
 the addition of our trails visualization and conveys much more information than Figure \ref{old}.
 
-\begin{figure}[ht]
+\begin{figure}
 \centering
 \includegraphics[scale=.42]{images/showoff.pdf}
 \caption{A basic visualization of a swarm that only plots points in space as well as trails of significant length.
@@ -186,7 +186,7 @@ the entire animation).}
 
 \begin{figure}
 \centering
-\includegraphics[scale=.7]{images/sizeandcolor.pdf}
+\includegraphics[scale=.33]{images/sizeandcolor.pdf}
 \caption{
 A captured frame from a swarm of tetrahedra-forming boids.
 The corner agents have been given a larger size and a darker color than the edge agents.}
@@ -196,7 +196,7 @@ The corner agents have been given a larger size and a darker color than the edge
 
 \begin{figure}
 \centering
-\includegraphics[scale=.5]{images/flockcolor.pdf}
+\includegraphics[scale=.33]{images/flockcolor.pdf}
 \caption{
 A captured frame from the three-dimensional flocking swarm shown in Figures \ref{ShowOff} and \ref{Animation}.
 The trails in this image are of length 35 time steps and agents of a particular group are colored red.}
@@ -279,7 +279,7 @@ and a high swarm emergent behavior level possible.
 
 \begin{figure}
 \centering
-\includegraphics[scale=.33]{images/track.pdf}
+\includegraphics[scale=.4]{images/track.pdf}
 \caption{
 A captured frame from the three-dimensional flocking swarm shown in Figures \ref{ShowOff} and \ref{Animation}.
 The lonely agent (marked by being larger and darker) in the middle follows this path over its lifetime.
@@ -319,9 +319,9 @@ image of Figure \ref{Velocity}).}
 \label{VelocityTab}
 \end{figure}
 
-\begin{figure}
+\begin{figure*}
 \centering
-\includegraphics[scale=.33]{images/velocity.pdf}
+\includegraphics[scale=.666667]{images/velocity.pdf}
 \caption{
 A captured frame from a swarm of tetrahedra-forming boids shown in Figure \ref{SizeAndColor}.
 On the left, all agent tracks are displayed, showing that agents move faster (the color red) at the beginning.
@@ -330,7 +330,7 @@ On the right, the trails and the agents themselves are colored according to thei
 From this captured frame, it is obvious that the right edge is experiencing movement while the rest of the
 shape is calm. }
 \label{Velocity}
-\end{figure}
+\end{figure*}
 
 \subsubsection{Velocity Color}
 
@@ -360,18 +360,43 @@ In contrast, in Figure \ref{Velocity} (left), every agent has its track shown.
 From this image, we can determine that the movement is very fast and chaotic in the initial phases but then calms to a slower
 speed once the agents have organized into the shape.
 
-\section{Results}
+\section{Results: Analysis of the Tetrahedron-Forming Swarm}
 
-To demonstrate the usefulness of SwarmVis, in this section we provide two walkthroughs as case studies, first,
-a boid flocking domain and second, a tetrahedron-forming swarm.
+Throughout the course of this document, we have discussed the motivation behind the visualizations in SwarmVis by
+displaying images from two data sets: a boid flock and a tetrahedron-forming swarm.
+In this section, we will a cohesive and comprehensive walkthrough in how a user would
+analyze the tetrahedron-forming swarm displayed in previous images.
 
-\subsection{Case Study: Boid Flock}
+\subsection{Background}
 
-\textbf{TODO: add content}
+The shape is formed by agents adhering to the following procedure.
+First, four corners are selected by the swarm via a simple election algorithm.
+The agents follow the following rules:
+\begin{itemize}
+	\item If a corner, be attracted to the three other corners very slightly.
+	\item If not a corner, be attracted to the two closest corners with great, but equal, strength.
+	That is, the output force vector of this rule is the sum of two vectors of some constant magnitude.
+	Note that when an agent is on the line formed by its two closest corners, the forces cancel each other out.
+	\item Avoid any agents that get too close.
+\end{itemize}
 
-\subsection{Case Study: Tetrahedron-Forming Swarm}
+The end result of these rules are somewhat obvious: the agents will self-organize into a tetrahedron.
+However, many of the fine-grained details in the agent behavior is not clear.
+Some questions one may want to ask about this system are: 
+\begin{itemize}
+\item Will the shape formed be equilateral?
+\item How stable is the shape once it is formed? Does it reach an equilibrium and stop moving? If not, what is changing?
+\item How do agents react to movement in the tetrahedron?
+\item How fast do agents create a shape that appears to be a tetrahedron?
+\item Are there any interesting ``emergent strategies" that this swarm uses to create the shape?
+\end{itemize}
+These questions and are easily answerable by studying the rules or the raw position data.
+The purpose of SwarmVis is to provide users the power to answer these questions,
+as well as identify emergent behaviors not previously expected to exist in some systems.
 
-\textbf{TODO: add content}
+\subsection{SwarmVis Analysis}
+
+\textbf{TODO: Add content here}
 
 \section{Future Work}
 SwarmVis is a complete application that has accomplished all the goals that we set out to achieve. 
