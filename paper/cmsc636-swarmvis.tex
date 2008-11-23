@@ -279,10 +279,14 @@ and a high swarm emergent behavior level possible.
 
 \begin{figure}
 \centering
-\includegraphics[scale=.451]{images/track.pdf}
+\includegraphics[scale=.33]{images/track.pdf}
 \caption{
-A captured frame from the three-dimensional tetrahedron Figures \ref{ShowOff}, \ref{Animation} and \ref{FlockColor}.
-The lonely agent in the middle follows this gray path over its lifetime. The structure of the line in three-dimensional space
+A captured frame from the three-dimensional flocking swarm shown in Figures \ref{ShowOff} and \ref{Animation}.
+The lonely agent (marked by being larger and darker) in the middle follows this path over its lifetime.
+The path is colored based on velocity, showing that it moved rather slowly while being solitary (blue portion).
+The agent then sped up after being picked up by a flock (red portion). This even is inferred by the ``notch"
+as well as the change in color between the blue path and the red path.
+The structure of the line in three-dimensional space
 is seen much better when able to interactively rotate the view.}
 \label{Track}
 \end{figure}
@@ -298,6 +302,63 @@ Several agents can be selected at once in the list of agents in the Tracks Tab (
 have their trails all shown at once with the color specified by the ``Color and Opacity" sliders.
 When tracks are used in conjunction with trails, the trails are overlaid on top of the tracks so that
 both trail and track information is conveyed.
+
+
+
+
+
+\begin{figure}
+\centering
+\includegraphics[scale=.5]{images/velocitytab.pdf}
+\caption{
+The velocity tab allows users to map agents' velocities to a color, shown in the gradient on the right. The ``Show Agent Velocity"
+option will color the agent and its entire trail (if enabled) more red if the agent is moving relatively fast, or more blue if the agent
+is moving relatively slow (seen in the right image of Figure \ref{Velocity}).
+The ``Velocity in Tracks" option makes it so the agent tracks are colored according to speed at that time step (seen in the left
+image of Figure \ref{Velocity}).}
+\label{VelocityTab}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[scale=.33]{images/velocity.pdf}
+\caption{
+A captured frame from a swarm of tetrahedra-forming boids shown in Figure \ref{SizeAndColor}.
+On the left, all agent tracks are displayed, showing that agents move faster (the color red) at the beginning.
+Once the agents organize into the tetrahedron they slow down (the color blue).
+On the right, the trails and the agents themselves are colored according to their instantaneous velocity.
+From this captured frame, it is obvious that the right edge is experiencing movement while the rest of the
+shape is calm. }
+\label{Velocity}
+\end{figure}
+
+\subsubsection{Velocity Color}
+
+The velocity feature is useful for displaying the instantaneous or historical velocity of the agents.
+This visualization can be applied in two different ways: color the agent and its trail the agent's current instantaneous
+velocity and/or color the agent tracks based on the velocity at each time step on the track.
+SwarmVis takes the distance travelled in one time step to determine the velocity of an agent and then calculates the 
+desired color from the gradient.
+The color gradient is determined by making pure red the greatest velocity seen in the data set and making pure blue
+a velocity of zero (as seen in Figure \ref{VelocityTab}).
+
+Tracking velocity in the color of the agent is used to track the instantaneous velocity of agents in any time step.
+While viewing the swarm as an animation, the change in velocity is conveyed by seeing how the color changes.
+In addition, important information can be gleaned by viewing still images of agents colored by velocity because
+agents that are moving faster are colored differently than if they are moving slower.
+An example of this is shown in Figure \ref{Velocity} (right).
+We decided that coloring the entire trail the instantaneous velocity (opposed to its default color)
+makes the color more obvious.
+There is no actual information contained in the trail's color, as it is the same color as the agent.
+
+Coloring tracks based on the velocity is a powerful feature that displays how an agents' or an entire swarm's
+velocity changes over time.
+Every line segment in the track is colored based on the velocity of the agent at the time step the line segment represents.
+A single agent's track is pictured in Figure \ref{Track}, in which we can see how the velocity of this particular agent changes
+over the course of its lifetime.
+In contrast, in Figure \ref{Velocity} (left), every agent has its track shown.
+From this image, we can determine that the movement is very fast and chaotic in the initial phases but then calms to a slower
+speed once the agents have organized into the shape.
 
 \section{Results}
 
@@ -398,7 +459,18 @@ At the bottom of this file, the keyword \texttt{FILES} must appear, followed by 
 of files listed here must equal the number specified by the \texttt{FRAMES} variable. Also,
 the number of lines in every file must match the number specified by the \texttt{AGENTS} variable. Below is a sample info file:
 \begin{verbatim}
-     DIMENSIONS = 3     AGENTS = 150     FRAMES = 446     RANGEX = 600     RANGEY = 600     RANGEZ = 600     AGENTTYPES = 1     FILES     frame000001.txt     frame000002.txt     ...
+     DIMENSIONS = 3
+     AGENTS = 150
+     FRAMES = 446
+     RANGEX = 600
+     RANGEY = 600
+     RANGEZ = 600
+     AGENTTYPES = 1
+
+     FILES
+     frame000001.txt
+     frame000002.txt
+     ...
      frame000446.txt
 \end{verbatim}
 
