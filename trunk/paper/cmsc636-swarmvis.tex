@@ -112,18 +112,18 @@ A brief user guide for compiling, running and loading data in SwarmVis is provid
 
 
 \section{Related Work}
-Not much work has been done that specifically tackles the problem of effective swarm visualization.
-Most visualizations are results of swarm intelligence research itself and the majority of articles do not discuss details relevant to our work.
+Not much work has been done that specifically tackles the problem of creating an effective swarm visualization.
+Most visualizations are results of swarm intelligence research and thus the majority of articles do not discuss details relevant to our work.
 Therefore, we often pulled inspiration
 from figures in papers that had nothing to do with visualization and more to do with the swarm system itself.
-Comprehensive multi-agent and swarm system frameworks \cite{Luke}\cite{860347} have been created in the past,
+Comprehensive multi-agent and swarm system frameworks\cite{Luke}\cite{860347} have been created in the past,
 but the visualization aspect is only a component and not the main focus.
 Some researchers have implemented visualization techniques for specific swarm domains,
 such as the particle swarm optimization algorithm\cite{Secrest} and boid flocking\cite{reynolds1987}.
 There have been several projects that used a swarm system paradigm to visualize some sort of information or domain, such as 
 data variations\cite{1382896}, art\cite{Boyd}, evolutionary algorithms\cite{spector2005ecb}\cite{Spector02evolutionarydynamics},
 flow\cite{10.1109/TVCG.2005.87}\cite{Merzkirch}, and source code commits\cite{codeswarm:website}.
-We typically do not care about the domain, but we are often able to get inspiration from the articles' figures, even if they are 
+We typically do not care about the domain, but we are often able to get inspiration from the articles' figures,  even if they are 
 not directly explained from a visualization point of view.
 In this section, we discuss two projects that have motivated particular features in SwarmVis.
 
@@ -135,7 +135,7 @@ In this section, we discuss two projects that have motivated particular features
 \end{figure}
 
 \subsection{SwarmArt}
-SwarmArt by Boyd et al.\cite{Boyd}, a combination of science and art, aims to create visually appealing swarms.
+SwarmArt\cite{Boyd} by Boyd et al., a combination of science and art, aims to create visually appealing swarms.
 SwarmArt visualizes the positional data of a swarm by projecting individual agents as dots onto a 2D surface.
 Agents' motion is conveyed by plotting the agents' previous positions by
 appending an agent trail that fades with time.
@@ -151,17 +151,24 @@ in SwarmVis.
 \end{figure}
 
 \subsection{Information Flocking}
-Moere demonstrates how self-organization and behavior as seen in Reynolds' Boids can be used to show the change of information over time\cite{1382896}. This method is dubbed {\em Information Flocking} and combines the flocking behavior rules with clustering techniques to give users a unique perspective of changing data.  The domain presented in this paper and the method of information flocking are not directly relevant to our project. However, the visualization of the agents this author uses is incredibly smooth looking and pretty to look at. Each agent is a single particle in 3D and its traveled path is depicted by a colored, curved line that has gradually decreasing opacity from the head. The tails are made smooth by using the {\em Catmull-Rom spline} algorithm, which generates smoother tails than linear interpolation through the previous points the agent has visited. The particles' color shows change in data: blue for a decrease and red for an increase.
+Moere demonstrates how self-organization and behavior as seen in Reynolds' Boids can be used to show change of information over time\cite{1382896}. This method is dubbed {\em Information Flocking} and combines flocking behavior rules and clustering techniques to give users a unique perspective of changing data.
+The domain presented in this paper and the method of information flocking are not directly relevant to our project.
+However, the visualizations  this author creates are incredibly smooth looking and visually appealing.
+Each agent is a single particle in 3D and its traveled path is depicted by a colored,
+curved line that has gradually decreasing opacity from the head.
+The trails are made smooth by using the {\em Catmull-Rom spline} algorithm,
+which generates smoother trails than linear interpolation through the previous points the agent has visited.
+The particles' color shows change in data values: blue for a decrease and red for an increase.
 
-In addition, the visualization may include an encompassing ``blob'' that shows vicinity (data similarity). That is, if particles are in the same block, they are in the same flock. This blob method also helps the user find outliers.  
+In addition, the visualization may include an encompassing translucent ``blob'' that shows vicinity (data similarity). That is, if particles are in the same blob, they are in the same flock. This blob method also helps the user find outliers.  
 These blobs are generated with Marching Cubes; specifically a method called ``implicit surface polygonizer.'' Unfortunately, computing the blob is too computationally intensive to be displayed every time step.  
 The author claims that this simulation was able to run in real time with 500 agents.
 
 This work also motivated us in having SwarmVis show agents as a particle with a fading trail.
-However, we decided against using a spline method to show smoother trails because the splines to not actually
+However, we decided against using a spline method because they to not actually
 pass through the points the agent has, which in some cases may be misleading.
 Using color in the trail motivated us to as well, although SwarmVis does not in the same way.
-The ``blob" shown in this work is interesting and informative; we may implement this feature in SwarmVis in the future.
+The ``blob" shown in this work is interesting and informative; in the future, we may implement this feature in SwarmVis.
 
 
 \begin{figure*}[ht]
@@ -177,14 +184,14 @@ screenshot, the user has two agents colored red with all other options standard.
 \end{figure*}
 
 \section{Implementation}
-SwarmVis is mostly  implemented in the C++ language and utilizes the Qt framework\cite{Qt:website}
-to build the graphical user interface and to imbed an OpenGL window.
-The user interface is split down the center,
+SwarmVis is implemented in the C++ language and utilizes the Qt framework\cite{Qt:website}
+to build the graphical user interface and to imbed the OpenGL window.
+The user interface is split down the center:
 the left side containing the majority of the user interface and the right side containing the graphical display.
 The visualization frame in the right side can be rotated and zoomed by dragging and mouse-wheeling, respectively.
-In general, we tried to keep the interface as simple and straightforward as possible.
+In general, we kept the interface as simple and straightforward as possible.
 A more detailed description of the user interface is given in Figure \ref{AnnotatedWindow}.
-Changes made to the visualization through the interface happen in real-time, as the visualization is playing.
+Changes made to the visualization through the interface are applied as the visualization is playing (real-time).
 Lists and parameters are populated when a data set is loaded (more information about data sets is available in the appendix).
 
 Still images can be created by SwarmVis by dumping the graphic currently shown in the visualization frame.
@@ -216,19 +223,20 @@ is able to detect the flocks' motion and structural changes.}
 \subsubsection{Animation}
 
 The playback control (as seen in  seen in Figure \ref{AnnotatedWindow})
-gives the user the ability to specify what is being shown in visualization frame.
-The inspiration for this control is a standard media player with the ability to stop,
+gives the user the ability to specify what time step is being shown in visualization frame.
+The inspiration for this control is a standard media player such as QuickTime Player or Windows MediaPlayer.
+The control provides the ability the ability to stop,
 play and manually move through frames (with the slider).
 In addition, the user can specify how fast the animation is created by adjusting the amount of delay between
 frames (``frame delay" box).
 
-Viewing a swarm over several time steps conveys a great deal amount of information. It conveys direction,
-velocity and structure of the swarm by being able to see how it changes from time step to time step.
-SwarmVis manages to be incredibly smooth even with a fast frame rate and hundreds of agents on a modern
-computer.\footnote{2.2 GHz MacBook Pro running Mac OS X 10.5}
+Viewing a swarm over several time steps conveys a great deal of information. It conveys direction,
+velocity and structure by displaying how the swarm changes from time step to time step.
+SwarmVis manages to make these animations incredibly smooth on a modern
+computer,\footnote{2.2 GHz MacBook Pro running Mac OS X 10.5} even with a fast frame rate and hundreds of agents.
 An example of this is shown in Figure \ref{Animation}, in which a swarm is shown to be
-generally moving south with its sub-swarmsbeginning to merge.
-All of our visualizations  that can be applied to the swarm (color, size, trails, tracks) can be seen in fluid animation.
+generally moving south with its sub-swarms beginning to merge.
+All of the SwarmVis visualizations  that can be applied to the swarm (color, size, trails, tracks) can be seen in fluid animation.
 
 
 
@@ -275,20 +283,21 @@ An important feature of SwarmVis is the ability to track individual agents.
 This can be done by selecting any number of agents of interest in the list of agents
 (seen in the content frame of Figure \ref{AnnotatedWindow})
 and changing their color or size with the button controls.
-For example, the corner agents have been made bigger to emphasize their importance
-in the tetrahedron swarm shown in Figure \ref{SizeAndColor}.
+For example, in Figure \ref{SizeAndColor}, the some agents have been made bigger to emphasize their importance.
 
 In addition, users can change
 the color of all agents that are members of a specific group in the Types tab, as seen
-in Figure \ref{TypesTab}. This feature can be used in addition to changing the size to
-emphasize particular agents. For example, in the swarm shown in
+in Figure \ref{TypesTab}.
+This feature can be used in conjunction with size changing to emphasize particular agents.
+For example, in the swarm shown in
 Figure \ref{SizeAndColor}, we color the corners black and the edges orange. Another
-example is shown in Figure \ref{FlockColor}, in which we colored the largest swarm
-red and left the other swarms blue. Changing the color of the largest flock in the flocking domain is
+example is shown in Figure \ref{FlockColor}, in which we colored the largest flock
+red and left the other flocks default blue.
+Changing the color of the largest flock in the flocking domain is
 particularly useful because it shows when two groups merge by changing the agents' colors
 as they collide.
-Also, this feature is great for creating figures for published articles in swarm research because
-by changing the color and size, the writer can refer to specific agents as ``the bigger agents"
+Also, this feature is great for creating figures for swarm research articles because
+by changing the color and size, the author can refer to specific agents as ``the bigger agents"
 in the text instead of having to manually add labels to the images.
 
 
@@ -322,7 +331,7 @@ Trails are one of the most important features in SwarmVis because it conveys mot
 and change in structure, both in still images and videos. Trails are lines that hang behind agents, tracing
 their previous positions. 
 The trails are created by connecting previous positions of the agents with
-successive lines that are more opaque near the current agent and less so further back in time.
+successive lines that are more opaque near the head of the agent and less so further back in time.
 The length of trails can be adjusted by modifying the number in the ``Agent Trail Length" text box, shown in
 Figure \ref{TracksTab}.
 
@@ -331,10 +340,10 @@ flocks at once, as seen in Figure \ref{FlockColor}.
 One of the most powerful abilities of trails is to convey low-level behavior information in swarms. For example,
 in Figure \ref{CloseTrails}, we can see that the rightmost corner agent (colored red) swapped position with the rightmost
 edge agent (colored blue). Then, all the agents in that edge shifted down to accommodate.
-The time delay in behavior is shown by the ``notch" in the path happened further ago for the left agents and more recently
-in the right agents.
-This visualization feature makes qualitative analysis of how the agents behave both at a low interaction level
-and a high swarm emergent behavior level possible.
+The time delay in behavior is shown by the ``notch" in the path happening further back in time for the left agents and more recently
+for the right agents.
+This visualization feature makes qualitative analysis of how the agents behave, both at a low interaction level
+and a high emergent level, possible.
 
 
 
@@ -349,7 +358,7 @@ and a high swarm emergent behavior level possible.
 A captured frame from the three-dimensional flocking swarm shown in Figure \ref{Animation}.
 The lonely agent (marked by being larger and darker) in the middle follows this path over its lifetime.
 The path is colored based on velocity, showing that it moved rather slowly while being solitary (blue portion).
-The agent then sped up after being picked up by a flock (red portion). This even is inferred by the ``notch"
+The agent then sped up after being picked up by a flock (red portion). This event is inferred by the ``notch,"
 as well as the change in color between the blue path and the red path.
 The structure of the line in three-dimensional space
 is seen much better when able to interactively rotate the view.}
@@ -359,12 +368,12 @@ is seen much better when able to interactively rotate the view.}
 
 \subsubsection{Tracks}
 
-The Tracks feature is very similar to the trails feature
+The tracks feature is very similar to the trails feature
 (they are implemented the same way), except that it shows the position of the agent over the entire
-lifetime of the system. At any given frame, the agent will be somewhere on the track
+lifetime of the system. At any given frame, the agent will be somewhere on the track.
 For example, a track of a single agent is shown in Figure \ref{Track}.
 Several agents can be selected at once in the list of agents in the Tracks Tab (Figure \ref{TracksTab}) to
-have their trails all shown at once with the color specified by the ``Color and Opacity" sliders.
+have all their trails shown at once.
 When tracks are used in conjunction with trails, the trails are overlaid on top of the tracks so that
 both trail and track information is conveyed.
 
@@ -399,54 +408,54 @@ shape is calm. }
 
 \subsubsection{Velocity Color}
 
-The velocity feature is useful for displaying the instantaneous or historical velocity of the agents.
-This visualization can be applied in two different ways: color the agent and its trail the agent's current instantaneous
-velocity and/or color the agent tracks based on the velocity at each time step on the track.
-SwarmVis takes the distance travelled in one time step to determine the velocity of an agent and then calculates the 
-desired color from the gradient.
-The color gradient is determined by making pure red the greatest velocity seen in the data set and making pure blue
+The velocity feature is useful for displaying the instantaneous or historical velocity of agents.
+This visualization can be applied in two different ways: (1) color the agent and its trail the agent's current instantaneous
+velocity and/or (2) color the agent tracks based on the velocity at each time step on the track.
+SwarmVis uses the distance travelled in one time step to determine the velocity of an agent and then calculates the 
+desired color from a color gradient.
+The default color gradient is determined by making pure red the greatest velocity seen in the data set and making pure blue
 a velocity of zero (as seen in Figure \ref{VelocityTab}).
 
-Tracking velocity in the color of the agent is used to track the instantaneous velocity of agents in any time step.
-While viewing the swarm as an animation, the change in velocity is conveyed by seeing how the color changes.
-In addition, important information can be gleaned by viewing still images of agents colored by velocity because
-agents that are moving faster are colored differently than if they are moving slower.
+By coloring agents based on instantaneous velocity, while viewing the swarm as an animation,
+change in velocity is conveyed by change in color.
+In addition, important information can be gleaned by viewing still images of agents colored by velocity:
+Agents that are moving faster are colored differently than agents that are moving slower.
 An example of this is shown in Figure \ref{Velocity} (right).
 We decided that coloring the entire trail the instantaneous velocity (opposed to its default color)
 makes the color more obvious.
 There is no actual information contained in the trail's color, as it is the same color as the agent.
 
 Coloring tracks based on the velocity is a powerful feature that displays how an agents' or an entire swarm's
-velocity changes over time.
-Every line segment in the track is colored based on the velocity of the agent at the time step the line segment represents.
-A single agent's track is pictured in Figure \ref{Track}, in which we can see how the velocity of this particular agent changes
+velocity changes over the course of the system.
+Every line segment in the track is colored based on the velocity of the agent on that line segment.
+A single agent's track is pictured in Figure \ref{Track}, in which we see how the velocity of this particular agent changes
 over the course of its lifetime.
 In contrast, in Figure \ref{Velocity} (left), every agent has its track shown.
 From this image, we can determine that the movement is very fast and chaotic in the initial phases but then calms to a slower
-speed once the agents have organized into the shape.
+speed, once the agents have organized into the shape.
 
 \section{Results: Analysis of the Tetrahedron-Forming Swarm}
 
 Throughout the course of this document, we have discussed the motivation behind the visualizations in SwarmVis by
 displaying images from two data sets: a boid flock and a tetrahedron-forming swarm.
-In this section, we will a cohesive and comprehensive walkthrough in how a user would
-analyze the tetrahedron-forming swarm displayed in previous images.
+In this section, we provide a cohesive and comprehensive walkthrough of how a user would
+analyze the tetrahedron-forming swarm.
 
 \subsection{Background}
 
 The shape is formed by agents adhering to the following procedure.
 First, four corners are selected by the swarm via a simple election algorithm.
-The agents follow the following rules:
+Then, the agents persistently execute the following rules:
 \begin{itemize}
-	\item If a corner, be attracted to the three other corners very slightly.
+	\item If a corner, slightly  be attracted to the three other corners.
 	\item If not a corner, be attracted to the two closest corners with great, but equal, strength.
-	That is, the output force vector of this rule is the sum of two vectors of some constant magnitude.
+	That is, the output force vector of this rule is the sum of two vectors with some constant magnitude.
 	Note that when an agent is on the line formed by its two closest corners, the forces cancel each other out.
-	\item Avoid any agents that get too close.
+	\item Move away from any agents that get too close.
 \end{itemize}
 
 The end result of these rules are somewhat obvious: the agents will self-organize into a tetrahedron.
-However, many of the fine-grained details in the agent behavior is not clear.
+However, many of the fine-grained details of the agent behavior is not clear.
 Some questions one may want to ask about this system are: 
 \begin{itemize}
 \item Will the shape formed be equilateral?
@@ -455,7 +464,7 @@ Some questions one may want to ask about this system are:
 \item How fast do agents create a shape that appears to be a tetrahedron?
 \item Are there any interesting ``emergent strategies" that this swarm uses to create the shape?
 \end{itemize}
-These questions and are easily answerable by studying the rules or the raw position data.
+These questions and  more are easily answerable by studying the rules or the raw position data.
 The purpose of SwarmVis is to provide users the power to answer these questions,
 as well as identify emergent behaviors not previously expected to exist in some systems.
 
@@ -467,8 +476,8 @@ SwarmVis has several tools available to analyze swarms and to create informative
 To demonstrate the results of our work, we provide an example of how the tetrahedron-forming swarm
 can be analyzed.
 The following three general approaches discussed in this section are only a starting point in studying this domain.
-There is always something else to be found in a swarm system and only requirement is the user to looks for it.
-SwarmVis enables the user to find these points of interest.
+There is always something else to be found in a swarm system and only requirement is the user to searches for it.
+SwarmVis enables the user to discover these points of interest, which otherwise would be undiscoverable.
 
 
 \begin{figure}
@@ -486,12 +495,12 @@ any additional visualizations.
 From this animation, we can determine that the swarm starts out spread thin with no organization.
 Then, agents move towards the center and follow an emergent strategy (i.e., not explicitly part of the agent rules)
 to form the six corners of the tetrahedra: form two triangles with a shared edge (five edges) then close the last edge
-in on itself, forming the sixth. Agents executing this strategy are seen in Figure \ref{TetraClosing}.
+in on itself, forming the sixth. Agents executing this strategy are shown in Figure \ref{TetraClosing}.
 After this, we can see the swarm moving towards the center of the screen in a stable manner.
 Then, all of a sudden, agents start bouncing back and forth from edge to edge, not permitting the tetrahedron to
 reach an equilibrium.
 Other than these obvious facts, not much more information can easily be inferred by watching this simple animation.
-In addition, it is difficult to convey what one sees in an animation in written format with figures.
+In addition, conveying what is shown in an animation in a written article is difficult.
 
 Our first step in making more useful visualizations is to color the corners different than the rest of the agents so that
 they are easier to track. We can see in the Types tab (Figure \ref{TypesTab}) that there are two groups, labeled
