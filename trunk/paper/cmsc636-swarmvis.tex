@@ -126,6 +126,12 @@ A more detailed description of the user interface is given in Figure \ref{Annota
 Changes made to the visualization through the interface happen in real-time, as the visualization is playing.
 Lists and parameters are populated when a data set is loaded (more information about data sets is available in the appendix).
 
+Still images can be created by SwarmVis by dumping the graphic currently shown in the visualization frame.
+Also, videos can be made by having SwarmVis automatically dump every frame in the course of an animation as an image.
+These images can then be compiled into a video by a third-party program that is used to make stop-motion or time-lapse
+videos.\footnote{Boid flock and tetrahedron-forming swarm videos made by SwarmVis:\\
+ http://maple.cs.umbc.edu/~don/projects/SAF/videos/\#tetra}
+
 In the remainder of this section, we list the available visualizations in SwarmVis, what they convey, how they are implemented,
 how they can be enabled, and how they can be modified.
 
@@ -160,7 +166,7 @@ frames (``frame delay" box).
 Viewing a swarm over several time steps conveys a great deal amount of information. It conveys direction,
 velocity and structure of the swarm by being able to see how it changes from time step to time step.
 SwarmVis manages to be incredibly smooth even with a fast frame rate and hundreds of agents on a modern
-computer\footnote{2.2 GHz MacBook Pro running Mac OS X 10.5}.
+computer.\footnote{2.2 GHz MacBook Pro running Mac OS X 10.5}
 An example of this is shown in Figure \ref{Animation}, in which a swarm is shown to be
 generally moving south with its sub-swarmsbeginning to merge.
 All of our visualizations  that can be applied to the swarm (color, size, trails, tracks) can be seen in fluid animation.
@@ -394,12 +400,114 @@ These questions and are easily answerable by studying the rules or the raw posit
 The purpose of SwarmVis is to provide users the power to answer these questions,
 as well as identify emergent behaviors not previously expected to exist in some systems.
 
-\subsection{SwarmVis Analysis}
+The particular tetrahedron-forming swarm data set we will be analyzing in this section has forty agents
+and has 333 individual frames of agent coordinates.
 
-\textbf{TODO: Add content here}
+\subsection{SwarmVis Analysis}
+SwarmVis has several tools available to analyze swarms and to create informative videos and still images.
+To demonstrate the results of our work, we provide an example of how the tetrahedron-forming swarm
+can be analyzed.
+The following three general approaches discussed in this section are only a starting point in studying this domain.
+There is always something else to be found in a swarm system and only requirement is the user to looks for it.
+SwarmVis enables the user to find these points of interest.
+
+
+\begin{figure}
+\centering
+\includegraphics[scale=.21]{images/tetraclosing.pdf}
+\caption{
+An emergent strategy that the tetrahedron-forming swarm follows is to form two triangles with a shared edge, then
+close in on itself to form the last edge. This is easily seen by watching the swarm in animation.}
+\label{TetraClosing}
+\end{figure}
+
+\subsubsection{Animation}
+Several interesting observations can be made by viewing the swarm through plotted points in animation, without
+any additional visualizations.
+From this animation, we can determine that the swarm starts out spread thin with no organization.
+Then, agents move towards the center and follow an emergent strategy (i.e., not explicitly part of the agent rules)
+to form the six corners of the tetrahedra: form two triangles with a shared edge (five edges) then close the last edge
+in on itself, forming the sixth. Agents executing this strategy are seen in Figure \ref{TetraClosing}.
+After this, we can see the swarm moving towards the center of the screen in a stable manner.
+Then, all of a sudden, agents start bouncing back and forth from edge to edge, not permitting the tetrahedron to
+reach an equilibrium.
+Other than these obvious facts, not much more information can easily be inferred by watching this simple animation.
+In addition, it is difficult to convey what one sees in an animation in written format with figures.
+
+Our first step in making more useful visualizations is to color the corners different than the rest of the agents so that
+they are easier to track. We can see in the Types tab (Figure \ref{TypesTab}) that there are two groups, labeled
+``corner" and ``edge" (agents are labeled in the data set).
+Although the labels are intuitive, we can also infer that the second group in the list
+is contain the corner agents because it has an average of 3.988 agents over the lifespan of the swarm.
+Since a tetrahedron has four corners, it is safe to assume that this group contains the corners we wish to color.
+This is important because the corner agents follow different rules than the edge agents and are used as markers for the swarm.
+At this point, our visualization shows a tetrahedra similar to that in Figure \ref{SizeAndColor}.
+
+Videos can be made by recording the visualization frame.
+Creating videos would be an appropriate way to show information conveyed by an animation in a setting that does not
+require the visualization to be printed (e.g., online or presentation).
+
+\begin{figure}
+\centering
+\includegraphics[scale=.5]{images/tetrastrategy.pdf}
+\caption{
+The tetrahedron-forming swarm creating its sixth edge. Short trails are turned on with agent coloring based on velocity enabled.
+}
+\label{TetraStrategy}
+\end{figure}
+
+\subsubsection{Trails}
+Previously, we described how trails conveyed important information in the frames shown in
+Figures \ref{CloseTrails} and \ref{Velocity}.
+We now add another example of how powerful of a tool agent trails are in creating compelling still images by
+exploring how the tetrahedra-forming swarm is completing the sixth edge of the shape by
+adding trails along with agents coloring according to velocity.
+The trails show where the agents are coming from and where they are going and
+with the addition of the velocity coloring we can easily see which agents are shifting significantly.
+If zoomed in close to the sixth edge as it closes and taking a still image at the appropriate time (which we found
+with moving our slider slowly), we receive the image shown in Figure \ref{TetraStrategy}.
+From this image, we can tell that the new edge agents move to the new empty edge are agents closest to the corners.
+These agents move very quickly, as seen by their red coloration.
+Meanwhile, agents from the edges these quick agents are coming from shift downwards to fill in the gap and are colored
+purple due to their slight movement.
+At this point, we feel we have a detailed understanding of how the last edge is formed through this emergent strategy.
+Without trails, this phenomena could not have been demonstrated in a single image (e.g., see Figure \ref{TetraClosing}).
+
+
+
+\begin{figure}
+\centering
+\includegraphics[scale=.3]{images/cornervsedge.pdf}
+\caption{
+Two velocity colored tracks compares the difference between a corner's track and an edge agent's track (left).
+The corner agent gets into position and remains relatively calm for the remainder of the time.
+Meanwhile, the edge agent goes through several high-speed moments and never reaches a steady state (right).
+}
+\label{CornerAndEdge}
+\end{figure}
+
+\subsubsection{Tracks}
+Previously, we showed that velocity colored tracks can be used to get a high-level view of the swarm behavior,
+as seen in Figure \ref{Velocity}.
+Colored tracks can also be used to infer information about an individual agents' behavior as well.
+To do this, we cycle through several agents listed in the Tracks tab.
+Very quickly, one realizes that there is a significant difference between the behavior of a corner agent and an edge agent.
+A comparison of two agents is given in Figure \ref{CornerAndEdge}.
+From the image showed in this figure, we see that the life of an edge agent is far more chaotic than that of a corner agent.
+The corner agent barely changes position after reaching its desired location.
+On the other hand, the edge agents movements are both chaotic in terms of position, but also change in velocity.
+In some situations, selecting agents that end up near one another can convey information about how the change 
+in velocity of one agent affects its neighbors.
+
+
+
+
+
+
 
 \section{Future Work}
-SwarmVis is a complete application that has accomplished all the goals that we set out to achieve. 
+We have demonstrated that SwarmVis is a powerful and dynamic tool.
+It is a complete application that has accomplished all the goals that we set out to achieve. 
 However, there are a few user interface changes that would make usability better.
 Also, we would like SwarmVis to visualize the instantaneous velocity and the depth of
 agents since this information is not explicitly present in the
