@@ -610,6 +610,7 @@ enables swarm intelligence researchers to come to new conclusions previously not
 
 \bibliographystyle{IEEE}
 \bibliography{cmsc636-swarmvis}
+\vspace{50pt}
 
 
 \pagebreak
@@ -624,7 +625,7 @@ The following programs are required to compile SwarmVis:
 \item gcc/g++ 4.2.2
 \item make
 \end{itemize}
-Note that some libraries from Qt4.2 may be needed to run SwarmVis in binary form.
+Note that some libraries from Qt4.2 may be needed to run the SwarmVis binary.
 We have tested SwarmVis on Mac OSX 10.5 and openSUSE Linux 11.
 
 Run \texttt{qmake}, then run \texttt{make}, both in the root directory, to compile SwarmVis.
@@ -634,18 +635,18 @@ A binary will be created in the \texttt{bin/} directory. Execute this binary to 
 SwarmVis requires a specific file format for data sets that are to be loaded. The agents' position data is segmented into
 separate files that each represent a single time step. These files are space-delimited data, with
 each row representing an agent. For example, a swarm system with 100 agents depicted over 500 time steps
-will have 500 files in a folder, each with 100 lines.
+will have 500 files in a folder, each with 100 lines of text.
 
-Each row entry in a file follows a format as well. The first two or three  columns (depending on dimensionality) are the
+Each row entry in a file must follow a format as well. The first two or three  columns (depending on dimensionality) are the
 position data $(X, Y)$ or $(X, Y, Z)$, respectively. The last column is reserved for the group label, which may be used to pass
 group membership data to SwarmVis.
 For example, a well-formed line that conveys a three-dimensional
 position with group information could be:
 \begin{quote}
-\texttt{10.15 5.24 84.85 CornerAgent}
+\texttt{10.15 5.24 84.85 Corner}
 \end{quote}
-The listing of agents in each file should be stable. That is, the third line in one file and the third line in another file
-should represent the same agent.
+The order of the listing of agents in each file should be stable.
+That is, the $k^{th}$ line in one file and the $k^{th}$ line in another file must represent the same agent.
 
 A plain-text information file containing important meta-data must accompany the frame files in the same directory.
 The following variables must be defined (i.e., \texttt{VARNAME = VALUE}) in this file in order for the data to be loaded appropriately:
@@ -658,9 +659,14 @@ The following variables must be defined (i.e., \texttt{VARNAME = VALUE}) in this
 \item \texttt{RANGEZ} (the maximum Z value)
 \item \texttt{AGENTTYPES} (\texttt{1} to track agent types, \texttt{0} if not)
 \end{itemize}
-At the bottom of this file, the keyword \texttt{FILES} must appear, followed by a list of frame files, in temporal order. The number
-of files listed here must equal the number specified by the \texttt{FRAMES} variable. Also,
-the number of lines in every file must match the number specified by the \texttt{AGENTS} variable. Below is a sample info file:
+At the bottom of this file, the keyword \texttt{FILES} must appear, followed by a list of frame files, in ascending
+temporal order.
+The number of files listed here must equal the number specified by the \texttt{FRAMES} variable.
+Also, the number of lines in every file must match the number specified by the \texttt{AGENTS} variable.
+Below is a sample info file:
+
+\vspace{30pt}
+
 \begin{verbatim}
      DIMENSIONS = 3
      AGENTS = 150
