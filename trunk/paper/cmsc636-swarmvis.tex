@@ -370,10 +370,10 @@ both trail and track information is conveyed.
 \centering
 \includegraphics[scale=.5]{images/velocitytab.pdf}
 \caption{
-The velocity tab allows users to map agents' velocities to a color, shown in the gradient on the right. The ``Show Agent Velocity"
+The \textit{Velocity} tab allows users to map agents' velocities to a color, shown in the gradient on the right. The ``Show Agent Velocity"
 option will color the agent and its entire trail (if enabled) more red if the agent is moving relatively fast, or more blue if the agent
 is moving relatively slow (seen in the right image of Figure \ref{Velocity}).
-The ``Velocity in Tracks" option makes it so the agent tracks are colored according to speed at that time step (seen in the left
+The ``Velocity in Tracks" option relates velocity to the track of an agent. The track's color matches the speed of an agent at that time step (seen in the left
 image of Figure \ref{Velocity}).}
 \label{VelocityTab}
 \end{figure}
@@ -394,21 +394,16 @@ shape is calm. }
 \subsubsection{Velocity Color}
 
 The velocity feature is useful for displaying the instantaneous or historical velocity of agents.
-This visualization can be applied in two different ways: (1) color the agent and its trail the agent's current instantaneous
-velocity and/or (2) color the agent tracks based on the velocity at each time step on the track.
+This visualization can be applied in two different ways: (1) color the agent and its trail according to the agent's current instantaneous velocity and/or (2) color the agent tracks based on the velocity at each time step on the track.
 SwarmVis uses the distance travelled in one time step to determine the velocity of an agent and then calculates the 
 desired color from a color gradient.
-The default color gradient is determined by making pure red the greatest velocity seen in the data set and making pure blue
-a velocity of zero (as seen in Figure \ref{VelocityTab}).
+The default color gradient is determined by assigning the highest and lowest velocities found in a data set to the colors red and blue, respectively (see Figure \ref{VelocityTab}).
 
-By coloring agents based on instantaneous velocity, while viewing the swarm as an animation,
-change in velocity is conveyed by change in color.
+Assigning agent color to instantaneous velocity conveys the changes in velocity while viewing the swarm as an animation.
 In addition, important information can be gleaned by viewing still images of agents colored by velocity:
 Agents that are moving faster are colored differently than agents that are moving slower.
 An example of this is shown in Figure \ref{Velocity} (right).
-We decided that coloring the entire trail the instantaneous velocity (opposed to its default color)
-makes the color more obvious.
-There is no actual information contained in the trail's color, as it is the same color as the agent.
+Coloring the entire trail the instantaneous velocity (opposed to its default color) makes the color and velocity change more obvious thereby drawing the attention of the viewer of the simulation.
 
 Coloring tracks based on the velocity is a powerful feature that displays how an agents' or an entire swarm's
 velocity changes over the course of the system.
@@ -457,11 +452,12 @@ The particular tetrahedron-forming swarm data set we will be analyzing in this s
 and is comprised of 333 individual frames of agent coordinates.
 
 \subsection{SwarmVis Analysis}
-SwarmVis has several tools available to analyze swarms and create informative visualizations.
+<<<<<<< .mine
+SwarmVis has several tools available to analyze swarms and to create informative visualizations.
 To demonstrate the results of our work, we provide examples of how the tetrahedron-forming swarm can be analyzed.
-The three general approaches discussed in this section are only a starting point in studying this domain.
-Due to the nature of these complex systems, there is always something interesting waiting to be found.
-SwarmVis enables the user to discover these points of interest, which otherwise would be undiscoverable.
+The following three general approaches discussed in this section are only a starting point in studying this domain.
+Due to the nature of these complex systems, there are always intriguing aspect waiting to be found in a swarm system.
+SwarmVis enables the user to discover these points of interest, which otherwise would be hard to identify.
 
 
 \begin{figure}
@@ -475,22 +471,22 @@ close in on itself to form the last edge. This is easily seen by watching the sw
 \end{figure}
 
 \subsubsection{Animation}
+
 Several interesting observations can be made by viewing the swarm with an animated series of plotted points.
 From an animation of the tetrahedron-forming swarm,
-we immediately determine that the swarm starts out spread thin with no organization.
+we immediately determine that the swarm is initially spread thin without any organization.
+
 Then, agents move towards the center and follow an emergent strategy (i.e., not explicitly part of the agent rules)
 to form the sixth edge of the tetrahedra: form two triangles with a shared edge (five edges) then loose two corners
 in on themselves, forming the sixth edge. Agents executing this strategy are shown in Figure \ref{TetraClosing}.
 After this, we can see the swarm moving towards the center of the screen in a stable manner.
-Then, all of a sudden, agents start bouncing back and forth from edge to edge, not permitting the tetrahedron to
-reach an equilibrium.
-Other than these obvious facts, not much more information can easily be inferred by watching this simple animation.
+Then, surprisingly, agents start bouncing back and forth from edge to edge, not permitting the tetrahedron to
+reach an equilibrium. Other than these obvious facts, not much more information can easily be inferred by watching this simple animation.
 
 Our first step in making more useful visualizations is to color the corners differently than the rest of the agents so that
-they are easier to track. We see in the Types tab (Figure \ref{TypesTab}) that there are two groups, labeled
-``corner" and ``edge" (agents are explicitly labeled in the data set).
-Although the labels are intuitive, we can also infer that the second group in the list
-contains the corner agents because it has an average of 3.988 member agents over the lifespan of the swarm.
+they are easier to track. We see in the \textit{Types} tab (Figure \ref{TypesTab}) that there are two groups, labeled
+``corner" and ``edge" (agents are explicitly labeled in the data set). Although the labels are intuitive, we can also infer that the second group in the list contains the corner agents because it has an average of 3.988 member agents over the lifespan of the swarm.
+
 Since a tetrahedron has four corners, it is safe to assume that this group contains the corners we wish to color.
 This feature is important in this domain because the corner agents follow different
 rules than the edge agents.
@@ -510,17 +506,17 @@ The tetrahedron-forming swarm creating its sixth edge with velocity-colored trai
 \end{figure}
 
 \subsubsection{Trails}
+
 Previously, in Figures \ref{CloseTrails} and \ref{Velocity}, we described how trails can convey important information.
 We now add another example of how powerful of a tool agent trails are in creating compelling still images.
 Velocity-colored trails can be used to explore how the tetrahedra-forming swarm is completing the sixth edge of the shape.
 The trails show where the agents are coming from and where they are going.
-Also, with velocity coloring we can easily see which agents are shifting significantly.
+With the addition of the velocity coloring we can easily see which agents are shifting significantly.
 By zooming in close to the sixth edge as it closes and taking a still image at the appropriate time (which we found
-with moving our slider slowly), we receive the image shown in Figure \ref{TetraStrategy}.
+by moving our slider slowly), we receive the image shown in Figure \ref{TetraStrategy}.
 From this image, we can tell that the edge agents closest to the corners are the ones that form the new edge.
 These agents move very quickly, as seen by their red coloration.
-Meanwhile, agents from the edges these quick agents are coming from shift to fill in the gap.
-These agents are colored purple due to their relatively slower movement.
+Meanwhile, agents from the edges where these ``quick'' agents are located initially, shift downwards to fill in the gap. These slower gap filling agents are colored purple due to their slight movement.
 At this point, we feel we have a detailed understanding of how the last edge is formed through this emergent strategy.
 Without trails, this phenomena could not have been demonstrated in a single image (e.g., see Figure \ref{TetraClosing}).
 
@@ -541,23 +537,20 @@ The corner agent gets into position and remains relatively calm for the remainde
 \subsubsection{Tracks}
 Previously, in Figure \ref{Velocity}, we showed that velocity colored tracks can be used to get a high-level view of the swarm behavior.
 Colored tracks can also be used to infer information about an individual agents' behavior.
-To do this, we cycle through several agents listed in the Tracks tab.
+To do this, we cycle through several agents listed in the \textit{Tracks} tab.
 Very quickly, we realize that there is a significant difference between the behavior of a corner agent and an edge agent.
 A comparison of the two types of agents is given in Figure \ref{CornerAndEdge}.
-From the image showed in this figure, we see that the life of an edge agent is far more chaotic than that of a corner agent.
-The corner agent barely changes position after reaching its desired location,
-while the edge agents movements are both highly variable in terms of position and velocity.
-In some situations, selecting agents that end up neighbors can convey information about how they affect one another.
-
-
+From the image shown in this figure, we see that the life of an edge agent is far more chaotic than that of a corner agent.
+The corner agent barely changes position after reaching its desired location. On the contrary, the movements of edge agents are both highly variable in terms of position and velocity.
+In some situations, selecting agents that end up as neighbors can convey information about how they affect one another.
 
 
 
 
 
 \section{Future Work}
-However, there are a few user interface changes that could make usability better.
-Also, we would like SwarmVis to somehow be able to better visualize the  depth of
+There are a few user interface changes that could improve overall usability.
+Also, we would like SwarmVis to somehow be able to better visualize the depth of
 agents, trails and tracks since this information is not explicitly present in the graphical display.
 These future improvements are discussed in this section.
 
@@ -568,21 +561,20 @@ Also, the ability to click agents in the visualization window would allow for gr
 interactivity and easier modification of agent-level colors and effects.
 
 Currently, each visualization effect is controlled by a separate procedure.
-Therefore, separate agent lists are kept in the Agents tab, the Tracks tab and the Types tab.
-By modifying an effect by using its respective tab, any changes made (e.g., color) are not reflected in the other lists.
-Having an interactive global agent list that displays all necessary information will enable users to modify
+Therefore, separate agent lists are kept in the \textit{Agents} tab, the \textit{Tracks} tab and the \textit{Types} tab.
+As a side effect, any modifications made to a particular visualization (e.g., changing the color of an agent) is not reflected in the other lists.
+Having an interactive global agent list that displays all necessary information would enable users to modify
 the colors and effects on groups of agents more effectively. 
 
 We also plan on adding the ability to change the representation of the agent itself to better display direction.
-Currently, direction is inferred by the user by the agents' trail, which may not be effective in every situation.
+Currently, direction is inferred by the user according to the trail of an agents. This technique has the drawback that direction is not always apparent, especially in overlapping trails.
 Previous work has represented agents as 
 pyramids\cite{spector2005ecb}  and ellipsoids\cite{10.1109/TVCG.2005.87}.
 These are superior to dots since they explicitly show direction.
 
 To further increase the amount of information conveyed in still images,
-we hope to determining a sufficient technique for displaying depth.
-We are not sure what the best technique for this would be,
-and no previous work to our knowledge has specifically dealt with this problem.
+we hope to determine a sufficient technique for displaying depth.
+We are not sure what the best technique for this would be since no previous work - to our knowledge - has specifically dealt with this problem.
 
 Finally, we plan on making SwarmVis more extendable with a plug-in framework.
 Any new visualization effects that are added to SwarmVis must be hard coded into the main source code.
@@ -590,10 +582,9 @@ This is not intuitive for a naive user who wishes to add his own visualizations 
 Plug-ins could be implemented as simple programs that take the agent data as input and return
 what should be drawn on the screen. For example, the agent trails effect could be implemented as a plug-in,
 It would take agent data as input from SwarmVis and return a list of lines to be drawn.
-A plug-in user interface will have to be implemented that allows users to manage plugins, as well as use them.
+A plug-in user interface would have to be implemented in order to allow users to manage these plugins.
 There should be some way for the plug-ins to interface with the global agent list to add informations to columns
 and access information.
-
 
 
 
@@ -601,9 +592,9 @@ and access information.
 \section{Conclusion}
 We have demonstrated that SwarmVis is a powerful and dynamic tool.
 It is a complete application that has accomplished all the original goals that we set out to achieve.
-SawrmVis is able to create animations and still images that convey agent position, agent direction and agent velocity.
+SwarmVis is able to create animations and still images that convey agent position, agent direction and agent velocity.
 It can also help with the identification of many emergent properties of swarms, such as structure.
-We believe that the set of visualizations provided make this tool dynamic and applicable to many domains.
+We believe that the set of visualizations provided makes this tool dynamic and applicable to many domains.
 Our work simplifies the task of detailed analysis of emergent behavior and
 enables swarm intelligence researchers to come to new conclusions previously not possible.
 
@@ -618,7 +609,7 @@ enables swarm intelligence researchers to come to new conclusions previously not
 \appendix[User Guide]
 
 \subsection{Compiling and Running}
-SwarmVis was created to run on Unix-like systems, such as Mac OS X and GNU/Linux.
+SwarmVis was created as a cross-platform tool. As such, it is intended to run on Unix-like systems, such as Mac OS X and GNU/Linux as well as Windows.
 The following programs are required to compile SwarmVis:
 \begin{itemize}
 \item Qt 4.2
