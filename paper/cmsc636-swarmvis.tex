@@ -77,8 +77,9 @@ We have implemented \textit{SwarmVis}, a toolkit for visualizing swarms,
 that goes beyond the simple plotting method to increase the
 expressiveness of swarm visualizations.
 The toolkit aims to provide visualization techniques that allow researchers to interactively
-investigate a swarms interactions, fine-grained movements, and behavior.
-Figure \ref{Intro} (right) displays a swarm system with SwarmVis' trails visualization. The image conveys more information, in that direction is expressed by the history of an agent's past positions.
+investigate a swarm's interactions, fine-grained movements, and behavior.
+Figure \ref{Intro} (right) displays a swarm system with SwarmVis' trails visualization, which displays more information.
+In this image, direction is expressed by the history of an agent's past positions.
 
 \begin{figure}[ht]
 \centering
@@ -188,8 +189,8 @@ A file menu (not shown) allows for the loading of swarm data sets.}
 
 \section{Implementation}
 SwarmVis is implemented in the C++ language and utilizes the Qt framework\cite{Qt:website} to build the graphical user interface.
-The OpenGL library \cite{} is used to render all visualizations.
-The choices of using Qt and OpenGL are motivated ensuring SwarmVis' cross-platform compatibility.
+The OpenGL library is used to render all visualizations.
+The motivation of using Qt and OpenGL is to ensure SwarmVis' cross-platform compatibility.
 The user interface is divided into a settings/options frame and visualization frame (see Figure \ref{AnnotatedWindow}).
 The settings/options frame (left) contains the majority of the user interface,
 whereas the visualizations frame (right) contains  the graphical display.
@@ -204,7 +205,11 @@ videos.\footnote{Boid flock and tetrahedron-forming swarm videos made by SwarmVi
  http://maple.cs.umbc.edu/~don/projects/SAF/videos/\#tetra}
 
 In the remainder of this section, we list the available visualizations in SwarmVis.
-For each visualization, we discuss (1) what they convey and how they are implemented, (2) how they are enabled in the interface and (3) how their parameters can be adjusted.
+For each visualization, we discuss
+(1) what they convey,
+(2) how they are implemented,
+(3) how they are enabled in the interface,
+and (4) how their parameters can be adjusted.
 
 
 \subsection{Visualizations}\label{visualizations}
@@ -234,7 +239,7 @@ An example of this is shown in Figure \ref{Animation}, in which a swarm is shown
 generally moving south while two sub-swarms begin to merge.
 SwarmVis manages to make these animations incredibly smooth on a modern
 computer,\footnote{2.2 GHz MacBook Pro running Mac OS X 10.5} even with a fast frame rate and hundreds of agents.
-All of SwarmVis' applicable visualizations (i.e. color, size, trails, tracks) can be seen in fluid animation.
+All of SwarmVis' applicable visualizations (i.e., color, size, trails, tracks) can be seen in fluid animation.
 
 
 
@@ -573,7 +578,7 @@ the colors and effects on groups of agents more effectively.
 Additionally, we plan on implementing the ability to change the dot representation of the agent to better display direction.
 Currently, direction is inferred by the direction of the trails.
 However, direction is not always apparent,
-especially when (1) trails excessively overlap and (2) agents change direction quickly and unexpectedly.
+especially when (1) trails excessively overlap or (2) agents change direction quickly and unexpectedly.
 Previous work has represented agents as  pyramids\cite{spector2005ecb}  and ellipsoids\cite{10.1109/TVCG.2005.87}.
 These are superior to dots since they explicitly show the direction of an agent.
 
@@ -583,7 +588,7 @@ agents, trails and tracks since this information is not explicitly visualized.
 To our knowledge, the literature has not specifically dealt with this problem, prompting further investigation.
 
 Finally, we plan on allowing SwarmVis to be more extendable by using a plug-in framework.
-Any new visualization effects that are added to SwarmVis currently are hard coded into the main source code. This practice is not intuitive to a naive user who wishes to add his/her own visualizations.
+Any new visualization effects that are added to SwarmVis currently are hard coded into the main source code. This practice is not intuitive to a naive user who wishes to add his or her own visualizations.
 Plug-ins could be implemented as simple programs that take the agent data as input and return
 visualization primitives to be rendered on the screen.
 
