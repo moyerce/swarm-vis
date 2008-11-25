@@ -30,6 +30,7 @@
 
 
 \hyphenation{SwarmVis}
+\hyphenation{frame-works}
 
 \begin{document}
 
@@ -58,32 +59,31 @@ global swarm behaviors of multi-agent systems.
 \end{abstract}
 
 \section{Introduction}
-A swarm system is a collection of autonomous agents that, as a group,
-often exhibit some complex behavior.
-Examples of these systems include: social animals (e.g. ants\cite{couzin2003sol}, schooling fish\cite{parrish2002sof}, migrating geese\cite{reynolds1987}), 
+A swarm system is a collection of autonomous agents that, as a group, exhibit some complex behavior.
+Examples of these systems include: ants\cite{couzin2003sol}, schooling fish\cite{parrish2002sof}, migrating geese\cite{reynolds1987}, 
 and multi-robot systems\cite{mondada2004sbn}\cite{mclurkin2004srt}.
-Visualizing swarm systems (swarms) effectively is non-trivial task, partially due to the large number of individual agents contained.
+Visualizing swarm systems (swarms) effectively is non-trivial task, partially due to the large number of individual agents involved.
 The high density and chaotic motions of agents found in typical swarms amplify the complexity of swarm visualization.
-Effective swarm visualizations are needed to provide insight into local (agent-level) and global (swarm-level) behavior.
-A well defined set of visualization techniques in combination with an interactive exploratory tool provides
-the facilities to allow researchers to gain these insights.
+Effective swarm visualizations are needed to gain insight into local (agent-level) and global (swarm-level) behavior.
+A well defined set of visualization techniques, in combination with an interactive exploratory tool,
+provides the facilities to explore these systems at the depth necessary to completely understand them.
 
 
-Simple visualization techniques have been used to plot the position of each agent in space.
+Simple visualization techniques can be used to plot the position of each agent in space.
 An example of this technique, illustrating a Reynolds boid flock\cite{reynolds1987}, can be seen in Figure \ref{Intro} (left).
 The image only shows the location of individual agents and does not convey important
 information such as direction, velocity, and previous positions of the agents.
 We have implemented \textit{SwarmVis}, a toolkit for visualizing swarms,
-that goes beyond the simple plotting technique to increase the
+that goes beyond the simple plotting method to increase the
 expressiveness of swarm visualizations.
-The toolkit aims to provide visualization techniques that allows researchers to interactively
-investigate swarms in order to study interactions, fine-grained movements, and swarm behavior.
-Figure \ref{Intro} (right) displays a swarm system with the addition of our trails visualization and conveys much more
-information than Figure \ref{Intro} (left).
+The toolkit aims to provide visualization techniques that allow researchers to interactively
+investigate swarms'  interactions, fine-grained movements, and behavior.
+Figure \ref{Intro} (right) displays a swarm system with SwarmVis' trails visualization, which, in effect,
+conveys more information than Figure \ref{Intro} (left).
 
 \begin{figure}[ht]
 \centering
-\includegraphics[scale=.59]{images/intro.pdf}
+\includegraphics[scale=.55]{images/intro.pdf}
 \caption{(Left) A basic visualization of a boid flock with agents are plotted as
 points in space. The image only conveys positional and limited structural information.
 (Right) A visualization of the boid flock using SwarmVis. Agent
@@ -104,7 +104,7 @@ embedded in an interactive user interface that has features such as pausing, slo
 \item The toolkit shall provide a variety of built-in visualization techniques that are useful in visualizing swarm systems.
 \end{itemize}
 
-In the next section, we discuss previous work in swarm system visualization,
+In the next section, we discuss previous work in swarm system visualization --
 some of which has provided inspirations for the techniques employed in SwarmVis.
 Next, we discuss the implementation details of the visualizations and the user interface.
 We conclude with a demonstration of the effectiveness of SwarmVis by using it to explore and analyze a swarm system.
@@ -113,15 +113,19 @@ A brief user guide for compiling, running and loading data in SwarmVis is provid
 
 \section{Related Work}
 Not much work has been done that specifically addresses the problem of creating effective swarm visualizations.
-Most swarm visualizations in the literature are the result of swarm intelligence research. However, the literature does neither discuss the details of such visualizations nor their effectiveness. 
+Most swarm visualizations in the literature are the result of swarm intelligence research.
+However, the literature typically does not discuss the details of such visualizations, or their effectiveness. 
 
-Comprehensive multi-agent and swarm system frameworks\cite{Luke}\cite{860347} have been created previously. Their priority is mainly on the simulation of the evolution of swarms not the visual representation of the process.
+Comprehensive  swarm system frameworks\cite{Luke}\cite{860347} have been created in the past.
+Their priority is the actual simulation of the swarms, not the visual representation of the process.
 Some researchers have implemented visualization techniques for specific swarm domains,
 such as the particle swarm optimization algorithm\cite{Secrest} and boid flocking\cite{reynolds1987}.
-There have been several projects that used a swarm system paradigm to visualize a particular subset of information or domain, such as data variations\cite{1382896}, art\cite{Boyd}, evolutionary algorithms\cite{spector2005ecb}\cite{Spector02evolutionarydynamics},
+There have been several projects that used a swarm system paradigm to visualize some information or domain, such as data variations\cite{1382896}, art\cite{Boyd}, evolutionary algorithms\cite{spector2005ecb}\cite{Spector02evolutionarydynamics},
 flow\cite{10.1109/TVCG.2005.87}\cite{Merzkirch}, and source code commits\cite{codeswarm:website}.
 
-Our work is partially inspired by the lack of a coherent collection of effective visualization techniques for swarm systems. We often draw inspiration from illustrations in papers concerned with swarm systems, but which are not directly related to visualization. In this section, we discuss two projects that have motivated particular features in SwarmVis.
+Our work is inspired by the lack of a coherent collection of effective visualization techniques for swarm systems.
+We often draw inspiration from illustrations in papers concerned with swarm systems, but are are not directly related to visualization.
+In this section, we discuss two projects that have specifically motivated particular features in SwarmVis.
 
 \begin{figure}
 \centering
@@ -131,7 +135,7 @@ Our work is partially inspired by the lack of a coherent collection of effective
 \end{figure}
 
 \subsection{SwarmArt}
-SwarmArt\cite{Boyd} by Boyd et al. is a combination of science and art with the aim to create visually appealing swarms.
+SwarmArt\cite{Boyd} by Boyd et al. is a combination of science and art, with the aim to create visually appealing swarms.
 SwarmArt visualizes the positional data of a swarm by projecting individual agents as dots onto a 2D surface.
 Motion is conveyed by incoorporating the previous positions of an agent into a trail that fades with time.
 A sample image created with SwarmArt is shown in Figure \ref{SwarmArt}.
@@ -146,7 +150,8 @@ in SwarmVis.
 \end{figure}
 
 \subsection{Information Flocking}
-Moere demonstrates how self-organization and behavior as seen in Reynolds' Boids can be used to show change of information over time\cite{1382896}. This method is dubbed {\em Information Flocking} and combines flocking behavior rules and clustering techniques to give users a unique perspective of changing data.
+Moere demonstrates how self-organization and behavior, as seen in Reynolds' Boids, can be used to show change of information over time\cite{1382896}. This method is named {\em Information Flocking}, and combines flocking behavior rules
+and clustering techniques to give users a unique perspective of changing data.
 The domain presented in this paper and the method of information flocking are not directly relevant to our project.
 However, the visualizations created by this author are smooth and can be considered visually appealing.
 Each agent is a single particle in 3D space and its traveled path is depicted by a colored,
