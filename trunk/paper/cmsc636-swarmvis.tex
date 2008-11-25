@@ -115,7 +115,7 @@ A brief user guide for compiling, running and loading data in SwarmVis is provid
 Not much work has been done that specifically addresses the problem of creating effective swarm visualizations.
 Most swarm visualizations in the literature are the result of swarm intelligence research. However, the literature does neither discuss the details of such visualizations nor their effectiveness. 
 
-Comprehensive multi-agent and swarm system frameworks\cite{Luke}\cite{860347} have been created previously. Their priority is mainly on the simulation of the evolution of swarms not the visual reprentation of the process.
+Comprehensive multi-agent and swarm system frameworks\cite{Luke}\cite{860347} have been created previously. Their priority is mainly on the simulation of the evolution of swarms not the visual representation of the process.
 Some researchers have implemented visualization techniques for specific swarm domains,
 such as the particle swarm optimization algorithm\cite{Secrest} and boid flocking\cite{reynolds1987}.
 There have been several projects that used a swarm system paradigm to visualize a particular subset of information or domain, such as data variations\cite{1382896}, art\cite{Boyd}, evolutionary algorithms\cite{spector2005ecb}\cite{Spector02evolutionarydynamics},
@@ -131,10 +131,9 @@ Our work is partially inspired by the lack of a coherent collection of effective
 \end{figure}
 
 \subsection{SwarmArt}
-SwarmArt\cite{Boyd} by Boyd et al., a combination of science and art, aims to create visually appealing swarms.
+SwarmArt\cite{Boyd} by Boyd et al. is a combination of science and art. Its aim is to create visually appealing swarms.
 SwarmArt visualizes the positional data of a swarm by projecting individual agents as dots onto a 2D surface.
-Agents' motion is conveyed by plotting the agents' previous positions by
-appending an agent trail that fades with time.
+Motion is conveyed by incoorporating the previous positions of an agent into a trail that fades with time.
 A sample image created with SwarmArt is shown in Figure \ref{SwarmArt}.
 This work, among others\cite{codeswarm:website}, were inspirations for how we visualize agents as simple dots with fading trails
 in SwarmVis.
@@ -149,21 +148,20 @@ in SwarmVis.
 \subsection{Information Flocking}
 Moere demonstrates how self-organization and behavior as seen in Reynolds' Boids can be used to show change of information over time\cite{1382896}. This method is dubbed {\em Information Flocking} and combines flocking behavior rules and clustering techniques to give users a unique perspective of changing data.
 The domain presented in this paper and the method of information flocking are not directly relevant to our project.
-However, the visualizations  this author creates are incredibly smooth looking and visually appealing.
-Each agent is a single particle in 3D and its traveled path is depicted by a colored,
+However, the visualizations created by this author are smooth and can be considered visually appealing.
+Each agent is a single particle in 3D space and its traveled path is depicted by a colored,
 curved line that has gradually decreasing opacity from the head.
 The trails are made smooth by using the {\em Catmull-Rom spline} algorithm,
 which generates smoother trails than linear interpolation through the previous points the agent has visited.
-The particles' color shows change in data values: blue for a decrease and red for an increase.
+The particles' color shows change in data values: blue and red for a decrease and increase, respectively.
 
-In addition, the visualization may include an encompassing translucent ``blob'' that shows vicinity (data similarity). That is, if particles are in the same blob, they are in the same flock. This blob method also helps the user find outliers.  
-These blobs are generated with Marching Cubes; specifically a method called ``implicit surface polygonizer.'' Unfortunately, computing the blob is too computationally intensive to be displayed every time step.  
+In addition, the visualization may include an encompassing translucent ``blob'' that shows vicinity (data similarity). That is, if particles are in the same blob, they are in the same flock. This blob method also helps the user find outliers.
+These blobs are generated with Marching Cubes; specifically a method called ``implicit surface polygonizer.'' Unfortunately, computing the blob is currently too computationally intensive to be displayed at every time step.
 The author claims that this simulation was able to run in real time with 500 agents.
 
 This work also motivated us in having SwarmVis show agents as a particle with a fading trail.
-However, we decided against using a spline method because they to not actually
-pass through the points the agent has, which in some cases may be misleading.
-Using color in the trail motivated us to as well, although SwarmVis does not in the same way.
+However, we decided against using a spline method since splines may obscure the actual path of an agent. Smothing the splines can - in some cases - introduce misleading representations of agent movements.
+Moere's use of color in agent trails inspired a similar visualization in SwarmVis. In Section \ref{visualizations} we introduce a more intuitive mapping of information to trail color.
 The ``blob" shown in this work is interesting and informative; in the future, we may implement this feature in SwarmVis.
 
 
@@ -171,11 +169,10 @@ The ``blob" shown in this work is interesting and informative; in the future, we
 \centering
 \includegraphics[scale=.45]{images/swarmvis-annotated.pdf}
 \caption{The SwarmVis graphical user interface. 
-here is only one window in our application and from it you can navigate to all commands and visualization options.
-The interface is split between the user controls and the visualization itself. There are tabs at the top left that give
+The interface is split between the user controls (left) and the visualization (right). There are tabs at the top left that give
 options for different visualizations in the tab content frame. The playback frame in the bottom left works similar to a
 standard media player. The visualization frame shows the swarm with all selected visualizations applied to it. In this
-screenshot, the user has two agents colored red with all other options standard. }
+screenshot, the user has two agents colored red with all no other options enabled. A file menu (not shown) allows for loading swarm datasets.}
 \label{AnnotatedWindow}
 \end{figure*}
 
@@ -200,7 +197,7 @@ In the remainder of this section, we list the available visualizations in SwarmV
 how they can be enabled, and how they can be modified.
 
 
-\subsection{Visualizations}
+\subsection{Visualizations}\label{visualizations}
 
 
 
