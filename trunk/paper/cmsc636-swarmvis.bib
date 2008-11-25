@@ -4,7 +4,7 @@ Begin: Toolkits
 ########################################################
 
 @article{Luke,
- author = {Luke, S. and Cioffi-Revilla, C. and Panait, L. and Sullivan K. and Balan, G.},
+ author = {Luke, S. and Cioffi-Revilla, C. and Panait, L. and Sullivan, K. and Balan, G.},
  title = {MASON: A Multiagent Simulation Environment},
  journal = {Simulation},
  volume = {81},
@@ -35,12 +35,11 @@ begin: BREVE related papers
 @inproceedings{860347,
  author = {Klein, J.},
  title = {Breve: a 3D environment for the simulation of decentralized systems and artificial life},
- booktitle = {ICAL 2003: Proceedings of the eighth international conference on Artificial life},
+ booktitle = {{Proceedings of the Eighth International Conference on Artificial Life}},
  year = {2003},
  isbn = {0-262-69281-3},
  pages = {329--334},
  publisher = {MIT Press},
- address = {Cambridge, MA, USA},
  annote ={A simulation environment for decentralized systems called BREVE is presented. The environment provides support for continuous time and continuous 3D space simulation. Physical simulation is combined with a graphical display. BREVE distinguishes itself from other simulation packages by claiming to facilitate faster development of novel simulations through a - specifically for BREVE designed - custom object-oriented programming language developed with the intention of reducing programmer overhead. Events are supported by the BREVE environment enabling inter-agent communication (i.e. agents can ``notify'' other agents) and interaction with the 3D environment (i.e. collision detection). An example simulation describes an implementation of Reynolds ``Boids'' model using the BREVE environment. The paper does not mention any visualization techniques that are used to create the visualizations of the environment other than the simulation takes place in 3D space. It is unknown if a simulation designer can create custom representations of agents or incorporate additional information about a simulation in this environment.}
  }
  
@@ -56,24 +55,20 @@ begin: BREVE related papers
 @INPROCEEDINGS{Spector02evolutionarydynamics,
     author = {Spector, L. and Klein, J.},
     title = {Evolutionary dynamics discovered via visualization in the BREVE simulation environment},
-    booktitle = {Eds.), Workshop Proc. of ALife VIII, UNSW},
+    booktitle = {Workshop Proceedings of Artificial Life VIII},
     year = {2002},
     pages = {163--170},
-    publisher = {Press},
     annote= {The paper describes the discovery of evolutionary patters through the use of visualization in the BREVE simulation environment. The BREVE environment is a simulation package for decentralized systems to simulate realistic 3D worlds. In addition to visualizing agents in a 3D environment, additional effects such as shadows, reflections, lighting, semi-transparent bitmaps, lines connecting neighboring objects, texturing objects and objects as light sources are incorporated in the simulation. The extension SwarmEvolve, which simulates evolving swarms, makes heavy use of these features for agent representation. Agents can be assigned to different bitmaps or glyphs according to their semantic involvements in the overall evolving swarm. The paper makes note that through the use of visualization, the authors were able to discover previously unnoticed patterns in goal-directed agents of evolving swarms.}
 }
 
 @inproceedings{Boyd,
  author = {Boyd, J. and Hushlak, G. and Jacob, C.},
- title = {SwarmArt: interactive art from swarm intelligence},
- booktitle = {MULTIMEDIA '04: Proceedings of the 12th annual ACM international conference on Multimedia},
+ title = {{SwarmArt: Interactive art from swarm intelligence}},
+ booktitle = {Proceedings of the 12th Annual ACM International Conference on Multimedia},
  year = {2004},
  isbn = {1-58113-893-8},
  pages = {628--635},
- location = {New York, NY, USA},
  doi = {http://doi.acm.org/10.1145/1027527.1027674},
- publisher = {ACM},
- address = {New York, NY, USA},
  annote = {SwarmArt is a collaboration between science and art. The Breve simulation environment, a library for swarm simulation, is used to obtain positional data over time of simulated swarms. Breve simulates swarms in a 3 dimensional environment. SwarmArt visualizes the positional data by projecting individual agents on a 2D surface. No particular information on the space transformation is given. Agents are represented as dots and distinguished from another by color. SwarmArt visualizes agents in motion by plotting the agents' positions as they change over time. Each agent possesses an agent trail that fades with time indicating current and past positions. Users are able to interact with the swarms through cameras recording user proximity to the display screen. The aim of this project was to create visually appealing swarms. The swarms did not necessarily have any underlying objective, hence there was not need to visualize information pertinent to swarms or swarm researchers in general.}
  }
 
@@ -91,10 +86,10 @@ End: Toolkits
 Begin: Specific visualization techniques
 ########################################################
 
-@ARTICLE{Secrest, 
+@InProceedings{Secrest, 
 title={Visualizing particle swarm optimization - Gaussian particle swarm optimization}, 
 author={Secrest, B.R. and Lamont, G.B.}, 
-journal={Swarm Intelligence Symposium, 2003. SIS '03. Proceedings of the 2003 IEEE}, 
+booktitle={Proceedings of the 2003 IEEE Swarm Intelligence Symposium}, 
 year={2003}, 
 month={April}, 
 volume={}, 
@@ -136,8 +131,8 @@ Begin: Other documents/websites
 End: Other documents/websites
 ########################################################
 
-@ARTICLE{1382896,
-title={Time-Varying Data Visualization Using Information Flocking Boids}, author={Moere, A.V.}, journal={Information Visualization, 2004. INFOVIS 2004. IEEE Symposium on}, year={2004}, month={0-0 }, volume={}, number={}, pages={97-104}, doi={10.1109/INFVIS.2004.65}, ISSN={1522-404X},
+@inproceedings{1382896,
+title={Time-Varying Data Visualization Using Information Flocking Boids}, author={Moere, A.V.}, booktitle={Proceedings of the 2004 IEEE Symposium on Information Visualization}, year={2004}, volume={}, number={}, pages={97-104}, doi={10.1109/INFVIS.2004.65}, ISSN={1522-404X},
 annote = {
 In this paper, the author demonstrates how self-organization and behavior as seen in Reynolds' Boids can be used to show the change of information over time. This method is dubbed {\em Information Flocking} and combines the flocking behavior rules with clustering techniques to give users a unique perspective of changing data. The sample domain used in this paper is stock prices. The author claims that this visualization technique, although not showing actual data values, is able to convey long-term and short-term temporal similarities within time-varying data sets. Also, this method naturally has the ability to neglect noisy or insignificant data changes. The domain presented in this paper and the method of information flocking are not relevant to our project. However, the visualization of the agents this author uses is incredibly smooth looking and pretty to look at. Each agent is a single particle in 3D and its traveled path is depicted by a colored, curved line that has gradually decreasing opacity from the head. The tails are made smooth by using the {\em Catmull-Rom spline} algorithm, which generates smoother tails than linear interpolation through the previous points the agent has visited. The particles' color shows change in data: blue for a decrease and red for an increase. In addition, the visualization may include an encompassing ``blob'' that shows vicinity (data similarity). That is, if particles are in the same block, they are in the same flock. This blob method also helps the user find outliers.  
 These blobs are generated with Marching Cubes; specifically a method called ``implicit surface polygonizer.'' Unfortunately, computing the blob is too computationally intensive to be displayed every time step.  
@@ -289,7 +284,7 @@ year={2002},
 @conference{couzin2003sol,
   title={{Self-organized lane formation and optimized traffic flow in army ants}},
   author={Couzin, I.D. and Franks, N.R.},
-  booktitle={Proc. R. Soc. Lond. B},
+  booktitle={Proceedings of the Royal Society B: Biological Sciences},
   volume={270},
   pages={139--146},
   year={2003}
