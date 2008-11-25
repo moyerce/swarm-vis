@@ -178,13 +178,13 @@ screenshot, the user has two agents colored red with all no other options enable
 
 \section{Implementation}
 SwarmVis is implemented in the C++ language and utilizes the Qt framework\cite{Qt:website}
-to build the graphical user interface and to imbed the OpenGL window.
-The user interface is split down the center:
-the left side containing the majority of the user interface and the right side containing the graphical display.
-The visualization frame in the right side can be rotated and zoomed by dragging and mouse-wheeling, respectively.
+to build the graphical user interface. The OpenGL library is used to render all visualizations. The choice of software libraries facilitates cross-platform utilization of the toolkit.
+The user interface is divided into a settings/options frame and visualization frame (see Figure \ref{AnnotatedWindow}).
+The settings/options frame (left) contains the majority of the user interface, whereas the visualizations frame (right) contains  the graphical display.
+The visualization frame can be rotated and zoomed by dragging and scrolling a mouse, respectively.
 In general, we kept the interface as simple and straightforward as possible.
 A more detailed description of the user interface is given in Figure \ref{AnnotatedWindow}.
-Changes made to the visualization through the interface are applied as the visualization is playing (real-time).
+Changes made to the visualization through the interface are applied to any visualization in real-time.
 Lists and parameters are populated when a data set is loaded (more information about data sets is available in the appendix).
 
 Still images can be created by SwarmVis by dumping the graphic currently shown in the visualization frame.
@@ -198,9 +198,6 @@ how they can be enabled, and how they can be modified.
 
 
 \subsection{Visualizations}\label{visualizations}
-
-
-
 
 
 \begin{figure}
@@ -278,14 +275,12 @@ This can be done by selecting any number of agents of interest in the list of ag
 and changing their color or size with the button controls.
 For example, in Figure \ref{SizeAndColor}, the some agents have been made bigger to emphasize their importance.
 
-In addition, users can change
-the color of all agents that are members of a specific group in the Types tab, as seen
+In addition, users can change the color of all agents that are members of a specific group in the \textit{Types} tab, as seen
 in Figure \ref{TypesTab}.
 This feature can be used in conjunction with size changing to emphasize particular agents.
 For example, in the swarm shown in
-Figure \ref{SizeAndColor}, we color the corners black and the edges orange. Another
-example is shown in Figure \ref{FlockColor}, in which we colored the largest flock
-red and left the other flocks default blue.
+Figure \ref{SizeAndColor}, we color the corners \textit{black} and the edges \textit{orange}. Another
+example is shown in Figure \ref{FlockColor}, in which the largest flock of agents is colored \textit{red}. The remaining agents are colored in \textit{blue} (default color).
 Changing the color of the largest flock in the flocking domain is
 particularly useful because it shows when two groups merge by changing the agents' colors
 as they collide.
@@ -301,7 +296,7 @@ in the text instead of having to manually add labels to the images.
 \centering
 \includegraphics[scale=.5]{images/trackstab.pdf}
 \caption{
-The Tracks tab allows users to add tracks and trails to agents. The length of the trails can be adjusted 
+The \textit{Tracks} tab allows users to add tracks and trails to agents. The length of the trails can be adjusted 
 with the ``Agent Trail Length" box. }
 \label{TracksTab}
 \end{figure}
@@ -312,7 +307,7 @@ with the ``Agent Trail Length" box. }
 \caption{
 A captured frame from a swarm of tetrahedra-forming boids shown in Figure \ref{SizeAndColor}.
 Close up views of the swarm can convey much information about how agents interact with one another.
-In this frame, we see how the rightmost red corner agent swapped places with the rightmost edge agent.
+In this frame, we see how the right-most red corner agent swapped places with the rightmost edge agent.
 Then, edge agents fill in the gap by moving to the right. The different times in which each adjustment happened
 is shown by how long ago a pattern happened in the trail.}
 \label{CloseTrails}
@@ -320,8 +315,8 @@ is shown by how long ago a pattern happened in the trail.}
 
 \subsubsection{Trails}
 
-Trails are one of the most important features in SwarmVis because it conveys motion, previous positions, direction,
-and change in structure, both in still images and videos. Trails are lines that hang behind agents, tracing
+Trails are one of the most important features in SwarmVis because they convey motion, previous positions, direction,
+and change in structure. This fact applies equally to still images and videos. Trails are lines that hang behind agents, tracing
 their previous positions. 
 The trails are created by connecting previous positions of the agents with
 successive lines that are more opaque near the head of the agent and less so further back in time.
@@ -330,13 +325,12 @@ Figure \ref{TracksTab}.
 
 Trails can be used to view swarm behavior at an abstract level, such as tracking the motion of several boid
 flocks at once, as seen in Figure \ref{FlockColor}.
-One of the most powerful abilities of trails is to convey low-level behavior information in swarms. For example,
-in Figure \ref{CloseTrails}, we can see that the rightmost corner agent (colored red) swapped position with the rightmost
+One of the most powerful abilities of trails is to convey low-level behavioral information in swarms. For example,
+in Figure \ref{CloseTrails}, we can see that the right-most corner agent (colored red) swapped position with the right-most
 edge agent (colored blue). Then, all the agents in that edge shifted down to accommodate.
-The time delay in behavior is shown by the ``notch" in the path happening further back in time for the left agents and more recently
-for the right agents.
-This visualization feature makes qualitative analysis of how the agents behave, both at a low interaction level
-and a high emergent level, possible.
+The time delay in behavior is shown by the ``notch" in the path happening further back in time for the left agents, and more recently for the right agents.
+This visualization feature makes qualitative analysis of agent behavior possible - both at a low interaction level
+and a high emergent level.
 
 
 
@@ -353,19 +347,17 @@ The lonely agent (marked by being larger and darker) in the middle follows this 
 The path is colored based on velocity, showing that it moved rather slowly while being solitary (blue portion).
 The agent then sped up after being picked up by a flock (red portion). This event is inferred by the ``notch,"
 as well as the change in color between the blue path and the red path.
-The structure of the line in three-dimensional space
-is seen much better when able to interactively rotate the view.}
+The structure of the line in three-dimensional space is more apparent when a user interactively rotates the visualization frame.}
 \label{Track}
 \end{figure}
 
 
 \subsubsection{Tracks}
 
-The tracks feature is very similar to the trails feature
-(they are implemented the same way), except that it shows the position of the agent over the entire
-lifetime of the system. At any given frame, the agent will be somewhere on the track.
+The tracks feature is very similar to the trails feature. Unlike trails, tracks show the position of an agent over the entire
+lifetime of the system. At any given frame, the agent can be found at its respective position on the track.
 For example, a track of a single agent is shown in Figure \ref{Track}.
-Several agents can be selected at once in the list of agents in the Tracks Tab (Figure \ref{TracksTab}) to
+Several agents can be selected at once in the list of agents in the \textit{Tracks} tab (Figure \ref{TracksTab}) to
 have all their trails shown at once.
 When tracks are used in conjunction with trails, the trails are overlaid on top of the tracks so that
 both trail and track information is conveyed.
