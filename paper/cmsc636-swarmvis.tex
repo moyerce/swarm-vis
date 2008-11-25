@@ -557,37 +557,43 @@ In some situations, selecting agents that end up neighbors can convey informatio
 
 \section{Future Work}
 We have demonstrated that SwarmVis is a powerful and dynamic tool.
-It is a complete application that has accomplished all the goals that we set out to achieve. 
-However, there are a few user interface changes that would make usability better.
-Also, we would like SwarmVis to visualize the instantaneous velocity and the depth of
-agents since this information is not explicitly present in the
-graphical display. These future improvements are discussed in this section.
+It is a complete application that has accomplished all the original goals that we set out to achieve.
+However, there are a few user interface changes that could make usability better.
+Also, we would like SwarmVis to somehow be able to better visualize the  depth of
+agents, trails and tracks since this information is not explicitly present in the graphical display.
+These future improvements are discussed in this section.
 
 In the future, we would like to make it easier to select agents and determine which agents are which in the graphical display.
-To facilitate this, we hope to be able to show text labels that are adjacent to the agent in the visualization window.
-These labels can show the name of the agent in the agent list.
-Also, the ability to click agents in the visualization window will allow for greater interactivity and easier modification of agent-level colors and effects.
+To facilitate this, we hope to be able to show text labels that are adjacent to the agent in the visualization window, which
+show the name of the agent in the agent list.
+Also, the ability to click agents in the visualization window would allow for greater
+interactivity and easier modification of agent-level colors and effects.
 
 Currently, each visualization effect is controlled by a separate procedure.
 Therefore, separate agent lists are kept in the Agents tab, the Tracks tab and the Types tab.
-To make changes to an effect requires using that effect's tab and any changes made (e.g., color) are not reflected in the other lists.
+By modifying an effect by using its respective tab, any changes made (e.g., color) are not reflected in the other lists.
 Having an interactive global agent list that displays all necessary information will enable users to modify
 the colors and effects on groups of agents more effectively. 
 
-We also plan on adding the feature to change the representation of the agent itself to better display direction. Currently, direction is
-inferred by the user by viewing the agents' trail, which may not be effective in every situation.
-If agents were represented as three-dimensional arrowheads or perhaps other glyphs,
-still images would convey very clearly the direction the agent is going on.
+We also plan on adding the ability to change the representation of the agent itself to better display direction.
+Currently, direction is inferred by the user by the agents' trail, which may not be effective in every situation.
+Previous work has represented agents as 
+pyramids\cite{spector2005ecb}  and ellipsoids\cite{10.1109/TVCG.2005.87}.
+These are superior to dots since they explicitly show direction.
 
-To further enhance the information conveyed in still images, we plan on determining a sufficient way to display depth.
-We are not sure what the best technique for this would be, and no previous work to our knowledge has specifically dealt with this problem.
+To further increase the amount of information conveyed in still images,
+we hope to determining a sufficient technique for displaying depth.
+We are not sure what the best technique for this would be,
+and no previous work to our knowledge has specifically dealt with this problem.
 
-Finally, we plan on making SwarmVis extendable through a plug-in type framework. Any new visualization effects that are added
-to SwarmVis must be hard coded into the source. This is not intuitive for a user that does not have knowledge of the source code
-who wishes to add his own visualization to SwarmVis. Plug-ins could be simple programs that take the agent data as input and return
-what the plug-in would like to have drawn on the screen. For example, the agent trails effect could be implemented as a plug-in, such
-that it returns a list of lines to be drawn. A plug-in user interface will have to be implemented that allows users to manage plugins,
-as well as use them. There should be some way for the plug-ins to interface with the global agent list to add informations to columns
+Finally, we plan on making SwarmVis more extendable with a plug-in framework.
+Any new visualization effects that are added to SwarmVis must be hard coded into the main source code.
+This is not intuitive for a naive user who wishes to add his own visualizations to SwarmVis.
+Plug-ins could be implemented as simple programs that take the agent data as input and return
+what should be drawn on the screen. For example, the agent trails effect could be implemented as a plug-in,
+It would take agent data as input from SwarmVis and return a list of lines to be drawn.
+A plug-in user interface will have to be implemented that allows users to manage plugins, as well as use them.
+There should be some way for the plug-ins to interface with the global agent list to add informations to columns
 and access information.
 
 
