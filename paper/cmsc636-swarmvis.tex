@@ -167,8 +167,7 @@ Unfortunately, computing the blob is too computationally intensive to be display
 The author claims that this simulation was able to run in real time with 500 agents.
 
 This work also motivated us in having SwarmVis show agents as a particle with a fading trail.
-However, we decided against using a spline method since they may obscure the actual path of an agent.
-Smothing the splines can, in some cases, introduce misleading representations of agent movements.
+However, we decided against using a spline method since they may distort the actual path of an agent too much.
 Moere's use of color in agent trails inspired a similar visualization technique in SwarmVis.
 In Section \ref{visualizations}, we introduce a more intuitive mapping of information to trail color.
 The ``blob" shown in this work is interesting and informative;
@@ -191,11 +190,11 @@ A file menu (not shown) allows for the loading of swarm data sets.}
 \section{Implementation}
 SwarmVis is implemented in the C++ language and utilizes the Qt framework\cite{Qt:website} to build the graphical user interface.
 The OpenGL library is used to render all visualizations.
-The choices of using Qt and OpenGL are motivated to promote cross-platform usability of SwarmVis.
+The choices of using Qt and OpenGL are motivated by wanting to make SwarmVis cross-platform compatible.
 The user interface is divided into a settings/options frame and visualization frame (see Figure \ref{AnnotatedWindow}).
 The settings/options frame (left) contains the majority of the user interface,
 whereas the visualizations frame (right) contains  the graphical display.
-Any changes made to the visualization through the interface are applied to any visualization in real-time.
+Any changes made to the visualization through the interface are applied to the current visualization in real-time.
 The visualization frame can be rotated and zoomed by dragging and scrolling a mouse, respectively.
 Lists and parameters are populated when a data set is loaded (more information about data sets is available in the appendix).
 
@@ -206,7 +205,7 @@ videos.\footnote{Boid flock and tetrahedron-forming swarm videos made by SwarmVi
  http://maple.cs.umbc.edu/~don/projects/SAF/videos/\#tetra}
 
 In the remainder of this section, we list the available visualizations in SwarmVis.
-For each visualization, we discuss what they convey, how they are implemented, how they are enabled,
+For each visualization, we discuss what they convey, how they are implemented, how they are enabled in the interface,
 and how their parameters can be adjusted.
 
 
@@ -229,12 +228,12 @@ gives the user the ability to specify what time step is being shown in visualiza
 The inspiration for this control is any standard media player, such as QuickTime Player or Windows MediaPlayer.
 The control provides the ability the ability to stop, play, and manually move through frames with the slider.
 In addition, the user can specify how fast the animation is played by adjusting the amount of delay between
-frames (``frame delay" box).
+frames (``Frame Delay" box).
 
 Viewing a swarm over several time steps conveys a great deal of information.
 It conveys direction, velocity, and structure by displaying how the swarm changes from time step to time step.
 An example of this is shown in Figure \ref{Animation}, in which a swarm is shown to be
-generally moving south with two sub-swarms beginning to merge.
+generally moving south while two sub-swarms begin to merge.
 SwarmVis manages to make these animations incredibly smooth on a modern
 computer,\footnote{2.2 GHz MacBook Pro running Mac OS X 10.5} even with a fast frame rate and hundreds of agents.
 All of the SwarmVis visualizations  that can be applied to the swarm (color, size, trails, tracks) can be seen in fluid animation.
@@ -280,15 +279,15 @@ The trails in this image are of length 35 time steps and agents of a particular 
 
 \subsubsection{Color and Size}
 
-An important feature of SwarmVis is the ability of making tracking individual agents easy.
+An important feature of SwarmVis is the making tracking individual agents effortless.
 This can be done by selecting any number of agents of interest in the list of agents
 (seen in the content frame of Figure \ref{AnnotatedWindow})
 and changing their color or size with the button controls.
-For example, in Figure \ref{SizeAndColor}, some agents have been made bigger to emphasize their importance.
+For example, in Figure \ref{SizeAndColor}, some agents have been made larger to emphasize their importance.
 
 In addition, users can change the color of all agents that are members of a specific group in the \textit{Types} tab, as seen
 in Figure \ref{TypesTab}.
-This feature can be used in conjunction with variable sizes to emphasize particular agents.
+This feature can be used in conjunction with varying sizes to emphasize particular agents.
 For example, in the swarm shown in
 Figure \ref{SizeAndColor}, we color the corners \textit{black} and the edges \textit{orange}.
 Another example is shown in Figure \ref{FlockColor}, in which the largest flock of agents is colored \textit{red}.
@@ -296,7 +295,7 @@ The remaining agents are colored in \textit{blue} (default color).
 Changing the color of the largest flock in the flocking domain is
 particularly useful because it shows when two groups merge by changing the agents' colors as they collide.
 Also, this feature is great for creating figures for articles describing swarm research because
- the author can refer to specific agents as, for example, ``the big dark agents."
+ the author can refer to specific agents as, for example, ``the large dark agents."
 
 
 
@@ -325,10 +324,9 @@ is shown by how long ago a ``notch" occurred in the trail.}
 
 \subsubsection{Trails}
 
-An agent trail is a set of line segments that represent the agent's previous $k$ positions.
+An agent trail is a set of line segments that represent the agent's previous $k$ positions, where $k$ is a number of time steps.
 This is one of the most important features in SwarmVis because trails convey motion, previous positions, direction,
 and change in structure.
-This is true for both still images and videos.
 The trails are created by connecting previous positions of the agents with
 successive lines (i.e., linear interpolation) that are more opaque near the head of the agent and less so further back in time.
 The length of trails can be adjusted in real-time by adjusting the number in the ``Agent Trail Length" text box, shown in
@@ -418,13 +416,13 @@ Assigning agent color to instantaneous velocity conveys the changes in velocity 
 Agents that are moving faster are colored differently than agents that are moving slower.
 An example of this is shown in Figure \ref{Velocity} (right).
 Coloring the entire trail the instantaneous velocity (opposed to its default color) makes the color and velocity change more obvious,
-thereby drawing the attention of the user.
+thereby drawing the user's attention.
 
 Coloring tracks based on the velocity is a powerful feature that displays how an agents' or an entire swarm's
 velocity changes over the course of the system.
 Every line segment in the track is colored based on its length.
 The intuition behind this is: the longer the segment, the more distance an agent travelled in one time step,
-and thus the faster the agent was going.
+and thus the faster the agent was moving.
 A single agent's track is pictured in Figure \ref{Track}, in which we see how the velocity of this particular agent changes
 over the course of its lifetime.
 In Figure \ref{Velocity} (left), every agent has its track shown.
@@ -452,7 +450,7 @@ Then, the agents persistently execute the following rules:
 \end{itemize}
 
 The end result of these rules are somewhat obvious: the agents self-organize into a tetrahedron.
-However, many of the fine-grained details of this behavior is not clear.
+However, many of the fine-grained details of this behavior are not clear.
 For example, some questions one may want to ask about this system are: 
 \begin{itemize}
 \item Will the shape formed be equilateral?
@@ -532,7 +530,7 @@ by moving our slider slowly), we receive the image shown in Figure \ref{TetraStr
 From this image, we can tell that the edge agents closest to the corners are the ones that form the new edge.
 These agents move very quickly, represented by their red coloration.
 Meanwhile, agents from the edges where these ``quick'' agents were located initially, shift downwards to fill in the gap.
-These slower gap filling agents are colored purple due to their slightly slower movement.
+These gap filling agents are colored purple due to their slightly slower movement.
 At this point, we feel we have a detailed understanding of how the last edge is formed through this emergent strategy.
 Without trails, this phenomena could not have been demonstrated in a single image (e.g., see Figure \ref{TetraClosing})
 or from raw data.
@@ -584,7 +582,7 @@ Therefore, any modifications made to a particular visualization (e.g., changing 
 Having an interactive global agent list that displays all necessary information would enable users to modify
 the colors and effects on groups of agents more effectively. 
 
-We also plan on adding the ability to change the dot representation of the agent itself to better display direction.
+We also plan on adding the ability to change the dot representation of the agent to better display direction.
 Currently, direction is inferred by the direction of the trails.
 However, direction is not always apparent,
 especially when trails excessively overlap or when agents change direction quickly and unexpectedly.
@@ -602,7 +600,7 @@ is not intuitive to a naive user who wishes to add his own.
 Plug-ins could be implemented as simple programs that take the agent data as input and return
 what should be drawn on the screen.
 For example, the agent trails effect could be implemented as a plug-in:
-It would take agent data as input from SwarmVis and return a list of lines to be drawn.
+take agent data as input from SwarmVis and return a list of lines to be drawn.
 A plug-in user interface would be implemented in order to allow users to manage these plugins.
 There would also be some way for the plug-ins to interface with the global agent list to add informations to columns
 and access information.
@@ -643,7 +641,7 @@ The following programs are required to compile SwarmVis from source:
 Note that some libraries from Qt4.2 may be needed to run the SwarmVis binary.
 We have tested SwarmVis on Mac OSX 10.5 and openSUSE Linux 11.
 
-Run \texttt{qmake}, then run \texttt{make}, both in the root directory, to compile SwarmVis.
+Run \texttt{qmake}, and then \texttt{make}, both in the root directory, to compile SwarmVis.
 A binary will be created in the \texttt{bin/} directory. Execute this binary to run SwarmVis.
 
 \subsection{Data File Format}
