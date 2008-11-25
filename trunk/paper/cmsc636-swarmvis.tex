@@ -81,13 +81,13 @@ investigate swarms in order to study interactions, fine-grained movements, and s
 Figure \ref{Intro} (right) displays a swarm system with the addition of our trails visualization and conveys much more
 information than Figure \ref{Intro} (left).
 
-
-\begin{figure}
+\begin{figure}[ht]
 \centering
 \includegraphics[scale=.55]{images/intro.pdf}
-\caption{A basic visualization of a swarm that only plots points in space (left).
-No information other than agent position and some structural features is provided.
-A basic visualization of a swarm that only plots points in space as well as trails of significant length (right).
+\caption{(left) A basic visualization of a boid flock. Agents are plotted as
+points in space. The image only conveys positional and limited structural information.
+(right) A visualization of the boid flock using SwarmVis. Agent
+position is augmented by a trail of significant length (right).
 Important properties such as direction, velocity, structure, rotation,
 and previous positions are all naturally conveyed.
 }
@@ -112,20 +112,16 @@ A brief user guide for compiling, running and loading data in SwarmVis is provid
 
 
 \section{Related Work}
-Not much work has been done that specifically tackles the problem of creating an effective swarm visualization.
-Most visualizations are results of swarm intelligence research and thus the majority of articles do not discuss details relevant to our work.
-Therefore, we often pulled inspiration
-from figures in papers that had nothing to do with visualization and more to do with the swarm system itself.
-Comprehensive multi-agent and swarm system frameworks\cite{Luke}\cite{860347} have been created in the past,
-but the visualization aspect is only a component and not the main focus.
+Not much work has been done that specifically addresses the problem of creating effective swarm visualizations.
+Most swarm visualizations in the literature are the result of swarm intelligence research. However, the literature does neither discuss the details of such visualizations nor their effectiveness. 
+
+Comprehensive multi-agent and swarm system frameworks\cite{Luke}\cite{860347} have been created previously. Their priority is mainly on the simulation of the evolution of swarms not the visual reprentation of the process.
 Some researchers have implemented visualization techniques for specific swarm domains,
 such as the particle swarm optimization algorithm\cite{Secrest} and boid flocking\cite{reynolds1987}.
-There have been several projects that used a swarm system paradigm to visualize some sort of information or domain, such as 
-data variations\cite{1382896}, art\cite{Boyd}, evolutionary algorithms\cite{spector2005ecb}\cite{Spector02evolutionarydynamics},
+There have been several projects that used a swarm system paradigm to visualize a particular subset of information or domain, such as data variations\cite{1382896}, art\cite{Boyd}, evolutionary algorithms\cite{spector2005ecb}\cite{Spector02evolutionarydynamics},
 flow\cite{10.1109/TVCG.2005.87}\cite{Merzkirch}, and source code commits\cite{codeswarm:website}.
-We typically do not care about the domain, but we are often able to get inspiration from the articles' figures,  even if they are 
-not directly explained from a visualization point of view.
-In this section, we discuss two projects that have motivated particular features in SwarmVis.
+
+Our work is partially inspired by the lack of a coherent collection of effective visualization techniques for swarm systems. We often draw inspiration from illustrations in papers concerned with swarm systems, but which are not directly related to visualization. In this section, we discuss two projects that have motivated particular features in SwarmVis.
 
 \begin{figure}
 \centering
