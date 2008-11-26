@@ -1,0 +1,25 @@
+Dependencies:
+
+Qt 4.4.3
+gcc/g++ 4.2.2
+make
+
+
+
+QMAKE
+
+Run 'qmake' in the directory that 'INSTALLATION.txt' is in.
+
+
+
+
+MAKE
+
+Run 'make' in the same directory.
+
+
+
+
+TO RUN
+
+Execute the binary in the bin/ directory (name varies depending on OS)
