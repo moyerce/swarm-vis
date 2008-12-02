@@ -1,50 +1,25 @@
-\documentclass[conference]{IEEEtran}
+\documentclass{vgtc}
 
-% Write an eight page technical paper describing your project in the style of an IEEE Visualization Technical Paper (other formats may be acceptable with pre-approval).
-
-% Sections you should plan to include are: abstract, introduction, related work (adapt your literature review for this), implementation, results, future directions, and references.
-
-% Your paper should include figures and images as appropriate.
-
-% A complete draft of your paper, including figures and images, must be submitted in advance of the final paper deadline.
-
-% Your draft should be a complete paper that is as strong and polished as you can make it.
-
-% Aim for something that you believe is ready for submission to a conference or journal.
-
-% The course instructor will serve as reviewer for these papers and make suggestions as to how they might be improved.
-
-% You may submit earlier, not necessarily complete, drafts of your paper if you would like feedback earlier in the writing process.
-
-% Correct spelling and grammar count in all submitted work, so check them before you hand anything in.
-
+\usepackage{mathptmx}
+\usepackage{graphicx}
+\usepackage{times}
 \usepackage{epsfig}
 
-% Example figure
-%\begin{figure}[ht]
-% \centering
-% \includegraphics[scale=.8]{old.png}
-% \caption{}
-% \label{old}
-% \end{figure}
+\onlineid{0}
 
+\vgtccategory{Research}
 
-\hyphenation{SwarmVis}
-\hyphenation{frame-works}
-
-\begin{document}
+\vgtcinsertpkg
 
 \title{SwarmVis: a Tool for Visualizing Swarm Systems}
 
-\author{\IEEEauthorblockN{Don Miner}
-\and
-\IEEEauthorblockN{Niels Kasch}
+\author{Don Miner\thanks{e-mail: don1@umbc.edu}\\ %
+        \scriptsize University of Maryland, Baltimore County %
+\and Niels Kasch\thanks{e-mail:nkasch1@umbc.edu}\\ %
+     \scriptsize University of Maryland, Baltimore County %
 }
-\maketitle
 
-
-\begin{abstract}
-In this paper, we provide an overview of SwarmVis, a tool for
+\abstract{In this paper, we provide an overview of SwarmVis, a tool for
 visualizing swarm systems. SwarmVis integrates several visualization
 techniques to create informative still images and videos of swarm
 systems moving through two- and three- dimensional space. SwarmVis
@@ -54,11 +29,14 @@ the types of information relevant to current swarm research and explain,
 in detail, the capabilities of SwarmVis to visualize this information.
 Finally, we use a case study to
 demonstrate how SwarmVis can be used to analyze both the local agent and
-global swarm behaviors of multi-agent systems.
+global swarm behaviors of multi-agent systems.}
 
-\end{abstract}
+\begin{document}
 
-\section{Introduction}
+\firstsection{Introduction}
+
+\maketitle
+
 A swarm system is a collection of autonomous agents that, as a group, exhibit some complex behavior.
 Examples of these systems include: ants\cite{couzin2003sol}, schooling fish\cite{parrish2002sof}, migrating geese\cite{reynolds1987}, 
 and multi-robot systems\cite{mondada2004sbn}\cite{mclurkin2004srt}.
