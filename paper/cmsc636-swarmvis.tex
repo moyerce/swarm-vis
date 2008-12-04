@@ -43,7 +43,7 @@ and multi-robot systems\cite{mondada2004sbn}\cite{mclurkin2004srt}.
 Visualizing swarm systems (swarms) effectively is a non-trivial task, partially due to the large number of individual agents involved.
 The high density and chaotic motions of agents found in typical swarms amplify the complexity of swarm visualization.
 Effective swarm visualizations are needed to gain insight into local (agent-level) and global (swarm-level) behavior.
-A well defined set of visualization techniques, in combination with an interactive exploratory tool,
+A well-defined set of visualization techniques, in combination with an interactive exploratory tool,
 provides the facilities to explore these systems at the depth necessary to completely understand them.
 
 
@@ -82,11 +82,11 @@ embedded in an interactive user interface that has features such as pausing, slo
 \item The toolkit shall provide a variety of built-in visualization techniques that are useful in visualizing swarm systems.
 \end{itemize}
 
-In the next section, we discuss previous work in swarm system visualization --
-some of which has provided inspirations for the techniques employed in SwarmVis.
-Next, we discuss the implementation details of the visualizations and the user interface.
-We conclude with a demonstration of the effectiveness of SwarmVis by exploring and analyzing a swarm system.
-A brief user guide for compiling, running and loading data in SwarmVis is provided in the appendix.
+%In the next section, we discuss previous work in swarm system visualization --
+%some of which has provided inspirations for the techniques employed in SwarmVis.
+%Next, we discuss the implementation details of the visualizations and the user interface.
+%We conclude with a demonstration of the effectiveness of SwarmVis by exploring and analyzing a swarm system.
+%A brief user guide for compiling, running and loading data in SwarmVis is provided in the appendix.
 
 
 \section{Related Work}
@@ -105,27 +105,16 @@ Our work is inspired by the lack of a coherent collection of effective visualiza
 We draw inspiration from illustrations in papers concerned with swarm systems. Most often, such papers are not directly related to visualization.
 In this section, we discuss two projects that have specifically motivated particular features in SwarmVis.
 
-\begin{figure}
-\centering
-\includegraphics[scale=.333333]{images/SwarmArt.pdf}
-\caption{A visualization created by Boyd et al. with SwarmArt\cite{Boyd}.}
-\label{SwarmArt}
-\end{figure}
+
 
 \subsection{SwarmArt}
 SwarmArt\cite{Boyd} by Boyd et al. is a combination of science and art with the aim to create visually appealing swarms.
 SwarmArt visualizes the positional data of a swarm by projecting individual agents as dots onto a 2D surface.
 Motion is conveyed by incorporating the previous positions of an agent into a trail that fades with time.
-A sample image created with SwarmArt is shown in Figure \ref{SwarmArt}.
 This work, among others\cite{codeswarm:website}, were inspirations for how we visualize agents as simple dots with fading trails
 in SwarmVis.
 
-\begin{figure}
-\centering
-\includegraphics[scale=.5]{images/blob.pdf}
-\caption{An ``information flocking" visualization created by Moere\cite{1382896}.}
-\label{Blob}
-\end{figure}
+
 
 \subsection{Information Flocking}
 Moere demonstrates how self-organization and behavior, as seen in Reynolds' Boids, can be used to show change of information over time\cite{1382896}. This method, named {\em Information Flocking}, combines flocking behavior rules
@@ -135,22 +124,12 @@ However, the visualizations created by this author are smooth and visually appea
 Each agent is a single particle in 3D space with its previously traveled path depicted by a colored,
 curved line that has gradually decreasing opacity from the head.
 The trails are made smooth by using the {\em Catmull-Rom spline} algorithm \cite{378511},
-which generates curvier trails than linear interpolation.
+which generates smoother trails than linear interpolation.
 In addition, a particle's color shows change in data values: blue and red for a decrease and increase, respectively.
-
-In addition, the visualization may include an encompassing translucent ``blob'' that shows data similarity.
-That is, if particles are in the same blob, they represent similar or related data points.
-Blobs are generated with {\em Marching Cubes}\cite{37422}; specifically a method called a ``implicit surface polygonizer.''
-Unfortunately, computing the blob is too computationally intensive to be displayed at every time step.
-The author claims that this simulation was able to run in real time with 500 agents.
 
 This work also motivated us in having SwarmVis show agents as a particle with a fading trail.
 However, we decided against using a spline method since they may distort the actual path of an agent.
 Moere's use of color in agent trails inspired a similar visualization technique in SwarmVis.
-In Section \ref{visualizations}, we introduce a more intuitive mapping of information to trail color.
-The ``blob" shown in this work is interesting and informative;
-in the future, we may decide to implement this feature in SwarmVis.
-
 
 \begin{figure*}[ht]
 \centering
@@ -165,7 +144,7 @@ A file menu (not shown) allows for the loading of swarm data sets.}
 \label{AnnotatedWindow}
 \end{figure*}
 
-\section{Implementation}
+\section{Approach}
 SwarmVis is implemented in the C++ language and utilizes the Qt framework\cite{Qt:website} to build the graphical user interface.
 The OpenGL library is used to render all visualizations.
 The motivation of using Qt and OpenGL is to ensure SwarmVis' cross-platform compatibility.
@@ -427,6 +406,16 @@ Then, the agents persistently execute the following rules:
 	\item Move away from agents that get too close.
 \end{itemize}
 
+\begin{figure*}[ht]
+\centering
+\includegraphics[scale=.3]{images/tetraclosing.pdf}
+\caption{
+The tetrahedron-forming swarm uses an emergent strategy to form its last (sixth) edge.
+The swarm initially forms two triangles with a shared edge (total of five edges), then
+closes in on itself to form the last edge. This is easily noticed while watching the swarm in animation.}
+\label{TetraClosing}
+\end{figure*}
+
 The end result of these rules are somewhat obvious: the agents self-organize into a tetrahedron.
 However, many of the fine-grained details of this behavior are not clear.
 For example, some questions one may want to ask about this system are: 
@@ -444,6 +433,8 @@ as well as to identify emergent behaviors not previously expected to exist.
 The particular tetrahedron-forming swarm data set we will be analyzing in this section has forty agents
 and is comprised of 333 individual frames of agent coordinates.
 
+
+
 \subsection{SwarmVis Analysis}
 SwarmVis has several tools available to analyze swarms and to create informative visualizations.
 To demonstrate the results of our work, we provide examples of how the tetrahedron-forming swarm can be analyzed.
@@ -454,15 +445,7 @@ SwarmVis enables the user to discover these points of interest, which otherwise 
 data set is available from the SwarmVis project website: http://swarm-vis.googlecode.com/files/tetrahedra\_boids.zip}
 
 
-\begin{figure*}
-\centering
-\includegraphics[scale=.3]{images/tetraclosing.pdf}
-\caption{
-The tetrahedron-forming swarm uses an emergent strategy to form its last (sixth) edge.
-The swarm initially forms two triangles with a shared edge (total of five edges), then
-closes in on itself to form the last edge. This is easily noticed while watching the swarm in animation.}
-\label{TetraClosing}
-\end{figure*}
+
 
 \subsubsection{Animation}
 
@@ -483,8 +466,8 @@ This feature is important in this domain because the corner agents follow differ
 Therefore, segregating them will make it easier to understand how the swarm functions.
 At this point of the walk-through, our visualization shows a tetrahedra similar to that in Figure \ref{SizeAndColor}.
 
-The best way to share animations is to create a video with SwarmVis.
-Videos would be appropriate for sharing information conveyed by an animation online or in presentations.
+%The best way to share animations is to create a video with SwarmVis.
+%Videos would be appropriate for sharing information conveyed by an animation online or in presentations.
 
 \begin{figure}
 \centering
@@ -514,9 +497,9 @@ or from raw data.
 
 
 
-\begin{figure}
+\begin{figure*}[ht]
 \centering
-\includegraphics[scale=.27]{images/cornervsedge.pdf}
+\includegraphics[scale=.4]{images/cornervsedge.pdf}
 \caption{
 (Left) A comparison of a corner's track and an edge agent's track.
 The two can be contrasted by analyzing the color and structure of the tracks.
@@ -524,7 +507,7 @@ The corner agent gets into position and remains relatively calm for the remainde
 (Right) Meanwhile, the same edge agent goes through several high-speed moments and never reaches a steady state.
 }
 \label{CornerAndEdge}
-\end{figure}
+\end{figure*}
 
 \subsubsection{Tracks}
 In Figure \ref{Velocity}, we showed that velocity colored tracks can be used to get a high-level view of the swarm behavior.
@@ -588,9 +571,10 @@ enables swarm intelligence researchers to come to new conclusions previously not
 \vspace{50pt}
 
 
-\pagebreak
+%\pagebreak
 
-\appendix[User Guide]
+
+\section{Appendix: User Guide}
 
 \subsection{Compiling and Running}
 SwarmVis is a cross-platform tool
