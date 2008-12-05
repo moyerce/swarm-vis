@@ -12,6 +12,7 @@
 #include <QListWidgetItem>
 #include <sstream>
 #include <QColorDialog>
+#include <QMessageBox>
 #include <QDialog>
 #include <string>
 #include <vector>
@@ -75,6 +76,13 @@ private:
 	void populateListView();
 	void loadNewData();
 	void setupUI();
+	void saveSettings();
+	void loadSettings();
+	void parseStringContent(std::string s);
+	int getValue(std::string s);
+	int getIndex(std::string s);
+	QColor getColor(std::string s);
+	double getSize(std::string s);
 };
 
 #endif // SWARMVIS_H
