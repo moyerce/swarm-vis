@@ -17,6 +17,9 @@
 #include <vector>
 #include <iostream>
 #include <QLayout>
+#include <fstream>
+#include <iostream>
+#include <string>
 
 class SwarmVis : public QMainWindow
 {
