@@ -144,8 +144,7 @@ void SwarmVis::menubar_action_handler(QAction* action)
 	{
 		exit(0);
 	}
-	// Action handler for loading data
-	if (action->text().compare("&Load Agent Data") == 0)
+	else if (action->text().compare("&Load Agent Data") == 0) // Action handler for loading data
 	{
 		// Prompt user for an .info File
 		QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
@@ -170,6 +169,23 @@ void SwarmVis::menubar_action_handler(QAction* action)
 			// Initialize the GUI components
 			populateListView();
 		}
+	}
+	else if (action->text().compare("L&oad Settings") == 0)
+	{
+		loadSettings();
+	}
+	else if (action->text().compare("Sa&ve Settings") == 0)
+	{		
+		saveSettings();
+	}
+	else if (action->text().compare("&About SwarmVis") == 0)
+	{
+		QMessageBox::about(this, tr("About SwarmVis"),
+             tr("<b>SwarmVis</b> - a toolkit for visualizing swarm system. <br> <br>"
+                "Authors: <br>"
+				"Niels Kasch (nkasch1@umbc.edu) <br>"
+				"Don Miner (don1@umbc.edu) <br> <br> <br> December 2008"
+                ));
 	}
 }
 
@@ -196,12 +212,10 @@ void SwarmVis::createThread()
 
 void SwarmVis::btnSelectAll_clicked()
 {
-	/*QItemSelectionModel * selectionModel = ui.listWidgetAgents->selectionModel();
-	for(int i = 0; i < agents->getNumAgents(); i++)
-	{
-		const QModelIndex *index = new QModelIndex;
-		selectionModel->select(index, QItemSelectionModel::SelectCurrent);
-	}*/
+	for (int i = 0; i < ui.tableWidgetTracks->rowCount(); i++)
+	{		
+		ui.tableWidgetTracks->setItemSelected(ui.tableWidgetTracks->item(i, 0), true);
+	}
 }
 
 void SwarmVis::btnClearSelection_clicked()
@@ -366,19 +380,19 @@ void SwarmVis::btnSetColor_clicked()
 	{
 		QColor color = QColorDialog::getColor(QColor(0,0,0), this );
 
-		//std::vector<Agent> *agent_array = agents->getAgentsVector();
-		for (int i = 0; i < typeIndex.size(); i++)
-		{
-			for (int j = 0; j < ui.tableWidgetTypes->rowCount(); j++)
+			//std::vector<Agent> *agent_array = agents->getAgentsVector();
+			for (int i = 0; i < typeIndex.size(); i++)
 			{
-				QTableWidgetItem * colorItem = ui.tableWidgetTypes->item(j, 1);
-				QTableWidgetItem * nameItem = ui.tableWidgetTypes->item(j, 0);
-				if (nameItem->text().toStdString() == typeIndex.at(i))
+				for (int j = 0; j < ui.tableWidgetTypes->rowCount(); j++)
 				{
-					colorItem->setBackgroundColor(color);
+					QTableWidgetItem * colorItem = ui.tableWidgetTypes->item(j, 1);
+					QTableWidgetItem * nameItem = ui.tableWidgetTypes->item(j, 0);
+					if (nameItem->text().toStdString() == typeIndex.at(i))
+					{
+						colorItem->setBackgroundColor(color);
+					}
 				}
-			}
-		}
+			}		
 		QList<std::string> types;
 		QList<QColor> colors;
 		for (int i = 0; i < ui.tableWidgetTypes->rowCount(); i++)
@@ -391,13 +405,14 @@ void SwarmVis::btnSetColor_clicked()
 			types.append(s);
 		}
 		updateAgentTypesColor(types, colors);
-	}
+	}	
 }
 void SwarmVis::btnSetColor_2_clicked()
 {
 	//sets the color for each individual agent that is selected
 	if (agentIndex.size() > 0)
 	{
+		
 		QTableWidgetItem * first = ui.tableWidget->item(agentIndex.at(0), 1);
 		QColor color = QColorDialog::getColor(first->backgroundColor(), this );
 		
@@ -494,6 +509,221 @@ void SwarmVis::btnSaveFrame_clicked()
 	{
 		ui.txtDumpImageFolder->setText(fileName);
 	}
+}
+
+void SwarmVis::saveSettings()
+{
+	QString fileName = QFileDialog::getSaveFileName(this, tr("Save Settings"),
+							"settings.svs",
+							tr("SwarmVis Settings (*.svs);;All Files (*.*)"));
+	if (fileName.length() > 0)
+	{
+		std::ofstream file;
+  		file.open (fileName.toStdString().c_str());
+  		
+		//file << "AGENTDATA\n";
+		for (int i = 0; i < ui.tableWidget->rowCount(); i++)
+		{
+			//QTableWidgetItem * name = ui.tableWidget->item(i, 0);
+			QTableWidgetItem * color = ui.tableWidget->item(i, 1);
+			QColor c = color->backgroundColor();
+			int r = c.red();
+			int g = c.green();
+			int b = c.blue();
+			QTableWidgetItem * size = ui.tableWidget->item(i, 2);
+			QString s = size->text();
+			file << "AGENTDATA = " << i << " " << r << " " << g << " " << b 
+				 << " " << s.toStdString() << "\n";
+			//std::cout << "SIZE = " << s.toStdString() << std::endl;
+		}
+		//file << "TRACKDATA\n";
+		QList<QTableWidgetItem*> selectedAgents = ui.tableWidgetTracks->selectedItems();
+		for (int i = 0; i < selectedAgents.size(); i++)
+		{
+			QTableWidgetItem *item = selectedAgents.at(i);			
+			int index = item->row();
+			file << "TRACKDATA = " << index << "\n";
+		}
+		//file << "TYPESDATA\n";
+		for (int i = 0; i < ui.tableWidgetTypes->rowCount(); i++)
+		{
+			//QTableWidgetItem * name = ui.tableWidget->item(i, 0);
+			QTableWidgetItem * color = ui.tableWidgetTypes->item(i, 1);
+			QColor c = color->backgroundColor();
+			int r = c.red();
+			int g = c.green();
+			int b = c.blue();			
+			file << "TYPESDATA = " << i << " " << r << " " << g << " " << b << "\n";
+		}
+		//file << "CHECKBOXES\n";
+		//show tracks
+		file << "ShowTracks = " << ui.chkAgentPaths->isChecked() <<"\n";
+		//show Track in Agent Color
+		file << "TrackInAgentColor = " << ui.chkSameColor->isChecked() <<"\n";
+		file << "AgentVelocity = " << ui.chkShowAgentVelocity->isChecked() <<"\n";
+		file << "TrackVelocity = " << ui.chkShowTrackVelocity->isChecked() <<"\n";
+		file << "BoundingBox = " << ui.chkBoundingBox->isChecked() <<"\n";
+		file << "DepthCecking = " << ui.chkDepthChecking->isChecked() <<"\n";
+		file << "OverrideAgentColor = " << ui.chkOverrideAgentColor->isChecked() <<"\n";
+		file << "TrailLength = " << ui.spinBoxTrailLength->value() <<"\n";
+		file << "TimeIndex = " << ui.timeSlider->value() <<"\n";
+		
+		//file << "Writing this to a file.\n";
+  		file.close();
+	}
+}
+
+void SwarmVis::loadSettings()
+{
+	QString fileName = QFileDialog::getOpenFileName(this, tr("Open Settings File"),
+							"*.svs",
+							tr("SwarmVis Settings (*.svs);;All Files (*.*)"));
+
+		if (fileName.length() > 0)
+		{	
+			btnClearSelection_clicked();  //clear the selected tracks		
+			std::string str =  fileName.toStdString();
+			const char *name = str.c_str();	
+	
+			std::ifstream file;
+			file.open(name);
+			if(!file) std::cerr << "Error: file could not be opened" << std::endl;
+			
+			char word[255];
+			while ( !file.eof())
+			{				
+				file.getline(word, 255, '\n');
+				std::string s = word;
+				parseStringContent(s);
+			}
+			for (int i = 0; i < ui.tableWidget->rowCount(); i++)
+			{		
+				ui.tableWidget->setItemSelected(ui.tableWidget->item(i, 0), true);
+			}
+			for (int i = 0; i < ui.tableWidgetTypes->rowCount(); i++)
+			{		
+				ui.tableWidgetTypes->setItemSelected(ui.tableWidgetTypes->item(i, 0), true);
+			}
+			
+			//button			
+			QList<std::string> types;
+			QList<QColor> colors;
+			for (int i = 0; i < ui.tableWidgetTypes->rowCount(); i++)
+			{
+				QTableWidgetItem * colorItem = ui.tableWidgetTypes->item(i, 1);
+				QColor c = colorItem->backgroundColor();
+				colors.append(c);
+				QTableWidgetItem * nameItem = ui.tableWidgetTypes->item(i, 0);
+				std::string s = nameItem->text().toStdString();
+				types.append(s);
+			}
+			updateAgentTypesColor(types, colors);
+				
+			std::vector<Agent> *agent_array = agents->getAgentsVector();
+				
+			for (int i = 0; i < agentIndex.size(); i++)
+			{
+				int aIndex = agentIndex.at(i);
+				//set the items background color
+				QTableWidgetItem * item = ui.tableWidget->item(aIndex, 1);
+				QColor color = item->backgroundColor();
+			
+				for (int j = 0; j < agents->getTimeSteps(); j++)
+				{
+					//set the agents color
+					agent_array[j][aIndex].setColor(color);
+				}
+			}
+		
+			btnSetAgentSize_clicked();
+		}
+}
+
+
+int SwarmVis::getValue(std::string s)
+{
+	int index = s.find("=", 0);
+	std::stringstream ss(s.substr(index + 1, s.length()));
+	int n;
+	ss >> n;
+	return n;
+}
+
+int SwarmVis::getIndex(std::string s)
+{
+	int index = s.find("= ", 0);
+	std::stringstream ss(s.substr(index + 1, s.length()));
+	ss >> s;
+	index = s.find(" ", 0);
+	std::stringstream ss1(s.substr(0, index));
+	int n;
+	ss1 >> n;
+	return n;
+}
+
+QColor SwarmVis::getColor(std::string s)
+{
+	int r, g, b, i;
+	int index = s.find("= ", 0);
+	std::stringstream ss(s.substr(index + 1, s.length()));
+	ss >> i >> r >> g >> b;
+	//std::cout << r << " "<<  g <<" "<< b <<std::endl;
+
+	return QColor::QColor(r,g,b);
+}
+double SwarmVis::getSize(std::string s)
+{	
+	int r, g, b, i;
+	double size;
+	int index = s.find("= ", 0);
+	std::stringstream ss(s.substr(index + 1, s.length()));
+	ss >> i >> r >> g >> b >> size;
+	//std::cout << r << " "<<  g <<" "<< b << "Size:" << size <<std::endl;
+	return size;
+}
+
+void SwarmVis::parseStringContent(std::string s)
+{
+	std::string::size_type loc;	
+
+	loc = s.find( "AGENTDATA", 0 );
+	if( loc != std::string::npos)
+	{		
+		QTableWidgetItem * color = ui.tableWidget->item(getIndex(s), 1);
+		QTableWidgetItem * size = ui.tableWidget->item(getIndex(s), 2);
+		color->setBackgroundColor(getColor(s));
+		getSize(s);
+		size->setText(QString::number(getSize(s), 'g', 2));
+	}
+	loc = s.find( "TYPESDATA", 0 );
+	if( loc != std::string::npos)
+	{		
+		QTableWidgetItem * color = ui.tableWidgetTypes->item(getIndex(s), 1);		
+		color->setBackgroundColor(getColor(s));		
+	}	
+	loc = s.find( "TRACKDATA", 0 );
+	if( loc != std::string::npos)
+	{			
+		ui.tableWidgetTracks->setItemSelected(ui.tableWidgetTracks->item(getValue(s), 0), true);		
+	}
+	loc = s.find( "ShowTracks", 0 );
+	if( loc != std::string::npos) ui.chkAgentPaths->setChecked(getValue(s));
+	loc = s.find( "TrackInAgentColor", 0 );
+	if( loc != std::string::npos) ui.chkSameColor->setChecked(getValue(s));
+	loc = s.find( "AgentVelocity", 0 );
+	if( loc != std::string::npos) ui.chkShowAgentVelocity->setChecked(getValue(s));
+	loc = s.find( "TrackVelocity", 0 );
+	if( loc != std::string::npos) ui.chkShowTrackVelocity->setChecked(getValue(s));
+	loc = s.find( "BoundingBox", 0 );
+	if( loc != std::string::npos) ui.chkBoundingBox->setChecked(getValue(s));
+	loc = s.find( "DepthCecking", 0 );
+	if( loc != std::string::npos) ui.chkDepthChecking->setChecked(getValue(s));
+	loc = s.find( "OverrideAgentColor", 0 );
+	if( loc != std::string::npos) ui.chkOverrideAgentColor->setChecked(getValue(s));
+	loc = s.find( "TrailLength", 0 );
+	if( loc != std::string::npos) ui.spinBoxTrailLength->setValue(getValue(s));
+	loc = s.find( "TimeIndex", 0 );
+	if( loc != std::string::npos) ui.timeSlider->setValue(getValue(s));	
 }
 
 

@@ -16,9 +16,9 @@
    <property name="geometry" >
     <rect>
      <x>0</x>
-     <y>24</y>
+     <y>25</y>
      <width>1068</width>
-     <height>638</height>
+     <height>637</height>
     </rect>
    </property>
    <widget class="QGroupBox" name="groupBox" >
@@ -152,7 +152,7 @@
        <x>0</x>
        <y>0</y>
        <width>415</width>
-       <height>383</height>
+       <height>382</height>
       </rect>
      </property>
      <attribute name="title" >
@@ -229,7 +229,7 @@
        <x>0</x>
        <y>0</y>
        <width>415</width>
-       <height>383</height>
+       <height>382</height>
       </rect>
      </property>
      <attribute name="title" >
@@ -521,7 +521,7 @@
        <x>0</x>
        <y>0</y>
        <width>415</width>
-       <height>383</height>
+       <height>382</height>
       </rect>
      </property>
      <attribute name="title" >
@@ -583,7 +583,7 @@
        <x>0</x>
        <y>0</y>
        <width>415</width>
-       <height>383</height>
+       <height>382</height>
       </rect>
      </property>
      <attribute name="title" >
@@ -714,7 +714,7 @@
        <x>0</x>
        <y>0</y>
        <width>415</width>
-       <height>383</height>
+       <height>382</height>
       </rect>
      </property>
      <attribute name="title" >
@@ -833,7 +833,7 @@
      <x>0</x>
      <y>0</y>
      <width>1068</width>
-     <height>24</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File" >
@@ -843,7 +843,22 @@
     <addaction name="action_Quit" />
     <addaction name="action_Load_Agent_Data" />
    </widget>
+   <widget class="QMenu" name="menu_Settings" >
+    <property name="title" >
+     <string>&amp;Settings</string>
+    </property>
+    <addaction name="actionSa_ve_Settings" />
+    <addaction name="action_Load_Settings" />
+   </widget>
+   <widget class="QMenu" name="menu_About" >
+    <property name="title" >
+     <string>A&amp;bout</string>
+    </property>
+    <addaction name="action_About_SwarmVis" />
+   </widget>
    <addaction name="menu_File" />
+   <addaction name="menu_Settings" />
+   <addaction name="menu_About" />
   </widget>
   <widget class="QStatusBar" name="statusbar" >
    <property name="geometry" >
@@ -863,6 +878,21 @@
   <action name="action_Load_Agent_Data" >
    <property name="text" >
     <string>&amp;Load Agent Data</string>
+   </property>
+  </action>
+  <action name="actionSa_ve_Settings" >
+   <property name="text" >
+    <string>Sa&amp;ve Settings</string>
+   </property>
+  </action>
+  <action name="action_Load_Settings" >
+   <property name="text" >
+    <string>L&amp;oad Settings</string>
+   </property>
+  </action>
+  <action name="action_About_SwarmVis" >
+   <property name="text" >
+    <string>&amp;About SwarmVis</string>
    </property>
   </action>
  </widget>
@@ -939,8 +969,8 @@
    <slot>btnSetColor_clicked()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>85</x>
-     <y>434</y>
+     <x>87</x>
+     <y>426</y>
     </hint>
     <hint type="destinationlabel" >
      <x>340</x>
@@ -971,8 +1001,8 @@
    <slot>btnSetAgentSize_clicked()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>214</x>
-     <y>424</y>
+     <x>322</x>
+     <y>416</y>
     </hint>
     <hint type="destinationlabel" >
      <x>248</x>
@@ -1003,8 +1033,8 @@
    <slot>btnSaveFrame_clicked()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>290</x>
-     <y>221</y>
+     <x>292</x>
+     <y>250</y>
     </hint>
     <hint type="destinationlabel" >
      <x>298</x>
