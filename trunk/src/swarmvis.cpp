@@ -1,9 +1,5 @@
 #include "swarmvis.h"
 
-#include <fstream>
-#include <iostream>
-#include <string>
-
 SwarmVis::SwarmVis(QWidget *parent)
     : QMainWindow(parent)
 {
