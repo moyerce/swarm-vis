@@ -11,6 +11,7 @@
 
 \vgtcinsertpkg
 
+
 \title{SwarmVis: a Tool for Visualizing Swarm Systems}
 
 \author{Don Miner\thanks{e-mail: don1@umbc.edu}\\ %
@@ -36,6 +37,8 @@ global swarm behaviors of multi-agent systems.}
 \firstsection{Introduction}
 
 \maketitle
+
+
 
 A swarm system is a collection of autonomous agents that, as a group, exhibit some complex behavior.
 Examples of these systems include: ants\cite{couzin2003sol}, schooling fish\cite{parrish2002sof}, migrating geese\cite{reynolds1987}, 
@@ -65,11 +68,11 @@ SwarmVis provides a collection of visualizations, which we will discuss in more 
 trails, tracks, velocity coloring, group coloring and animation.
 
 After reviewing the visualization techniques available in SwarmVis, we will use these techniques to analyze, in depth,
-the tetrahedron-forming swarm as a case study. We show what kinds of information can be inferred from the images created by SwarmVis,
+the tetrahedron-forming swarm as a case study. We show what kinds of information can be inferred from images created by SwarmVis,
 both at the swarm-level and the agent-level. This use case is an example that can inspire similar analysis in other domains.
 
 
-\begin{figure}[ht]
+\begin{figure}
 \centering
 \includegraphics[scale=.55]{images/intro.pdf}
 \caption{(Left) A basic visualization of a boid flock with agents are plotted as
@@ -178,7 +181,7 @@ and (4) how their parameters can be adjusted.
 
 \begin{figure}
 \centering
-\includegraphics[scale=.282]{images/animation.png}
+\includegraphics[scale=.29]{images/animation.png}
 \caption{
 Three captured frames from a three-dimensional flocking boids\cite{reynolds1987} animation.
 The flocks' motion and structural changes are easily detectable when viewed in quick succession as frames in a video.}
@@ -223,7 +226,7 @@ the entire animation).}
 
 \begin{figure}
 \centering
-\includegraphics[scale=.4]{images/sizeandcolor.pdf}
+\includegraphics[scale=.72]{images/sizeandcolor.pdf}
 \caption{
 A captured frame from a swarm of tetrahedra-forming boids.
 The corner agents have been given a larger size and a darker color than the edge agents.}
@@ -276,7 +279,7 @@ via the ``Agent Trail Length" box. }
 
 \begin{figure}
 \centering
-\includegraphics[scale=.5]{images/closeuptrails.pdf}
+\includegraphics[scale=.55]{images/closeuptrails.pdf}
 \caption{
 A captured frame from a swarm of tetrahedra-forming boids shown in Figure \ref{SizeAndColor}.
 Close up views of the swarm can convey much information about how agents interact with one another.
@@ -315,7 +318,7 @@ and a high emergent level.
 
 \begin{figure}
 \centering
-\includegraphics[scale=.4]{images/track.pdf}
+\includegraphics[scale=.5]{images/track.pdf}
 \caption{
 A captured frame from the three-dimensional flocking swarm shown in Figure \ref{Animation}.
 The lonely agent (marked by being larger and darker) in the middle follows the traced path over its lifetime.
@@ -355,7 +358,7 @@ The track's color matches the speed of its agent at that time step (seen in the 
 
 \begin{figure*}
 \centering
-\includegraphics[scale=.667]{images/velocity.pdf}
+\includegraphics[scale=.75]{images/velocity.pdf}
 \caption{
 A captured frame from a swarm of tetrahedra-forming boids shown in Figure \ref{SizeAndColor}.
 On the left, all agent tracks are displayed, showing that agents move faster (the color red) at the beginning.
@@ -414,7 +417,7 @@ Then, the agents persistently execute the following rules:
 
 \begin{figure*}[ht]
 \centering
-\includegraphics[scale=.3]{images/tetraclosing.pdf}
+\includegraphics[scale=.45]{images/tetraclosing.pdf}
 \caption{
 The tetrahedron-forming swarm uses an emergent strategy to form its last (sixth) edge.
 The swarm initially forms two triangles with a shared edge (total of five edges), then
@@ -450,7 +453,14 @@ SwarmVis enables the user to discover these points of interest, which otherwise 
 data set is available from the SwarmVis project website: http://swarm-vis.googlecode.com/files/tetrahedra\_boids.zip}
 
 
-
+\begin{figure}
+\centering
+\includegraphics[scale=.55]{images/tetrastrategy.pdf}
+\caption{
+The tetrahedron-forming swarm creating its sixth edge with velocity-colored trails enabled.
+}
+\label{TetraStrategy}
+\end{figure}
 
 \subsubsection{Animation}
 
@@ -474,14 +484,7 @@ At this point of the walk-through, our visualization shows a tetrahedra similar 
 %The best way to share animations is to create a video with SwarmVis.
 %Videos would be appropriate for sharing information conveyed by an animation online or in presentations.
 
-\begin{figure}
-\centering
-\includegraphics[scale=.5]{images/tetrastrategy.pdf}
-\caption{
-The tetrahedron-forming swarm creating its sixth edge with velocity-colored trails enabled.
-}
-\label{TetraStrategy}
-\end{figure}
+
 
 \subsubsection{Trails}
 
@@ -504,7 +507,7 @@ or from raw data.
 
 \begin{figure*}[ht]
 \centering
-\includegraphics[scale=.5]{images/cornervsedge.pdf}
+\includegraphics[scale=.62]{images/cornervsedge.pdf}
 \caption{
 (Left) A comparison of a corner's track and an edge agent's track.
 The two can be contrasted by analyzing the color and structure of the tracks.
@@ -579,82 +582,82 @@ enables swarm intelligence researchers to come to new conclusions previously not
 %\pagebreak
 
 
-\section{Appendix: User Guide}
+%\section{Appendix: User Guide}
 
-\subsection{Compiling and Running}
-SwarmVis is a cross-platform tool
-and is intended to run on Unix-like systems, such as Mac OS X and GNU/Linux, as well as Microsoft Windows.
-The source code is available at:\begin{quote}\texttt{http://code.google.com/p/swarm-vis/}\end{quote}
-The following programs are required to compile SwarmVis from source:
-\begin{itemize}
-\item Qt 4.2
-\item gcc/g++ 4.2.2
-\item make
-\end{itemize}
-Note that some libraries from Qt4.2 may be needed to run the SwarmVis binary.
-We have tested SwarmVis on Mac OSX 10.5 and openSUSE Linux 11.
+%\subsection{Compiling and Running}
+%SwarmVis is a cross-platform tool
+%and is intended to run on Unix-like systems, such as Mac OS X and GNU/Linux, as well as Microsoft Windows.
+%The source code is available at:\begin{quote}\texttt{http://code.google.com/p/swarm-vis/}\end{quote}
+%The following programs are required to compile SwarmVis from source:
+%\begin{itemize}
+%\item Qt 4.2
+%\item gcc/g++ 4.2.2
+%\item make
+%\end{itemize}
+%Note that some libraries from Qt4.2 may be needed to run the SwarmVis binary.
+%We have tested SwarmVis on Mac OSX 10.5 and openSUSE Linux 11.
 
-Run \texttt{qmake}, and then \texttt{make}, both in the root directory, to compile SwarmVis.
-A binary will be created in the \texttt{bin/} directory. Execute this binary to run SwarmVis.
+%Run \texttt{qmake}, and then \texttt{make}, both in the root directory, to compile SwarmVis.
+%A binary will be created in the \texttt{bin/} directory. Execute this binary to run SwarmVis.
 
-\subsection{Data File Format}
-SwarmVis requires a specific format for data sets that are to be loaded. The agents' position data is segmented into
-separate files that each represent a single time step. These files contain space-delimited data, with
-each row representing an agent. For example, a swarm system with 100 agents depicted over 500 time steps
-will have 500 files in a folder, each with 100 lines of text.
+%\subsection{Data File Format}
+%SwarmVis requires a specific format for data sets that are to be loaded. The agents' position data is segmented into
+%separate files that each represent a single time step. These files contain space-delimited data, with
+%each row representing an agent. For example, a swarm system with 100 agents depicted over 500 time steps
+%will have 500 files in a folder, each with 100 lines of text.
 
-Each row entry in a file must follow a specific format. The first two or three  columns (depending on dimensionality) are the
-position data $(X, Y)$ or $(X, Y, Z)$, respectively. The last column is reserved for the group label, which may be used to pass
-group membership data to SwarmVis.
-For example, a well-formed entry that conveys a three-dimensional position with group information could be:
-\begin{quote}
-\texttt{10.15 5.24 84.85 Corner}
-\end{quote}
-The order of the listing of agents in each file must be consistent.
-That is, the $k^{th}$ entry in one file and the $k^{th}$ entry in another file must represent the same agent.
+%Each row entry in a file must follow a specific format. The first two or three  columns (depending on dimensionality) are the
+%position data $(X, Y)$ or $(X, Y, Z)$, respectively. The last column is reserved for the group label, which may be used to pass
+%group membership data to SwarmVis.
+%For example, a well-formed entry that conveys a three-dimensional position with group information could be:
+%\begin{quote}
+%\texttt{10.15 5.24 84.85 Corner}
+%\end{quote}
+%The order of the listing of agents in each file must be consistent.
+%That is, the $k^{th}$ entry in one file and the $k^{th}$ entry in another file must represent the same agent.
 
-A plain-text information file containing important meta-data must accompany the frame files in the same directory.
-The following variables must be defined (i.e., \texttt{VARNAME = VALUE}) in this file in order for the data to be loaded appropriately:
-\begin{itemize}
-\item \texttt{DIMENSIONS} (\texttt{2} or \texttt{3})
-\item \texttt{AGENTS} (the number of agents)
-\item \texttt{FRAMES} (the number frames/time steps)
-\item \texttt{RANGEX} (the maximum X value)
-\item \texttt{RANGEY} (the maximum Y value)
-\item \texttt{RANGEZ} (the maximum Z value)
-\item \texttt{AGENTTYPES} (\texttt{1} to track agent types, \texttt{0} if not)
-\end{itemize}
-At the bottom of this file, the keyword \texttt{FILES} must appear, followed by a list of frame files, in ascending
-temporal order.
-The number of files listed here must equal the number specified by the \texttt{FRAMES} variable.
-Also, the number of lines in every file must match the number specified by the \texttt{AGENTS} variable.
-To load a data set in the SwarmVis application, navigate to ``Load Data" and select the info file.
+%A plain-text information file containing important meta-data must accompany the frame files in the same directory.
+%The following variables must be defined (i.e., \texttt{VARNAME = VALUE}) in this file in order for the data to be loaded appropriately:
+%\begin{itemize}
+%\item \texttt{DIMENSIONS} (\texttt{2} or \texttt{3})
+%\item \texttt{AGENTS} (the number of agents)
+%\item \texttt{FRAMES} (the number frames/time steps)
+%\item \texttt{RANGEX} (the maximum X value)
+%\item \texttt{RANGEY} (the maximum Y value)
+%\item \texttt{RANGEZ} (the maximum Z value)
+%\item \texttt{AGENTTYPES} (\texttt{1} to track agent types, \texttt{0} if not)
+%\end{itemize}
+%At the bottom of this file, the keyword \texttt{FILES} must appear, followed by a list of frame files, in ascending
+%temporal order.
+%The number of files listed here must equal the number specified by the \texttt{FRAMES} variable.
+%Also, the number of lines in every file must match the number specified by the \texttt{AGENTS} variable.
+%To load a data set in the SwarmVis application, navigate to ``Load Data" and select the info file.
 
-A sample info file for a 150 agent three-dimensional swarm over the course of 446 frames:
+%A sample info file for a 150 agent three-dimensional swarm over the course of 446 frames:
 
-
-\begin{verbatim}
-     DIMENSIONS = 3
-     AGENTS = 150
-     FRAMES = 446
-     RANGEX = 600
-     RANGEY = 600
-     RANGEZ = 600
-     AGENTTYPES = 1
-     FILES
-     frame000001.txt
-     frame000002.txt
-     frame000003.txt
-     frame000004.txt
-     frame000005.txt
-     frame000006.txt
-     ...
-     frame000442.txt
-     frame000443.txt
-     frame000444.txt
-     frame000445.txt
-     frame000446.txt
-\end{verbatim}
+%
+%\begin{verbatim}
+%     DIMENSIONS = 3
+%     AGENTS = 150
+%     FRAMES = 446
+%     RANGEX = 600
+%     RANGEY = 600
+%     RANGEZ = 600
+%     AGENTTYPES = 1
+%     FILES
+%     frame000001.txt
+%     frame000002.txt
+%     frame000003.txt
+%     frame000004.txt
+%     frame000005.txt
+%     frame000006.txt
+%     ...
+%     frame000442.txt
+%     frame000443.txt
+%     frame000444.txt
+%     frame000445.txt
+%     frame000446.txt
+%\end{verbatim}
 \end{document}
 
 
