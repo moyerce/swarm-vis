@@ -57,8 +57,17 @@ that goes beyond the simple plotting method to increase the
 expressiveness of swarm visualizations.
 The toolkit aims to provide visualization techniques that allow researchers to interactively
 investigate a swarm's interactions, fine-grained movements, and behavior.
+SwarmVis' still images and animations convey agent-level information such as velocity and direction, as well as swarm-level information such as
+structure, direction and rotation.
 Figure \ref{Intro} (right) displays a swarm system with SwarmVis' trails visualization, which displays more information.
 In this image, direction is expressed by the history of an agent's past positions.
+SwarmVis provides a collection of visualizations, which we will discuss in more detail in the Approach section, including
+trails, tracks, velocity coloring, group coloring and animation.
+
+After reviewing the visualization techniques available in SwarmVis, we will use these techniques to analyze, in depth,
+the tetrahedron-forming swarm. We show what kinds of information can be inferred from the images created by SwarmVis,
+both at the swarm-level and the agent-level. This use case is only an example, which can inspire similar analysis in other domains.
+
 
 \begin{figure}[ht]
 \centering
@@ -73,7 +82,8 @@ and previous positions are all naturally conveyed.
 \label{Intro}
 \end{figure}
 
-%% FILL IN MORE STUFF HERE
+
+
 
 \section{Related Work}
 Not much work has been done that specifically addresses the problem of creating effective swarm visualizations.
