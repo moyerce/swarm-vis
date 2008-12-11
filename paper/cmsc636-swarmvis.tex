@@ -27,7 +27,7 @@ allows swarm researchers to observe characteristics of swarm systems by
 visualizing information about such systems. We provide an overview of
 the types of information relevant to current swarm research and explain,
 in detail, the capabilities of SwarmVis to visualize this information.
-Finally, we use a case study to
+Finally, we 
 demonstrate how SwarmVis can be used to analyze both the local agent and
 global swarm behaviors of multi-agent systems.}
 
@@ -51,6 +51,7 @@ Simple visualization techniques can be used to plot the position of each agent i
 An example of this technique, illustrating a Reynolds boid flock\cite{reynolds1987}, can be seen in Figure \ref{Intro} (left).
 The image only shows the location of individual agents but does not convey important
 information such as direction, velocity, and previous positions of the agents.
+
 We have implemented \textit{SwarmVis}, a toolkit for visualizing swarms,
 that goes beyond the simple plotting method to increase the
 expressiveness of swarm visualizations.
@@ -72,22 +73,7 @@ and previous positions are all naturally conveyed.
 \label{Intro}
 \end{figure}
 
-The goal of SwarmVis is to facilitate, through visualization, the detailed analysis of emergent behavior that results from swarm systems.
-In order to satisfy this objective, we have created a software toolkit
-with the following high-level application goals and requirements in mind:
-\begin{itemize}
-\item The toolkit shall visualize swarms using a series of still images (i.e. an animation)
-embedded in an interactive user interface that has features such as pausing, slowing down and rewinding of frames.
-\item Agent position, direction and velocity shall be conveyable through both still images and videos generated from the software.
-\item The toolkit shall provide a variety of built-in visualization techniques that are useful in visualizing swarm systems.
-\end{itemize}
-
-%In the next section, we discuss previous work in swarm system visualization --
-%some of which has provided inspirations for the techniques employed in SwarmVis.
-%Next, we discuss the implementation details of the visualizations and the user interface.
-%We conclude with a demonstration of the effectiveness of SwarmVis by exploring and analyzing a swarm system.
-%A brief user guide for compiling, running and loading data in SwarmVis is provided in the appendix.
-
+%% FILL IN MORE STUFF HERE
 
 \section{Related Work}
 Not much work has been done that specifically addresses the problem of creating effective swarm visualizations.
@@ -103,21 +89,19 @@ flow\cite{10.1109/TVCG.2005.87}\cite{Merzkirch}, and source code commits\cite{co
 
 Our work is inspired by the lack of a coherent collection of effective visualization techniques for swarm systems.
 We draw inspiration from illustrations in papers concerned with swarm systems. Most often, such papers are not directly related to visualization.
-In this section, we discuss two projects that have specifically motivated particular features in SwarmVis.
+However, two projects have specifically motivated particular features in SwarmVis: SwarmArt\cite{Boyd} and
+Information Flocking\cite{1382896}.
 
-
-
-\subsection{SwarmArt}
-SwarmArt\cite{Boyd} by Boyd et al. is a combination of science and art with the aim to create visually appealing swarms.
+SwarmArt by Boyd et al. is a combination of science and art with the aim to create visually appealing swarms.
 SwarmArt visualizes the positional data of a swarm by projecting individual agents as dots onto a 2D surface.
 Motion is conveyed by incorporating the previous positions of an agent into a trail that fades with time.
-This work, among others\cite{codeswarm:website}, were inspirations for how we visualize agents as simple dots with fading trails
+This work, among others\cite{codeswarm:website}\cite{joshi2005iit},
+were inspirations for how we visualize agents as simple dots with fading trails
 in SwarmVis.
 
-
-
-\subsection{Information Flocking}
-Moere demonstrates how self-organization and behavior, as seen in Reynolds' Boids, can be used to show change of information over time\cite{1382896}. This method, named {\em Information Flocking}, combines flocking behavior rules
+Moere's ``information flocking" demonstrates how self-organization and behavior,
+as seen in Reynolds' Boids, can be used to show change of information over time\cite{1382896}.
+This method combines flocking behavior rules
 and clustering techniques to give users a unique perspective of changing data.
 The domain presented in this paper and the method of information flocking are not directly relevant to our project.
 However, the visualizations created by this author are smooth and visually appealing.
@@ -125,8 +109,7 @@ Each agent is a single particle in 3D space with its previously traveled path de
 curved line that has gradually decreasing opacity from the head.
 The trails are made smooth by using the {\em Catmull-Rom spline} algorithm \cite{378511},
 which generates smoother trails than linear interpolation.
-In addition, a particle's color shows change in data values: blue and red for a decrease and increase, respectively.
-
+In addition, a particle's color show0s change in data values: blue and red for a decrease and increase, respectively.
 This work also motivated us in having SwarmVis show agents as a particle with a fading trail.
 However, we decided against using a spline method since they may distort the actual path of an agent.
 Moere's use of color in agent trails inspired a similar visualization technique in SwarmVis.
@@ -145,6 +128,17 @@ A file menu (not shown) allows for the loading of swarm data sets.}
 \end{figure*}
 
 \section{Approach}
+The goal of SwarmVis is to facilitate, through visualization, the detailed analysis of emergent behavior that results from swarm systems.
+We have implemented SawrmVis
+with the following high-level application goals and requirements in mind:
+\begin{itemize}
+\item The toolkit shall visualize swarms using a series of still images (i.e. an animation)
+embedded in an interactive user interface that has features such as pausing, slowing down and rewinding of frames.
+\item Agent position, direction and velocity shall be conveyable through both still images and videos generated from the software.
+\item The toolkit shall provide a variety of built-in visualization techniques that are useful in visualizing swarm systems.
+\end{itemize}
+
+
 SwarmVis is implemented in the C++ language and utilizes the Qt framework\cite{Qt:website} to build the graphical user interface.
 The OpenGL library is used to render all visualizations.
 The motivation of using Qt and OpenGL is to ensure SwarmVis' cross-platform compatibility.
@@ -349,9 +343,9 @@ The track's color matches the speed of its agent at that time step (seen in the 
 \label{VelocityTab}
 \end{figure}
 
-\begin{figure}
+\begin{figure*}
 \centering
-\includegraphics[scale=.33333]{images/velocity.pdf}
+\includegraphics[scale=.667]{images/velocity.pdf}
 \caption{
 A captured frame from a swarm of tetrahedra-forming boids shown in Figure \ref{SizeAndColor}.
 On the left, all agent tracks are displayed, showing that agents move faster (the color red) at the beginning.
@@ -360,7 +354,7 @@ On the right, the trails and the agents themselves are colored according to thei
 From this captured frame, it is obvious that the right edge is experiencing movement while the rest of the
 shape is calm. }
 \label{Velocity}
-\end{figure}
+\end{figure*}
 
 \subsubsection{Velocity Color}
 
@@ -388,10 +382,12 @@ From this image, we can determine that the movement is very fast and chaotic in 
 
 \section{Results: Analysis of the Tetrahedron-Forming Swarm}
 
-Throughout the course of this document, we have discussed the motivation behind the visualizations in SwarmVis by
-displaying images from two data sets: a boid flock and a tetrahedron-forming swarm.
-In this section, we provide a cohesive and comprehensive walk-through of how a user would
-analyze the tetrahedron-forming swarm.
+%Throughout the course of this document, we have discussed the motivation behind the visualizations in SwarmVis by
+%displaying images from two data sets: a boid flock and a tetrahedron-forming swarm.
+To demonstrate that SwarmVis is effective,
+we provide a cohesive and comprehensive walk-through of how a user would
+analyze the tetrahedron-forming swarm. First, we provide background in the domain.
+Second, we analyze the images and animations provided by SwarmVis and show how information not evident directly from the data sets is conveyed.
 
 \subsection{Background}
 
@@ -438,8 +434,7 @@ and is comprised of 333 individual frames of agent coordinates.
 \subsection{SwarmVis Analysis}
 SwarmVis has several tools available to analyze swarms and to create informative visualizations.
 To demonstrate the results of our work, we provide examples of how the tetrahedron-forming swarm can be analyzed.
-The following three general approaches discussed in this section are only a starting point in studying this domain.
-Due to the nature of these complex systems, there are always intriguing aspect waiting to be found in a swarm system.
+Due to the nature of these complex systems, there are always new behaviors waiting to be found.
 SwarmVis enables the user to discover these points of interest, which otherwise would be hard to identify.
 \footnote{The tetrahedron
 data set is available from the SwarmVis project website: http://swarm-vis.googlecode.com/files/tetrahedra\_boids.zip}
@@ -499,7 +494,7 @@ or from raw data.
 
 \begin{figure*}[ht]
 \centering
-\includegraphics[scale=.4]{images/cornervsedge.pdf}
+\includegraphics[scale=.5]{images/cornervsedge.pdf}
 \caption{
 (Left) A comparison of a corner's track and an edge agent's track.
 The two can be contrasted by analyzing the color and structure of the tracks.
