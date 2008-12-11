@@ -57,18 +57,18 @@ information such as direction, velocity, and previous positions of the agents.
 
 We have implemented \textit{SwarmVis}, a toolkit for visualizing swarms,
 that goes beyond the simple plotting method to increase the
-expressiveness of swarm visualizations.
+expressiveness of swarm visualizations\footnote{SwarmVis is available for download from the SwarmVis project site: http://code.google.com/p/swarm-vis/}.
 The toolkit aims to provide visualization techniques that allow researchers to interactively
 investigate a swarm's interactions, fine-grained movements, and behavior.
 SwarmVis' still images and animations convey agent-level information such as velocity and direction, as well as swarm-level information such as
 structure, direction and rotation.
-Figure \ref{Intro} (right) displays a swarm system with SwarmVis' trails visualization, which displays more information.
+Figure \ref{Intro} (right) displays a swarm system with SwarmVis' trails visualization.
 In this image, direction is expressed by the history of an agent's past positions.
 SwarmVis provides a collection of visualizations, which we will discuss in more detail in the Approach section. These include
 trails, tracks, velocity coloring, group coloring and animation.
 
 After reviewing the visualization techniques available in SwarmVis, we will use these techniques to analyze, in depth,
-the tetrahedron-forming swarm as a case study. We show what kinds of information can be inferred from images created by SwarmVis,
+a tetrahedron-forming swarm as a case study. We show what kinds of information can be inferred from images created by SwarmVis,
 both at the swarm-level and the agent-level. This use case is an example that can inspire similar analysis in other domains.
 
 
@@ -120,10 +120,10 @@ The domain presented in this paper and the method of information flocking are no
 However, the visualizations created by this author are smooth and visually appealing.
 Each agent is a single particle in 3D space with its previously traveled path depicted by a colored,
 curved line that has gradually decreasing opacity from the head.
-The trails are made smooth by using the {\em Catmull-Rom spline} algorithm \cite{378511},
+The trails are smoothed by using the {\em Catmull-Rom spline} algorithm \cite{378511},
 which generates smoother trails than linear interpolation.
 In addition, a particle's color shows change in data values: blue and red for a decrease and increase, respectively.
-This work also motivated us in having SwarmVis show agents as a particle with a fading trail.
+This work also motivated us in having SwarmVis show agents as particles with fading trails.
 However, we decided against using a spline method since they may distort the actual path of an agent.
 Moere's use of color in agent trails inspired a similar visualization technique in SwarmVis.
 
@@ -142,7 +142,7 @@ A file menu (not shown) allows for the loading of swarm data sets.}
 
 \section{Approach}
 The goal of SwarmVis is to facilitate, through visualization, the detailed analysis of emergent behavior that results from swarm systems.
-We have implemented SawrmVis
+We have implemented SwarmVis
 with the following high-level application goals and requirements in mind:
 \begin{itemize}
 \item The toolkit shall visualize swarms using a series of still images (i.e. an animation)
@@ -160,7 +160,7 @@ The settings/options frame (left) contains the majority of the user interface,
 whereas the visualizations frame (right) contains  the graphical display.
 Any changes made to the visualization through the interface are applied to the current visualization in real-time.
 The visualization frame can be rotated and zoomed by dragging and scrolling a mouse.
-Lists and parameters are populated when a data set is loaded (more information about data sets is available in the appendix).
+Lists and parameters are populated when a data set is loaded.
 
 Still images can be created in SwarmVis by dumping the graphic currently shown in the visualization frame.
 Videos can be constructed by having SwarmVis automatically dump every frame in the course of an animation.
@@ -398,7 +398,7 @@ From this image, we can determine that the movement is very fast and chaotic in 
 %Throughout the course of this document, we have discussed the motivation behind the visualizations in SwarmVis by
 %displaying images from two data sets: a boid flock and a tetrahedron-forming swarm.
 To demonstrate that SwarmVis is effective,
-we provide a cohesive and comprehensive walk-through of how a user would
+we provide a cohesive and comprehensive walk-through of how a user could
 analyze the tetrahedron-forming swarm. First, we provide domain background information.
 Second, we analyze the images and animations provided by SwarmVis and show how information not evident directly from the data sets is conveyed.
 
